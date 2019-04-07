@@ -3,6 +3,10 @@
   src: url("../../assets/fonts/DOTLH___.TTF") format("truetype"); /* Safari, Android, iOS */
 }
 
+.container {
+  margin-top: 9em;
+}
+
 #mast {
   font-family: "Beadli";
   font-size: 10em;

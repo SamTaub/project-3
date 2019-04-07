@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./style.css";
+// import "./style.css";
 
 function Login() {
   return (
@@ -8,8 +8,17 @@ function Login() {
       <div className="row justify-content-center align-items-center text-center">
         <div className="col-lg-10">
           <div className="card-body">
-          <h1 className="mb-3">Login</h1>
-            <form className="login">
+          <h1 className="mb-3">Sign Up</h1>
+            <form className="signup">
+            <div className="form-group">
+                <label htmlFor="username-input">Username</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="username-input"
+                  placeholder="Username"
+                />
+              </div>
               <div className="form-group">
                 <label htmlFor="email-input">Email address</label>
                 <input
@@ -29,11 +38,11 @@ function Login() {
                 />
               </div>
               <button type="submit" className="btn btn-light btn-lg">
-                Login
+                Sign Up
               </button>
             </form>
             <p className="mt-3">
-              Need an account? <Link to="/signup">Sign up</Link>.
+              Already have an account? <Link to="/login">Login</Link>.
             </p>
           </div>
         </div>
