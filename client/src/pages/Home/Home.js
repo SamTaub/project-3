@@ -6,10 +6,10 @@ import "./style.css";
 function Home() {
   return (
     <div className="container bg-transparent">
-      <div className="row justify-content-center align-items-center text-center text-white bg-transparent">
-        <div className="col-lg-6 bg-transparent">
+      <div className="row justify-content-center align-items-center text-center text-white">
+        <div className="col-lg-8">
           <h1 className="mt-5" id="mast">Beadli</h1>
-            <p>Make interesting designs with beads.</p>
+            <p id="subtitle">Make interesting designs with beads.</p>
             <Link className="btn btn-outline-light btn-lg" to="/login" role="button">Get Started</Link>
         </div>
       </div>

@@ -1,29 +1,45 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import "./style.css";
+import "./style.css";
 
 function Login() {
   return (
-    <div className="container">
-    <form>
-      <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <div className="container well">
+      <div className="row justify-content-center align-items-center text-center">
+        <div className="col-lg-10">
+          <div className="card-body">
+          <h1 className="mb-3">Login</h1>
+            <form className="login">
+              <div className="form-group">
+                <label htmlFor="email-input">Email address</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="email-input"
+                  placeholder="Email"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password-input">Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="password-input"
+                  placeholder="Password"
+                />
+              </div>
+              <button type="submit" className="btn btn-light btn-lg">
+                Login
+              </button>
+            </form>
+            <p className="mt-3">
+              Need an account? <Link to="/signup">Sign up.</Link>
+            </p>
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
-      </div>
-      <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
     </div>
-  )
-};
+  );
+}
 
 export default Login;
-

@@ -2,7 +2,7 @@
 
 * {
   box-sizing: border-box;
-  font-family: 'Noto Sans', sans-serif;
+  font-family: "Noto Sans", sans-serif;
 }
 
 html,
@@ -22,4 +22,15 @@ body,
     #ffdde1,
     #ee9ca7
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+p {
+  font-size: 1em;
+}
+
+/* Basic styling for a holding conatiner for content. */
+.well {
+  margin-top: 3em;
+  border-radius: 10px;
+  background-color: rgba(245, 245, 245, 0.4);
 }

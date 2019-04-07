@@ -6,14 +6,15 @@
 #mast {
   font-family: "Beadli";
   font-size: 10em;
+  margin: 0px auto;
 }
 
-p {
+#subtitle {
   font-size: 1.5em;
 }
 
-@media screen and (max-width: 525px) {
+@media screen and (max-width: 750px) {
   #mast {
-    font-size: 7em;
+    font-size: 5em;
   }
 }
