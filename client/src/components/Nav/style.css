@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'Beadli';
+  src: url('../../assets/fonts/DOTLH___.TTF') format('truetype'); /* Safari, Android, iOS */
+}
+
+.navbar-brand {
+  font-family: "Beadli";
+}
+
