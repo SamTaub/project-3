@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans");
+
+* {
+  box-sizing: border-box;
+  font-family: "Noto Sans", sans-serif;
+}
+
+html,
+body,
+#root {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  background: #ee9ca7; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #ffdde1,
+    #ee9ca7
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #ffdde1,
+    #ee9ca7
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+p {
+  font-size: 1em;
+}
+
+/* Basic styling for a holding conatiner for content. */
+.well {
+  margin-top: 3em;
+  border-radius: 10px;
+  background-color: rgba(245, 245, 245, 0.4);
+}

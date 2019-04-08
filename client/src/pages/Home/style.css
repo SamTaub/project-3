@@ -1,0 +1,24 @@
+@font-face {
+  font-family: "Beadli";
+  src: url("../../assets/fonts/DOTLH___.TTF") format("truetype"); /* Safari, Android, iOS */
+}
+
+.container {
+  margin-top: 9em;
+}
+
+#mast {
+  font-family: "Beadli";
+  font-size: 10em;
+  margin: 0px auto;
+}
+
+#subtitle {
+  font-size: 1.5em;
+}
+
+@media screen and (max-width: 750px) {
+  #mast {
+    font-size: 5em;
+  }
+}
