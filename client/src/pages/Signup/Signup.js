@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import "./style.css";
+import { Container, Row, Col } from "../../components/Grid";
 
 function Login() {
   return (
-    <div className="container well">
-      <div className="row justify-content-center align-items-center text-center">
-        <div className="col-lg-10">
+    <Container styles="well">
+      <Row styles="justify-content-center align-items-center text-center">
+        <Col size="lg-10">
           <div className="card-body">
           <h1 className="mb-3">Sign Up</h1>
             <form className="signup">
@@ -45,9 +45,9 @@ function Login() {
               Already have an account? <Link to="/login">Login</Link>.
             </p>
           </div>
-        </div>
-      </div>
-    </div>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
