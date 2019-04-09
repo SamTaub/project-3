@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { Container, Row, Col } from "../../components/Grid";
 import "./style.css";
 
@@ -9,21 +9,58 @@ class Login extends Component {
     this.state = {
       username: "",
       password: "",
+      notification: "", // We'll use this later for telling the user something (probably if there's an error with login).
       isLoggedIn: false
     };
   }
+
+  // Might need to add a component did mount to check the user API endpoint to see if we're already logged in? Can then setState right away from false to true.
 
   handleInputChange = e => {
     const { name, value } = e.target;
     this.setState({
       [name]: value
     });
-    console.log(this.state.username, this.state.password);
   };
 
-  handleSubmit = () => {};
+  handleSubmit = e => {
+    e.preventDefault();
+    // Call the user API endpoint with the username and password.
+    // If we get back a positive response, setState to true.
+    // Otherwise set the notification to something like "Incorrect username or password. Try again!"
+    if (!this.state.isLoggedIn) {
+      this.setState(
+        {
+          notification:
+            "It looks like you entered the wrong username or password. Try again!"
+        },
+        () => {
+          alert(this.state.notification);
+          this.resetNotification();
+          this.resetInputs();
+        }
+      );
+    }
+  };
+
+  resetNotification = () => {
+    this.setState({
+      notification: ""
+    });
+  };
+
+  resetInputs = () => {
+    this.setState({
+      username: "",
+      password: ""
+    });
+  };
 
   render() {
+    if (this.state.isLoggedIn) {
+      return <Redirect to="/" />; // We'll actually want to redirect to user's dashboard?
+    }
+
     return (
       <Container styles="well">
         <Row styles="justify-content-center align-items-center text-center">
@@ -55,7 +92,11 @@ class Login extends Component {
                     placeholder="Password"
                   />
                 </div>
-                <button type="submit" className="btn btn-light btn-lg">
+                <button
+                  type="submit"
+                  className="btn btn-light btn-lg"
+                  onClick={this.handleSubmit}
+                >
                   Login
                 </button>
               </form>
