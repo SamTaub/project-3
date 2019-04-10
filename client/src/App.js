@@ -7,11 +7,20 @@ import Signup from "./pages/Signup/Signup";
 import Nav from "./components/Nav";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      authenticated: false
+    };
+  }
+
+  // I think we'll need to call userAPI.checkAuth() when componentDidMount so that we can check if auth status at the root level. This will then allow us to render private routes (See https://github.com/shouheiyamauchi/react-passport-example/blob/master/client/src/Main.js).
+
   render() {
     return (
       <Router>
         <div>
-          <Nav />
+          <Nav isAuthed={this.state.authenticated} />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />

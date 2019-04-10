@@ -7,7 +7,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
+      email: "",
       password: "",
       notification: "", // We'll use this later for telling the user something (probably if there's an error with login).
       isLoggedIn: false
@@ -25,14 +25,15 @@ class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    // Call the user API endpoint with the username and password.
+    // Call the /api/login endpoint with the email and password.
     // If we get back a positive response, setState to true.
-    // Otherwise set the notification to something like "Incorrect username or password. Try again!"
+    // Otherwise set the notification to something like "Incorrect email or password. Try again!"
+    // The code below will be contained within the .then of the call.
     if (!this.state.isLoggedIn) {
       this.setState(
         {
           notification:
-            "It looks like you entered the wrong username or password. Try again!"
+            "It looks like you entered the wrong email or password. Try again!"
         },
         () => {
           alert(this.state.notification);
@@ -51,7 +52,7 @@ class Login extends Component {
 
   resetInputs = () => {
     this.setState({
-      username: "",
+      email: "",
       password: ""
     });
   };
@@ -69,15 +70,15 @@ class Login extends Component {
               <h1 className="mb-3">Login</h1>
               <form className="login">
                 <div className="form-group">
-                  <label htmlFor="username-input">Username</label>
+                  <label htmlFor="email-input">Email</label>
                   <input
-                    type="text"
+                    type="email"
                     className="form-control"
-                    id="username-input"
-                    name="username"
-                    value={this.state.username}
+                    id="email-input"
+                    name="email"
+                    value={this.state.email}
                     onChange={this.handleInputChange}
-                    placeholder="Username"
+                    placeholder="Email"
                   />
                 </div>
                 <div className="form-group">

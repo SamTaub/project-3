@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
 
-function Nav() {
+function Nav(props) {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <Link className="navbar-brand" to="/">
@@ -19,7 +19,10 @@ function Nav() {
       >
         <span className="navbar-toggler-icon" />
       </button>
-      <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <div
+        className="collapse navbar-collapse justify-content-end"
+        id="navbarNav"
+      >
         <ul className="navbar-nav">
           <li className="nav-item">
             <Link className="nav-link" to="/">
@@ -31,11 +34,19 @@ function Nav() {
               Browse
             </Link>
           </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/login">
-              Login
-            </Link>
-          </li>
+          {props.isAuthed ? (
+            <li className="nav-item">
+              <Link className="nav-link" to="/dashboard">
+                My Account
+              </Link>
+            </li>
+          ) : (
+            <li className="nav-item">
+              <Link className="nav-link" to="/login">
+                Login
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
     </nav>
