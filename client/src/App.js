@@ -7,11 +7,18 @@ import Signup from "./pages/Signup/Signup";
 import Nav from "./components/Nav";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      authenticated: false
+    };
+  }
+  
   render() {
     return (
       <Router>
         <div>
-          <Nav />
+          <Nav isAuthed={this.state.authenticated} />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
