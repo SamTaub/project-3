@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default {
-  // Function that sends a post request to the /api/signup endpoint. Should return a boolean response.
+  // Send post request to the /api/signup endpoint. Should return a boolean response.
   signUp: function(username, email, password) {
     return axios.post("/api/signup", {
       username: username,
@@ -10,9 +10,9 @@ export default {
     });
   },
 
-  // Function that sends a post request to the /api/login endpoint. Should return a boolean response.
+  // Send a post request to the /api/login endpoint. Should return a boolean response.
   logIn: function(email, password) {
-    return axios.post("api/login", {
+    return axios.post("/api/login", {
       email: email,
       password: password
     });
@@ -20,12 +20,19 @@ export default {
 
   // Get request to logout the current user. Should return a boolean response.
   logOut: function() {
-    return axios.get("/logout");
+    return axios.get("/api/logout");
   },
 
-  // Function sends a request to the api/user endpoint to see if req.user exists.
+  // Send a request to the api/user endpoint to see if req.user exists.
   // Expects a boolean response.
   checkAuthStatus: function() {
-    return axios.get("api/user");
+    return axios.get("/api/user");
+  },
+
+  // Get dashboard data associated with a user's id (or however else we want to structure this). DRAFT.
+  getDashboard: function(id) {
+    return axios.get(`/api/user/dashboard/${id}`);
   }
+
+  // Add /create route here or in a seperate file? Thinking a seperate file.
 };
