@@ -5,6 +5,7 @@ import NoMatch from "./pages/NoMatch";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import Nav from "./components/Nav";
+import Footer from "./components/Footer";
 
 class App extends Component {
   constructor(props) {
@@ -25,8 +26,24 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
+            {/*v ----- New additions - Please confirm ----- v*/}
+            {/* NoMatch components to be replaced as they are built */}
+            {/* Logout handler */}
+            <Route exact path="/logout" component={NoMatch} /> 
+            {/* Public browse */}
+            <Route exact path="/browse" component={NoMatch} /> 
+            {/* Public-view user dashboard */}
+            <Route path="/user/dashboard/published/:id" component={NoMatch} />
+            {/* Private-view user dashboard */}
+            <Route path="/user/dashboard/drafts/:id" component={NoMatch} />
+            {/* User favorites ----- public or private? */}
+            <Route path="/user/favorites/:id" component={NoMatch} />
+            {/* Public user profile ----- discuss private edit function */}
+            <Route path="/user/profile/:id" component={NoMatch} />
+            {/* Shelby might be a literal a goddess */}
             <Route component={NoMatch} />
           </Switch>
+          <Footer />
         </div>
       </Router>
     );

@@ -1,0 +1,17 @@
+@font-face {
+  font-family: "Beadli";
+  src: url("../../assets/fonts/DOTLH___.TTF") format("truetype"); /* Safari, Android, iOS */
+}
+
+footer {
+  font-family: "Beadli";
+  color: white;
+}
+
+.fa-github {
+    color: black;
+}
+
+.fa-github:hover {
+    color: gray;
+}
