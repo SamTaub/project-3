@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { Container, Row, Col } from "../../components/Grid";
 import "./style.css";
+import userAPI from "../../utils/userAPI";
 
 class Login extends Component {
   constructor(props) {
@@ -29,19 +30,47 @@ class Login extends Component {
     // If we get back a positive response, setState to true.
     // Otherwise set the notification to something like "Incorrect email or password. Try again!"
     // The code below will be contained within the .then of the call.
-    if (!this.state.isLoggedIn) {
-      this.setState(
-        {
-          notification:
-            "It looks like you entered the wrong email or password. Try again!"
-        },
-        () => {
-          alert(this.state.notification);
-          this.resetNotification();
-          this.resetInputs();
+    userAPI.logIn(this.state.password, this.state.password)
+      .then(res => this.setState({ 
+        isLoggedIn: true 
+      }, 
+        () => this.setState({
+          notification: "successfully logged in"
+        }, 
+          () => alert(this.state.notification)
+        )
+      ))
+      .catch(err => {
+        if (!this.state.isLoggedIn) {
+          this.setState({
+            notification: "Incorrect email or password"
+          }, 
+            () => alert(this.state.notification)
+          );
         }
-      );
-    }
+        else {
+          this.setState({
+            notification: "Something went wrong"
+          }, 
+            () => alert(this.state.notification)
+          );
+        };
+      });
+    this.resetInputs();
+    this.resetNotification();
+    // if (!this.state.isLoggedIn) {
+    //   this.setState(
+    //     {
+    //       notification:
+    //         "It looks like you entered the wrong email or password. Try again!"
+    //     },
+    //     () => {
+    //       alert(this.state.notification);
+    //       this.resetNotification();
+    //       this.resetInputs();
+    //     }
+    //   );
+    // }
   };
 
   resetNotification = () => {
