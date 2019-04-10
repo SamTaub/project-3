@@ -25,9 +25,10 @@ class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    // Call the user API endpoint with the email and password.
+    // Call the /api/login endpoint with the email and password.
     // If we get back a positive response, setState to true.
     // Otherwise set the notification to something like "Incorrect email or password. Try again!"
+    // The code below will be contained within the .then of the call.
     if (!this.state.isLoggedIn) {
       this.setState(
         {
