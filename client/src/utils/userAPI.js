@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt-nodejs");
 export default {
   // Send post request to the /api/signup endpoint. Should return a boolean response.
   signUp: function(username, email, password) {
+    password = bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
     return axios.post("/api/signup", {
       username,
       email,
