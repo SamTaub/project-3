@@ -13,7 +13,9 @@ class App extends Component {
       authenticated: false
     };
   }
-  
+
+  // I think we'll need to call userAPI.checkAuth() when componentDidMount so that we can check if auth status at the root level. This will then allow us to render private routes (See https://github.com/shouheiyamauchi/react-passport-example/blob/master/client/src/Main.js).
+
   render() {
     return (
       <Router>
