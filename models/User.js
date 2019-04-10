@@ -45,10 +45,10 @@ User.prototype.validPassword = function(password) {
 // Hooks are automatic methods that run during various phases of the User Model lifecycle
 // In this case, before a User is created, we will automatically hash their password
 
-userSchema.pre("save", async function(next) {
-    console.log("pre save function executing");
-    user.password = await bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
-});
+// userSchema.pre("save", async function(next) {
+//     console.log("pre save function executing");
+//     user.password = await bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
+// });
 
 
 module.exports = User;
