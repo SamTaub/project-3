@@ -14,6 +14,7 @@ module.exports = function(app) {
     console.log(`req message: ${req.message}`);
     console.log(`req user: ${req.user}`);
     console.log(`res: ${res}`);
+    res.json(req.user);
   });
 
   // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
