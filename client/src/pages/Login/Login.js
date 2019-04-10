@@ -30,16 +30,21 @@ class Login extends Component {
     // If we get back a positive response, setState to true.
     // Otherwise set the notification to something like "Incorrect email or password. Try again!"
     // The code below will be contained within the .then of the call.
-    userAPI.logIn(this.state.password, this.state.password)
-      .then(res => this.setState({ 
-        isLoggedIn: true 
-      }, 
-        () => this.setState({
-          notification: "successfully logged in"
+    console.log(this.state.isLoggedIn);
+    userAPI.logIn(this.state.email, this.state.password)
+      .then(res => {
+        console.log(this.state.isLoggedIn)
+        this.setState({ 
+          isLoggedIn: true 
         }, 
-          () => alert(this.state.notification)
+          () => this.setState({
+            notification: "successfully logged in"
+          }, 
+            () => alert(this.state.notification)
+          )
         )
-      ))
+        console.log(this.state.isLoggedIn);
+      })  
       .catch(err => {
         if (!this.state.isLoggedIn) {
           this.setState({
@@ -58,6 +63,7 @@ class Login extends Component {
       });
     this.resetInputs();
     this.resetNotification();
+  };
     // if (!this.state.isLoggedIn) {
     //   this.setState(
     //     {
@@ -71,7 +77,6 @@ class Login extends Component {
     //     }
     //   );
     // }
-  };
 
   resetNotification = () => {
     this.setState({
