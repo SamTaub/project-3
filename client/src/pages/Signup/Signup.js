@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { Container, Row, Col } from "../../components/Grid";
+import userAPI from "../../utils/userAPI";
 
 class Signup extends Component {
   constructor(props) {
@@ -27,19 +28,34 @@ class Signup extends Component {
     // If the request is successful, set the logged in status to true.
     // If the request is not successful, set the logged in status to false and display some sort of notification.
     // The code below will be contained within the .then of the call. The notification will be an error message.
-    if (!this.state.isLoggedIn) {
-      this.setState(
-        {
-          notification:
-            "It looks like something went wrong. Try signing up again!"
-        },
-        () => {
-          alert(this.state.notification);
-          this.resetNotification();
-          this.resetInputs();
-        }
-      );
-    }
+
+    console.log(this.state.username, this.state.email, this.state.password)
+
+    userAPI.signUp(this.state.username, this.state.email, this.state.password)
+      .then(res => this.setState({ isLoggedIn: true }))
+      .catch(err => alert("It looks like something went wrong. Try signing up again!"));
+    this.setState({
+      username: "",
+      email: "",
+      password: ""
+    })
+    console.log(this.state.isLoggedIn);
+
+// *** Commenting this out for now because setState is an asynchronous function. There is a way to only run this code once 
+// *** userAPI.signUp has finished resolving, but that will need to be on our to-do list
+        // if (!this.state.isLoggedIn) {
+        //   this.setState(
+        //     {
+        //       notification:
+        //         "It looks like something went wrong. Try signing up again!"
+        //     },
+        //     () => {
+        //       alert(this.state.notification);
+        //       this.resetNotification();
+        //       this.resetInputs();
+        //     }
+        //   );
+        // }
   };
 
   resetNotification = () => {
@@ -58,7 +74,7 @@ class Signup extends Component {
 
   render() {
     if (this.state.isLoggedIn) {
-      return <Redirect to="/" />;
+      return <Redirect to="/dashboard" />;
     }
     return (
       <Container styles="well">

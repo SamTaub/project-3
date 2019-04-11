@@ -20,9 +20,14 @@
   },
   "dependencies": {
     "dotenv": "^7.0.0",
+    "axios": "^0.18.0",
+    "bcrypt-nodejs": "0.0.3",
     "express": "^4.16.3",
+    "express-session": "^1.15.6",
     "if-env": "^1.0.4",
     "mongoose": "^5.4.22",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "react": "^16.8.6",
     "react-router-dom": "^5.0.0"
   }
