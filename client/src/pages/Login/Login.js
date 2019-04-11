@@ -36,26 +36,19 @@ class Login extends Component {
         console.log(this.state.isLoggedIn)
         this.setState({ 
           isLoggedIn: true 
-        }, 
-          () => this.setState({
-            notification: "successfully logged in"
-          }, 
-            () => alert(this.state.notification)
-          )
-        )
-        console.log(this.state.isLoggedIn);
-      })  
+        });
+      })
       .catch(err => {
         if (!this.state.isLoggedIn) {
           this.setState({
-            notification: "Incorrect email or password"
+            notification: `Incorrect email or password (error code ${err})`
           }, 
             () => alert(this.state.notification)
           );
         }
         else {
           this.setState({
-            notification: "Something went wrong"
+            notification: "Something went wrong (error code ${err})"
           }, 
             () => alert(this.state.notification)
           );
@@ -93,7 +86,7 @@ class Login extends Component {
 
   render() {
     if (this.state.isLoggedIn) {
-      return <Redirect to="/" />; // We'll actually want to redirect to user's dashboard?
+      return <Redirect to="/dashboard" />;
     }
 
     return (
