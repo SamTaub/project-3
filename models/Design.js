@@ -34,10 +34,10 @@ const designSchema = new Schema({
     canvasImage: {
         type: String
     },
-    comments: {
+    comments: [{
         type: Schema.Types.ObjectId,
         ref: "Comment"
-    }
+    }]
 });
 
 const Design = mongoose.model("Design", designSchema);
