@@ -13,14 +13,18 @@ import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import API from "./utils/userAPI";
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
-  <Route {...rest} render={props =>
-      this.state.authenticated 
-      ? (<Component {...props} />)
-      : (<Redirect to="/login" />)
-    }
-  />;
-};
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={props => (
+    this.state.authenticated ? (
+      <Component {...props} {...rest} />
+    ) : (
+      <Redirect to={{
+        pathname: '/login',
+        state: { from: props.location }
+      }}/>
+    )
+  )}/>
+)
 
 class App extends Component {
   constructor(props) {
@@ -31,12 +35,14 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.toggleAuthenticateStatus()
+    this.toggleAuthenticateStatus();
   }
+
+  // Include helper function to get isLoggedIn from checkAuthStatus()
 
   toggleAuthenticateStatus() {
     // check authenticated status and toggle state based on that
-    this.setState({ authenticated: API.checkAuthStatus().isLoggedIn }) // D O U B L E  C H E C K  T H I S
+    this.setState({ authenticated: API.checkAuthStatus() }); // D O U B L E  C H E C K  T H I S
   }
 
   // I think we'll need to call userAPI.checkAuth() when componentDidMount so that we can check if auth status at the root level. This will then allow us to render private routes (See https://github.com/shouheiyamauchi/react-passport-example/blob/master/client/src/Main.js).
@@ -58,7 +64,7 @@ class App extends Component {
 
             {/* Private Routes */}
             <PrivateRoute
-              path="/user/dashboard/published/:id"
+              path="/user/dashboard/published/"
               component={<h2>henlo</h2>}
             />
             <PrivateRoute
