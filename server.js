@@ -21,7 +21,7 @@ const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/beadli";
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 // Define API routes
-require("./routes/api-routes.js")(app);
+require("./routes/login-routes.js")(app);
 
 // Send every other request to the React app
 // Define any API routes before this runs
