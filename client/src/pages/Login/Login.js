@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { Container, Row, Col } from "../../components/Grid";
 import "./style.css";
+import userAPI from "../../utils/userAPI";
 
 class Login extends Component {
   constructor(props) {
@@ -29,20 +30,46 @@ class Login extends Component {
     // If we get back a positive response, setState to true.
     // Otherwise set the notification to something like "Incorrect email or password. Try again!"
     // The code below will be contained within the .then of the call.
-    if (!this.state.isLoggedIn) {
-      this.setState(
-        {
-          notification:
-            "It looks like you entered the wrong email or password. Try again!"
-        },
-        () => {
-          alert(this.state.notification);
-          this.resetNotification();
-          this.resetInputs();
+    console.log(this.state.isLoggedIn);
+    userAPI.logIn(this.state.email, this.state.password)
+      .then(res => {
+        console.log(this.state.isLoggedIn)
+        this.setState({ 
+          isLoggedIn: true 
+        });
+      })
+      .catch(err => {
+        if (!this.state.isLoggedIn) {
+          this.setState({
+            notification: `Incorrect email or password (error code ${err})`
+          }, 
+            () => alert(this.state.notification)
+          );
         }
-      );
-    }
+        else {
+          this.setState({
+            notification: "Something went wrong (error code ${err})"
+          }, 
+            () => alert(this.state.notification)
+          );
+        };
+      });
+    this.resetInputs();
+    this.resetNotification();
   };
+    // if (!this.state.isLoggedIn) {
+    //   this.setState(
+    //     {
+    //       notification:
+    //         "It looks like you entered the wrong email or password. Try again!"
+    //     },
+    //     () => {
+    //       alert(this.state.notification);
+    //       this.resetNotification();
+    //       this.resetInputs();
+    //     }
+    //   );
+    // }
 
   resetNotification = () => {
     this.setState({
@@ -59,7 +86,7 @@ class Login extends Component {
 
   render() {
     if (this.state.isLoggedIn) {
-      return <Redirect to="/" />; // We'll actually want to redirect to user's dashboard?
+      return <Redirect to="/dashboard" />;
     }
 
     return (
