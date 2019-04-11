@@ -74,7 +74,7 @@ class Signup extends Component {
 
   render() {
     if (this.state.isLoggedIn) {
-      return <Redirect to="/" />;
+      return <Redirect to="/dashboard" />;
     }
     return (
       <Container styles="well">
