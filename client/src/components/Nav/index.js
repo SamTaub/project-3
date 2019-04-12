@@ -51,9 +51,9 @@ function Nav(props) {
                 <Link className="dropdown-item" to="/dashboard">
                   Dashboard
                 </Link>
-                <a className="dropdown-item" onClick={props.logout} href="#">
+                <Link className="dropdown-item" onClick={props.logout} to="#">
                   Logout
-                </a>
+                </Link>
               </div>
             </li>
           ) : (

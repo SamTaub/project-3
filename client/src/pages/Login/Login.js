@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, 
+  // Redirect 
+} from "react-router-dom";
 import { Container, Row, Col } from "../../components/Grid";
 import "./style.css";
 import userAPI from "../../utils/userAPI";
@@ -87,6 +89,7 @@ class Login extends Component {
   render() {
     if (this.state.isLoggedIn) {
       return window.location.replace("/dashboard");
+      // return <Redirect to="/dashboard" />
     }
 
     return (
