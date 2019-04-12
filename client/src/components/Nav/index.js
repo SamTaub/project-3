@@ -47,7 +47,7 @@ function Nav(props) {
               >
                 My Account
               </a>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+              <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 <Link className="dropdown-item" to="/dashboard">
                   Dashboard
                 </Link>
@@ -57,11 +57,6 @@ function Nav(props) {
               </div>
             </li>
           ) : (
-            // <li className="nav-item">
-            //   <Link className="nav-link" to="/dashboard">
-            //     My Account
-            //   </Link>
-            // </li>
             <li className="nav-item">
               <Link className="nav-link" to="/login">
                 Login
