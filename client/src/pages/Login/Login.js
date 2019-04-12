@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, 
+  // Redirect 
+} from "react-router-dom";
 import { Container, Row, Col } from "../../components/Grid";
 import "./style.css";
 import userAPI from "../../utils/userAPI";
@@ -33,7 +35,7 @@ class Login extends Component {
     console.log(this.state.isLoggedIn);
     userAPI.logIn(this.state.email, this.state.password)
       .then(res => {
-        console.log(this.state.isLoggedIn)
+        localStorage.setItem("beadli", res.data._id);
         this.setState({ 
           isLoggedIn: true 
         });
@@ -48,7 +50,7 @@ class Login extends Component {
         }
         else {
           this.setState({
-            notification: "Something went wrong (error code ${err})"
+            notification: `Something went wrong (error code ${err})`
           }, 
             () => alert(this.state.notification)
           );
@@ -86,7 +88,8 @@ class Login extends Component {
 
   render() {
     if (this.state.isLoggedIn) {
-      return <Redirect to="/dashboard" />;
+      return window.location.replace("/dashboard");
+      // return <Redirect to="/dashboard" />
     }
 
     return (
