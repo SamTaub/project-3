@@ -31,9 +31,39 @@ function ClearButton(props) {
 }
 
 class Board extends Component {
+  renderSquare(value, rowIdx, colIdx) {
+    // console.log(this.state.squares[rowIdx][colIdx]);
+    return (
+      <Square
+        key={colIdx}
+        value={value}
+        onClick={() => this.props.onClick(value, rowIdx, colIdx)}
+      />
+    );
+  }
+
+  render() {
+    return (
+      <div>
+        {this.props.squares.map((row, rowIdx) => {
+          return (
+            <div key={rowIdx} className="board-row" datarow={rowIdx}>
+              {row.map((value, colIdx) =>
+                this.renderSquare(value, rowIdx, colIdx)
+              )}
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+}
+
+class Create extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeColor: "",
       squares: [
         ["", "", "", "", "", "", "", "", "", ""],
         ["", "", "", "", "", "", "", "", "", ""],
@@ -49,26 +79,19 @@ class Board extends Component {
     };
   }
 
-  // componentWillMount -> check to see if there are
+  handleChange = event => {
+    this.setState({ activeColor: event.target.value });
+  };
 
-  handleClick = (cell, rowIdx, colIdx) => {
+  handleClick = (value, rowIdx, colIdx) => {
     let squares = [...this.state.squares];
     let square = { ...squares[rowIdx][colIdx] };
-    square = this.props.activeColor;
+    square = this.state.activeColor;
     squares[rowIdx][colIdx] = square;
     this.setState({ squares }, () => console.log(this.state.squares));
-
-    // VERSION THAT MODIFIES PREVIOUS STATE
-    //   this.setState(prevState => ({
-    //     squares: {
-    //         ...prevState.squares,
-    //         [prevState.squares[rowIdx][colIdx]]: newColor,
-    //     },
-    // }));
   };
 
   clearBoard = () => {
-    console.log("click");
     this.setState({
       squares: [
         ["", "", "", "", "", "", "", "", "", ""],
@@ -85,61 +108,20 @@ class Board extends Component {
     });
   };
 
-  renderSquare(cell, rowIdx, colIdx) {
-    // console.log(this.state.squares[rowIdx][colIdx]);
-    return (
-      <Square
-        key={colIdx}
-        value={this.state.squares[rowIdx][colIdx]}
-        onClick={() => this.handleClick(cell, rowIdx, colIdx)}
-      />
-    );
-  }
-
-  // generateBoard(squares) {
-  //   let result;
-  //   for (let i = 0; i < squares.length; i++) {
-  //     for (let j = 0; j < squares[i].length; j++) {}
-  //   }
-  // }
-
   render() {
     return (
       <div>
+        <ColorPicker onChange={this.handleChange} />
         <ClearButton onClick={this.clearBoard} />
-        {this.state.squares.map((row, rowIdx) => {
-          return (
-            <div key={rowIdx} className="board-row" datarow={rowIdx}>
-              {row.map((cell, colIdx) =>
-                this.renderSquare(cell, rowIdx, colIdx)
-              )}
-            </div>
-          );
-        })}
-      </div>
-    );
-  }
-}
-
-class Create extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeColor: ""
-    };
-  }
-
-  handleChange = event => {
-    this.setState({ activeColor: event.target.value });
-  };
-
-  render() {
-    return (
-      <div>
         <div className="game">
-          <ColorPicker onChange={this.handleChange} />
           <div className="game-board">
-            <Board activeColor={this.state.activeColor} />
+            <Board
+              activeColor={this.state.activeColor}
+              squares={this.state.squares}
+              onClick={(value, rowIdx, colIdx) =>
+                this.handleClick(value, rowIdx, colIdx)
+              }
+            />
           </div>
         </div>
       </div>
