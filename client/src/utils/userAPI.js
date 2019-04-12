@@ -22,7 +22,7 @@ export default {
 
   // Get request to logout the current user. Should return a boolean response.
   logOut: function() {
-    return axios.get("/api/logout");
+    return axios.get("/logout");
   },
 
   // Send a request to the api/user endpoint to see if req.user exists.

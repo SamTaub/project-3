@@ -34,13 +34,34 @@ function Nav(props) {
               Browse
             </Link>
           </li>
-          {props.isAuthed ? (
-            <li className="nav-item">
-              <Link className="nav-link" to="/dashboard">
+          {localStorage.getItem("beadli") ? (
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
                 My Account
-              </Link>
+              </a>
+              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                <Link className="dropdown-item" to="/dashboard">
+                  Dashboard
+                </Link>
+                <a className="dropdown-item" onClick={props.logout} href="#">
+                  Logout
+                </a>
+              </div>
             </li>
           ) : (
+            // <li className="nav-item">
+            //   <Link className="nav-link" to="/dashboard">
+            //     My Account
+            //   </Link>
+            // </li>
             <li className="nav-item">
               <Link className="nav-link" to="/login">
                 Login
