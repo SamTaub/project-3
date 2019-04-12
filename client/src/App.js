@@ -1,10 +1,36 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import NoMatch from "./pages/NoMatch";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
+import Dashboard from "./pages/Dashboard/Dashboard";
 import Nav from "./components/Nav";
+import API from "./utils/userAPI"
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      isAuthed() === true ? (
+        <Component {...props} {...rest} />
+      ) : (
+        <Redirect
+          to={{
+            pathname: "/login",
+            state: { from: props.location }
+          }}
+        />
+      )
+    }
+  />
+);
+
+const isAuthed = () => {
+  API.checkAuthStatus().then(res => {
+    return res.data.isLoggedIn;
+  });
+};
 
 class App extends Component {
   constructor(props) {
@@ -25,6 +51,7 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
+            <PrivateRoute exact path="/dashboard" component={Dashboard} />
             <Route component={NoMatch} />
           </Switch>
         </div>
