@@ -22,12 +22,15 @@ const userSchema = new Schema({
         required: true,
         // match: [/.+@.\..+/, 'Please enter a valid email address']
     },
-    designs: {
-        type: Array
-    },
-    favorites: {
-        type: Array
-    },
+    designs: [{
+        type: Schema.Types.ObjectId,
+        ref: "Design"
+    }],
+
+    favorites: [{
+        type: Schema.Types.ObjectId,
+        ref: "Design"
+    }],
     avatar: {
         type: String
     },
