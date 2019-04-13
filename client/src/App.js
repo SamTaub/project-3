@@ -10,6 +10,7 @@ import NoMatch from "./pages/NoMatch";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import Create from "./pages/Create/Create";
 import Nav from "./components/Nav";
 import ProtectedRoute from "./components/ProtectedRoute";
 import userAPI from "./utils/userAPI";
@@ -41,6 +42,7 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
+            <ProtectedRoute exact path="/create" component={Create} />
             <ProtectedRoute exact path="/dashboard" component={Dashboard} />
             <Route component={NoMatch} />
           </Switch>
