@@ -5,7 +5,7 @@ const designSchema = new Schema({
     grid: {
         type: Array
     },
-    user: {
+    username: {
         type: String
     },
     title: {
@@ -22,10 +22,6 @@ const designSchema = new Schema({
     },
     description: {
         type: String
-    },
-    draft: {
-        type: Boolean,
-        default: false
     },
     published: {
         type: Boolean,

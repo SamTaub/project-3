@@ -6,7 +6,7 @@ const CommentSchema = new Schema({
     body: {
         type: String, required: true
     },
-    userName: {
+    username: {
         type: String, required: true
     },
     designId: {
