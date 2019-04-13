@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
-import { Board, ColorPicker, ClearButton } from "../../components/Board/Board";
+import { Board, ClearButton } from "../../components/Board/Board";
 import { Container, Row, Col } from "../../components/Grid";
+import ColorPicker from "../../components/ColorPicker/ColorPicker";
 import "./style.css";
 
 class Create extends Component {
@@ -33,19 +34,22 @@ class Create extends Component {
     };
   }
 
-  genBlankBoard = (numRows, numCols) => {
-    let result = [];
-    for (let i = 0; i < numRows; i++) {
-      let row = [];
-      for (let j; j < numCols; j++) {
-        row.push("");
-      }
-      result.push(row);
-    }
-  }
+  // genBlankBoard = (numRows = 20, numCols = 20) => {
+  //   let result = [];
+  //   for (let i = 0; i < numRows; i++) {
+  //     let row = [];
+  //     for (let j; j < numCols; j++) {
+  //       row.push('"');
+  //     }
+  //     result.push(row);
+  //   }
+  //   return result;
+  // }
+
+// genBoard = Array(5).fill(5).map(a=>[""]);
 
   handleChange = event => {
-    this.setState({ activeColor: event.target.value });
+    this.setState({ activeColor: event.target.getAttribute('data-value') });
   };
 
   handleClick = (value, rowIdx, colIdx) => {

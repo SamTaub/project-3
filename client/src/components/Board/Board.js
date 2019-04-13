@@ -11,23 +11,12 @@ export function Square(props) {
   );
 }
 
-export function ColorPicker(props) {
-  return (
-    <div onChange={props.onChange}>
-      <select>
-        <option>Select a Color</option>
-        <option value="#FFF">White</option>
-        <option value="#00FF00">Green</option>
-        <option value="#0000FF">Blue</option>
-        <option value="#FFFF00">Yellow</option>
-        <option value="#00FFFF">Cyan</option>
-      </select>
-    </div>
-  );
-}
-
 export function ClearButton(props) {
-  return <button className="btn btn-light btn-block" onClick={props.onClick}>Clear Board</button>;
+  return (
+    <button className="btn btn-light btn-block" onClick={props.onClick}>
+      Clear Board
+    </button>
+  );
 }
 
 export class Board extends Component {
