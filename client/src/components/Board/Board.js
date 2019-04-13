@@ -27,7 +27,7 @@ export function ColorPicker(props) {
 }
 
 export function ClearButton(props) {
-  return <button onClick={props.onClick}>Clear Board</button>;
+  return <button className="btn btn-light btn-block" onClick={props.onClick}>Clear Board</button>;
 }
 
 export class Board extends Component {

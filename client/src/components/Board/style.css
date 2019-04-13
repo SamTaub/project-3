@@ -15,12 +15,12 @@
   font-size: 24px;
   font-weight: bold;
   line-height: 34px;
-  height: 30px;
+  height: 20px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 30px;
+  width: 20px;
 }
 
 .square:focus {
@@ -38,10 +38,6 @@
 .game {
   display: flex;
   flex-direction: row;
-}
-
-.game-info {
-  margin-left: 20px;
 }
 
 /* @media screen and (max-width: 700px) {

@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Board, ColorPicker, ClearButton } from "../../components/Board/Board";
+import { Container, Row, Col } from "../../components/Grid";
 import "./style.css";
 
 class Create extends Component {
@@ -85,21 +86,27 @@ class Create extends Component {
 
   render() {
     return (
-      <div>
-        <ColorPicker onChange={this.handleChange} />
-        <ClearButton onClick={this.clearBoard} />
-        <div className="game">
-          <div className="game-board">
-            <Board
-              activeColor={this.state.activeColor}
-              squares={this.state.squares}
-              onClick={(value, rowIdx, colIdx) =>
-                this.handleClick(value, rowIdx, colIdx)
-              }
-            />
-          </div>
-        </div>
-      </div>
+      <Fragment>
+        <Container styles="well">
+          <Row styles="justify-content-left align-items-left">
+            <Col size="lg-6">
+              <div id="drawDiv">
+                  <Board
+                    activeColor={this.state.activeColor}
+                    squares={this.state.squares}
+                    onClick={(value, rowIdx, colIdx) =>
+                      this.handleClick(value, rowIdx, colIdx)
+                    }
+                  />
+              </div>
+            </Col>
+            <Col size="lg-6">
+              <ColorPicker onChange={this.handleChange} />
+              <ClearButton onClick={this.clearBoard} />
+            </Col>
+          </Row>
+        </Container>
+      </Fragment>
     );
   }
 }
