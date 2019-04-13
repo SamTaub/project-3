@@ -1,0 +1,10 @@
+td {
+  text-align: center;
+  /* width: 0.5px; */
+  cursor: pointer;
+  font-size: 10px;
+}
+
+/* td:active {
+  border: black;
+} */
