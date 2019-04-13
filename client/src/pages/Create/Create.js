@@ -32,6 +32,17 @@ class Create extends Component {
     };
   }
 
+  genBlankBoard = (numRows, numCols) => {
+    let result = [];
+    for (let i = 0; i < numRows; i++) {
+      let row = [];
+      for (let j; j < numCols; j++) {
+        row.push("");
+      }
+      result.push(row);
+    }
+  }
+
   handleChange = event => {
     this.setState({ activeColor: event.target.value });
   };
