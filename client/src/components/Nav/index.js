@@ -42,9 +42,9 @@ function Nav(props) {
                 </Link>
               </li>
               <li className="nav-item dropdown">
-                <a
+                <Link
                   className="nav-link dropdown-toggle"
-                  href="#"
+                  to="#"
                   id="navbarDropdown"
                   role="button"
                   data-toggle="dropdown"
@@ -52,7 +52,7 @@ function Nav(props) {
                   aria-expanded="false"
                 >
                   My Account
-                </a>
+                </Link>
                 <div
                   className="dropdown-menu dropdown-menu-right"
                   aria-labelledby="navbarDropdown"
