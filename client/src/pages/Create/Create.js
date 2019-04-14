@@ -66,8 +66,6 @@ class Create extends Component {
     if (this.state.mouseIsDown) {
       this.handleClick(value, rowIdx, colIdx);
     }
-    
-    return
   };
 
   onMouseDown = () => {
