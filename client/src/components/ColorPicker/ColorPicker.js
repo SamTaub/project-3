@@ -22,7 +22,7 @@ function ColorPicker(props) {
         <td
           key={item[0]}
           data-value={item[0]}
-          style={{ background: `${item[0]}`, width: "5px" }}
+          style={{ background: `${item[0]}`, padding: "4px" }}
         >
           {item[1]}
         </td>
@@ -34,7 +34,7 @@ function ColorPicker(props) {
 
   return (
     <div className="table-responsive" onClick={props.onChange}>
-      <table className="table">
+      <table className="table mt-3">
         <tbody>{body}</tbody>
       </table>
     </div>
