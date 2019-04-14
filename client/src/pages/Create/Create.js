@@ -57,14 +57,16 @@ class Create extends Component {
     let square = { ...squares[rowIdx][colIdx] }; // Find our particular square.
     square = this.state.activeColor; // Set new value of square equal to active color.
     squares[rowIdx][colIdx] = square; // Set color at the copied location.
-    this.setState({ squares }, () => console.log(this.state.squares));
+    this.setState({ squares }, 
+      // () => console.log(this.state.squares)
+    );
   };
 
-  onEnter = () => {
+  onMouseEnter = () => {
     console.log("entered");
   }
 
-  onExit = () => {
+  onMouseLeave = () => {
     console.log("exited");
   }
 
@@ -109,8 +111,8 @@ class Create extends Component {
                     onClick={(value, rowIdx, colIdx) =>
                       this.handleClick(value, rowIdx, colIdx)
                     }
-                    onExit={this.onExit}
-                    onEnter={this.onEnter}
+                    onMouseLeave={this.onMouseLeave}
+                    onMouseEnter={this.onMouseEnter}
                   />
               </div>
             </Col>

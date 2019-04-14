@@ -7,6 +7,8 @@ export function Square(props) {
       className="square"
       style={{ background: props.value }}
       onClick={props.onClick}
+      onMouseEnter={props.onMouseEnter}
+      onMouseLeave={props.onMouseLeave}
     />
   );
 }
@@ -27,8 +29,8 @@ export class Board extends Component {
         key={colIdx}
         value={value}
         onClick={() => this.props.onClick(value, rowIdx, colIdx)}
-        onEnter={this.props.onEnter}
-        onExit={this.props.onEnter}
+        onMouseEnter={() => this.props.onMouseEnter()}
+        onMouseLeave={() => this.props.onMouseLeave()}
       />
     );
   }
