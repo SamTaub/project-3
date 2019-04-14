@@ -10,7 +10,6 @@ class Create extends Component {
     this.state = {
       activeColor: "",
       mouseIsDown: false,
-      mouseIsUp: false,
       squares: [
         ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
         ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
@@ -64,13 +63,21 @@ class Create extends Component {
     );
   };
 
-  onMouseEnter = () => {
+  onMouseEnter = (value, rowIdx, colIdx) => {
     console.log("entered");
     // If the mouse is down, run handleClick() to set the color.
-  };
-
-  onMouseLeave = () => {
-    console.log("exited");
+    if (this.state.mouseIsDown) {
+      let squares = [...this.state.squares]; // Create a copy of the square values.
+      let square = { ...squares[rowIdx][colIdx] }; // Find our particular square.
+      square = this.state.activeColor; // Set new value of square equal to active color.
+      squares[rowIdx][colIdx] = square; // Set color at the copied location.
+      
+      this.setState({ squares }, 
+      // () => console.log(this.state.squares)
+      );
+    }
+    
+    return
   };
 
   onMouseDown = () => {
@@ -83,7 +90,7 @@ class Create extends Component {
   onMouseUp = () => {
     // console.log("mouse is up");
     this.setState({
-      mouseIsUp: true
+      mouseIsDown: false
     });
   };
 
@@ -128,8 +135,8 @@ class Create extends Component {
                     onClick={(value, rowIdx, colIdx) =>
                       this.handleClick(value, rowIdx, colIdx)
                     }
-                    onMouseLeave={this.onMouseLeave}
-                    onMouseEnter={this.onMouseEnter}
+                    onMouseEnter={(value, rowIdx, colIdx) =>
+                      this.onMouseEnter(value, rowIdx, colIdx)}
                     onMouseDown={this.onMouseDown}
                     onMouseUp={this.onMouseUp}
                   />
