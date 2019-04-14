@@ -49,7 +49,7 @@ class Create extends Component {
 // genBoard = Array(5).fill(5).map(a=>[""]);
 
   handleChange = event => {
-    this.setState({ activeColor: event.target.getAttribute('data-value') });
+    this.setState({ activeColor: `rgba(${event.target.getAttribute('data-value')})` });
   };
 
   handleClick = (value, rowIdx, colIdx) => {
