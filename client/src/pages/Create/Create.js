@@ -9,6 +9,8 @@ class Create extends Component {
     super(props);
     this.state = {
       activeColor: "",
+      mouseIsDown: false,
+      mouseIsUp: false,
       squares: [
         ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
         ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
@@ -64,11 +66,26 @@ class Create extends Component {
 
   onMouseEnter = () => {
     console.log("entered");
-  }
+    // If the mouse is down, run handleClick() to set the color.
+  };
 
   onMouseLeave = () => {
     console.log("exited");
-  }
+  };
+
+  onMouseDown = () => {
+    // console.log("mouse is down");
+    this.setState({
+      mouseIsDown: true
+    });
+  };
+
+  onMouseUp = () => {
+    // console.log("mouse is up");
+    this.setState({
+      mouseIsUp: true
+    });
+  };
 
   clearBoard = () => {
     this.setState({
@@ -113,6 +130,8 @@ class Create extends Component {
                     }
                     onMouseLeave={this.onMouseLeave}
                     onMouseEnter={this.onMouseEnter}
+                    onMouseDown={this.onMouseDown}
+                    onMouseUp={this.onMouseUp}
                   />
               </div>
             </Col>

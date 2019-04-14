@@ -37,7 +37,10 @@ export class Board extends Component {
 
   render() {
     return (
-      <div>
+      <div
+        onMouseDown={() => this.props.onMouseDown()}
+        onMouseUp={() => this.props.onMouseUp()}
+      >
         {this.props.squares.map((row, rowIdx) => {
           return (
             <div key={rowIdx} className="board-row" datarow={rowIdx}>
