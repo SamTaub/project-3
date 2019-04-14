@@ -21,11 +21,7 @@ class Create extends Component {
       .map(x => Array(20).fill(""));
 
   handleChange = event => {
-<<<<<<< HEAD
-    this.setState({ activeColor: `rgba(${event.target.getAttribute('data-value')})` });
-=======
-    this.setState({ activeColor: event.target.getAttribute("data-value") });
->>>>>>> d3e2978675e2de06ab9917bee6fe1e780c8371e9
+    this.setState({ activeColor: `rgba(${event.target.getAttribute("data-value")})` });
   };
 
   handleClick = (value, rowIdx, colIdx) => {
