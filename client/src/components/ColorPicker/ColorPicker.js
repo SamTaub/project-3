@@ -22,7 +22,7 @@ function ColorPicker(props) {
         <td
           key={item[0]}
           data-value={item[0]}
-          style={{ background: `${item[0]}`, padding: "4px" }}
+          style={{ background: `rgba(${item[0]})`, padding: "4px" }}
         >
           {item[1]}
         </td>
