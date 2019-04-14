@@ -22,7 +22,6 @@ export function ClearButton(props) {
 
 export class Board extends Component {
   renderSquare(value, rowIdx, colIdx) {
-    // console.log(this.props.squares[rowIdx][colIdx]);
     return (
       <Square
         key={colIdx}

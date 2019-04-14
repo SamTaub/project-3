@@ -58,37 +58,25 @@ class Create extends Component {
     let square = { ...squares[rowIdx][colIdx] }; // Find our particular square.
     square = this.state.activeColor; // Set new value of square equal to active color.
     squares[rowIdx][colIdx] = square; // Set color at the copied location.
-    this.setState({ squares }, 
-      // () => console.log(this.state.squares)
-    );
+    this.setState({ squares });
   };
 
   onMouseEnter = (value, rowIdx, colIdx) => {
-    console.log("entered");
     // If the mouse is down, run handleClick() to set the color.
     if (this.state.mouseIsDown) {
-      let squares = [...this.state.squares]; // Create a copy of the square values.
-      let square = { ...squares[rowIdx][colIdx] }; // Find our particular square.
-      square = this.state.activeColor; // Set new value of square equal to active color.
-      squares[rowIdx][colIdx] = square; // Set color at the copied location.
-      
-      this.setState({ squares }, 
-      // () => console.log(this.state.squares)
-      );
+      this.handleClick(value, rowIdx, colIdx);
     }
     
     return
   };
 
   onMouseDown = () => {
-    // console.log("mouse is down");
     this.setState({
       mouseIsDown: true
     });
   };
 
   onMouseUp = () => {
-    // console.log("mouse is up");
     this.setState({
       mouseIsDown: false
     });
