@@ -61,15 +61,16 @@ module.exports = function(app) {
     }
   });
 
-  app.get("/api/user/dashboard/:id", function(req, res) {
-    db.User.findOne({ "_id": req.params.id })
-        .populate("favorites", "designs")
-        .then(function(dbUser) {
-            res.json(dbUser);
-        })
-        .catch(function(err) {
-            res.json(err);
-        });
-  })
+  // This has been refactored in the controllers/api routes 
+  // app.get("/api/user/dashboard/:id", function(req, res) {
+  //   db.User.findOne({ "_id": req.params.id })
+  //       .populate("favorites", "designs")
+  //       .then(function(dbUser) {
+  //           res.json(dbUser);
+  //       })
+  //       .catch(function(err) {
+  //           res.json(err);
+  //       });
+  // })
 
 };

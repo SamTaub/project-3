@@ -150,6 +150,16 @@ module.exports = {
         })
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
+    },
+
+    // Find one user to display their dashboard
+
+    findUser: function(req, res){
+        db.User
+        .findOneAndUpdate({_id: req.params.id})
+        .populate('designs', 'favorites')
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).josn(err));
     }
 
 };
