@@ -10,47 +10,18 @@ class Create extends Component {
     this.state = {
       activeColor: "",
       mouseIsDown: false,
-      squares: [
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
-      ]
+      squares: this.genBlankBoard()
     };
   }
 
-  // genBlankBoard = (numRows = 20, numCols = 20) => {
-  //   let result = [];
-  //   for (let i = 0; i < numRows; i++) {
-  //     let row = [];
-  //     for (let j; j < numCols; j++) {
-  //       row.push('"');
-  //     }
-  //     result.push(row);
-  //   }
-  //   return result;
-  // }
-
-// genBoard = Array(5).fill(5).map(a=>[""]);
+  // This won't work for browsers that don't have ES6 support btw. Should write a fallback option, probs one that is just using loops.
+  genBlankBoard = () =>
+    Array(20)
+      .fill(0)
+      .map(x => Array(20).fill(""));
 
   handleChange = event => {
-    this.setState({ activeColor: event.target.getAttribute('data-value') });
+    this.setState({ activeColor: event.target.getAttribute("data-value") });
   };
 
   handleClick = (value, rowIdx, colIdx) => {
@@ -58,7 +29,7 @@ class Create extends Component {
     let square = { ...squares[rowIdx][colIdx] }; // Find our particular square.
     square = this.state.activeColor; // Set new value of square equal to active color.
     squares[rowIdx][colIdx] = square; // Set color at the copied location.
-    this.setState({ squares });
+    this.setState({ squares }, () => console.log(this.state.squares));
   };
 
   onMouseEnter = (value, rowIdx, colIdx) => {
@@ -82,29 +53,7 @@ class Create extends Component {
 
   clearBoard = () => {
     this.setState({
-      squares: [
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
-
-      ]
+      squares: this.genBlankBoard()
     });
   };
 
@@ -115,17 +64,18 @@ class Create extends Component {
           <Row styles="justify-content-left align-items-left">
             <Col size="lg-6">
               <div id="drawDiv">
-                  <Board
-                    activeColor={this.state.activeColor}
-                    squares={this.state.squares}
-                    onClick={(value, rowIdx, colIdx) =>
-                      this.handleClick(value, rowIdx, colIdx)
-                    }
-                    onMouseEnter={(value, rowIdx, colIdx) =>
-                      this.onMouseEnter(value, rowIdx, colIdx)}
-                    onMouseDown={this.onMouseDown}
-                    onMouseUp={this.onMouseUp}
-                  />
+                <Board
+                  activeColor={this.state.activeColor}
+                  squares={this.state.squares}
+                  onClick={(value, rowIdx, colIdx) =>
+                    this.handleClick(value, rowIdx, colIdx)
+                  }
+                  onMouseEnter={(value, rowIdx, colIdx) =>
+                    this.onMouseEnter(value, rowIdx, colIdx)
+                  }
+                  onMouseDown={this.onMouseDown}
+                  onMouseUp={this.onMouseUp}
+                />
               </div>
             </Col>
             <Col size="lg-6">
