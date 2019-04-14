@@ -1,4 +1,4 @@
-export default colorPalette = {
+const colorPalette = {
     "#F7F7F2": "White",
     "#BEC3BF": "Light Grey",
     "#96989C": "Grey",
@@ -56,3 +56,5 @@ export default colorPalette = {
     "#CBD735": "Prickly Pear",
     "#3C614F": "Evergreen"
 }
+
+export default colorPalette;
