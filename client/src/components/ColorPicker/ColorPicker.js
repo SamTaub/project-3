@@ -15,9 +15,9 @@ function ColorPicker(props) {
     })
     .filter(item => item);
 
-  let body = groups.map(row => {
+  let body = groups.map((row, i) => {
     const colors = row.map(item => {
-      console.log(item);
+      // console.log(item);
       return (
         <td
           key={item[0]}
@@ -29,7 +29,7 @@ function ColorPicker(props) {
       );
     });
 
-    return <tr>{colors}</tr>;
+    return <tr key={i}>{colors}</tr>;
   });
 
   return (

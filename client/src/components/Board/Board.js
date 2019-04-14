@@ -27,6 +27,8 @@ export class Board extends Component {
         key={colIdx}
         value={value}
         onClick={() => this.props.onClick(value, rowIdx, colIdx)}
+        onEnter={this.props.onEnter}
+        onExit={this.props.onEnter}
       />
     );
   }

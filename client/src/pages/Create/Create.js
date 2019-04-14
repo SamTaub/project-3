@@ -60,6 +60,14 @@ class Create extends Component {
     this.setState({ squares }, () => console.log(this.state.squares));
   };
 
+  onEnter = () => {
+    console.log("entered");
+  }
+
+  onExit = () => {
+    console.log("exited");
+  }
+
   clearBoard = () => {
     this.setState({
       squares: [
@@ -101,6 +109,8 @@ class Create extends Component {
                     onClick={(value, rowIdx, colIdx) =>
                       this.handleClick(value, rowIdx, colIdx)
                     }
+                    onExit={this.onExit}
+                    onEnter={this.onEnter}
                   />
               </div>
             </Col>
