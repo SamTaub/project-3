@@ -4,8 +4,8 @@ import "./style.css";
 export function Square(props) {
   return (
     <button
-      className={props.value !== "" ? "circle" : "square"}
-      style={{ borderColor: props.value }}
+      className="square"
+      style={{ background: props.value }}
       onClick={props.onClick}
       onMouseEnter={props.onMouseEnter}
     />
@@ -17,24 +17,6 @@ export function ClearButton(props) {
     <button className="btn btn-light btn-block" onClick={props.onClick}>
       Clear Board
     </button>
-  );
-}
-
-export function CurrentColor(props) {
-  return (
-    <svg width="45" height="30">
-      <circle
-        cx="15"
-        cy="15"
-        r="10"
-        style={{
-          fill: "transparent",
-          fillOpacity: 1,
-          stroke: props.activeColor,
-          strokeWidth: "8"
-        }}
-      />
-    </svg>
   );
 }
 
