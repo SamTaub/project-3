@@ -54,7 +54,8 @@ const colorPalette = {
     "#009654": "Shamrock",
     "#108355": "Dark Green",
     "#CBD735": "Prickly Pear",
-    "#3C614F": "Evergreen"
+    "#3C614F": "Evergreen",
+    "": "Clear"
 }
 
 export default colorPalette;

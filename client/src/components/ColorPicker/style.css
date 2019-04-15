@@ -4,6 +4,6 @@ td {
   font-size: 8px;
 }
 
-/* td:active {
-  border: black;
-} */
+td:hover {
+  color: white;
+}

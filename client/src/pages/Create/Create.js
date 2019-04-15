@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Board, ClearButton } from "../../components/Board/Board";
+import { Board, ClearButton, CurrentColor } from "../../components/Board/Board";
 import { Container, Row, Col } from "../../components/Grid";
 import ColorPicker from "../../components/ColorPicker/ColorPicker";
 import "./style.css";
@@ -25,6 +25,7 @@ class Create extends Component {
   };
 
   handleClick = (value, rowIdx, colIdx) => {
+    console.log();
     let squares = [...this.state.squares]; // Create a copy of the square values.
     let square = { ...squares[rowIdx][colIdx] }; // Find our particular square.
     square = this.state.activeColor; // Set new value of square equal to active color.
@@ -79,6 +80,11 @@ class Create extends Component {
               </div>
             </Col>
             <Col size="lg-6">
+              <div id="currentColor">
+                <p>Current Color:</p>
+                <CurrentColor activeColor={this.state.activeColor} />
+              </div>
+
               <ColorPicker onChange={this.handleChange} />
               <ClearButton onClick={this.clearBoard} />
             </Col>

@@ -2,3 +2,17 @@
   padding: 15px;
   width: 100%;
 }
+
+#currentColor {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 20px;
+  background-color: white;
+  padding-top: 10px;
+}
+
+#currentColor p {
+  padding-right: 10px;
+  padding-top: 2px;
+}
