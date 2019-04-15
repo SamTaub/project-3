@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Container, Row, Col } from "../../../components/Grid";
 
 class Favorites extends Component {
     state = {
@@ -6,9 +7,9 @@ class Favorites extends Component {
     };
     render() {
         return (
-            <div>
-                {!this.state.content ? "No favorites to display" : "You have favorites!"}
-            </div>
+            <Row styles="p-3">
+                {!this.state.content ? (<Col size="12">No favorites to display</Col>) : ("You have favorites!")}
+            </Row>
         )
     }
 }
