@@ -1,7 +1,16 @@
 import React, { Component, Fragment } from "react";
-import { Board, ClearButton, CurrentColor } from "../../components/Board/Board";
+import {
+  Board,
+  ButtonGroup,
+  ClearButton,
+  UndoButton,
+  SaveButton,
+  CurrentColor,
+  Title
+} from "../../components/Board/Board";
 import { Container, Row, Col } from "../../components/Grid";
 import ColorPicker from "../../components/ColorPicker/ColorPicker";
+import designAPI from "../../utils/designAPI";
 import "./style.css";
 
 class Create extends Component {
@@ -10,31 +19,103 @@ class Create extends Component {
     this.state = {
       activeColor: "",
       mouseIsDown: false,
-      squares: this.genBlankBoard()
+      squares: this.genBlankBoard(),
+      history: [],
+      title: ""
     };
   }
 
-  // This won't work for browsers that don't have ES6 support btw. Should write a fallback option, probs one that is just using loops.
   genBlankBoard = () =>
     Array(20)
       .fill(0)
       .map(x => Array(20).fill(""));
 
-  handleChange = event => {
-    this.setState({ activeColor: `rgba(${event.target.getAttribute("data-value")})` });
+  handleColorChange = event => {
+    this.setState({
+      activeColor: `rgba(${event.target.getAttribute("data-value")})`
+    });
+  };
+
+  addToHistory = (current, past, rowIdx, colIdx) => {
+    let history = [...this.state.history];
+
+    if (this.state.history.length === 25) {
+      history.shift();
+    }
+
+    history.push({ current, past, rowIdx, colIdx });
+
+    this.setState({
+      history
+    });
+  };
+
+  undo = () => {
+    if (this.state.history.length > 0) {
+      const lastEvent = this.state.history[this.state.history.length - 1];
+      const { rowIdx, colIdx, past } = lastEvent;
+
+      let squares = [...this.state.squares]; // Create a copy of the square values.
+      let square = squares[rowIdx][colIdx]; // Find the value of our particular square.
+
+      square = past; // Set new value of square equal to the previous color state.
+      squares[lastEvent.rowIdx][lastEvent.colIdx] = square; // Set color at the copied location.
+
+      let history = [...this.state.history];
+      history.pop();
+
+      this.setState({
+        squares,
+        history
+      });
+    }
+  };
+
+  clearBoard = () => {
+    this.setState({
+      squares: this.genBlankBoard(),
+      history: []
+    });
+  };
+
+  save = () => {
+    designAPI
+      .saveDesign({
+        grid: this.state.squares,
+        title: this.state.title,
+        published: false
+      })
+      .then(res => {
+        console.log(res);
+        alert(`Design saved!`);
+      })
+      .catch(err => alert(`Hmm something went wrong. Try again!`));
   };
 
   handleClick = (value, rowIdx, colIdx) => {
-    console.log();
     let squares = [...this.state.squares]; // Create a copy of the square values.
     let square = { ...squares[rowIdx][colIdx] }; // Find our particular square.
+
+    const past = squares[rowIdx][colIdx]; // Save past and current color for our history object.
+    const current = this.state.activeColor;
+
     square = this.state.activeColor; // Set new value of square equal to active color.
     squares[rowIdx][colIdx] = square; // Set color at the copied location.
-    this.setState({ squares }, () => console.log(this.state.squares));
+
+    this.setState(
+      { squares },
+      this.addToHistory(current, past, rowIdx, colIdx)
+    );
+  };
+
+  handleInputChange = e => {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: value
+    });
   };
 
   onMouseEnter = (value, rowIdx, colIdx) => {
-    // If the mouse is down, run handleClick() to set the color.
     if (this.state.mouseIsDown) {
       this.handleClick(value, rowIdx, colIdx);
     }
@@ -49,12 +130,6 @@ class Create extends Component {
   onMouseUp = () => {
     this.setState({
       mouseIsDown: false
-    });
-  };
-
-  clearBoard = () => {
-    this.setState({
-      squares: this.genBlankBoard()
     });
   };
 
@@ -80,13 +155,22 @@ class Create extends Component {
               </div>
             </Col>
             <Col size="lg-6">
+              <Title
+                onChange={this.handleInputChange}
+                value={this.state.title}
+              />
               <div id="currentColor">
                 <p>Current Color:</p>
                 <CurrentColor activeColor={this.state.activeColor} />
               </div>
 
-              <ColorPicker onChange={this.handleChange} />
-              <ClearButton onClick={this.clearBoard} />
+              <ColorPicker onChange={this.handleColorChange} />
+
+              <ButtonGroup
+                button1={<UndoButton onClick={this.undo} />}
+                button2={<ClearButton onClick={this.clearBoard} />}
+                button3={<SaveButton onClick={this.save} />}
+              />
             </Col>
           </Row>
         </Container>

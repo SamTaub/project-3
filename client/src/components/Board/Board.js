@@ -12,11 +12,52 @@ export function Square(props) {
   );
 }
 
-export function ClearButton(props) {
+export function Title(props) {
   return (
-    <button className="btn btn-light btn-block" onClick={props.onClick}>
-      Clear Board
-    </button>
+    <div className="input-group input-group-lg mt-2">
+      <input
+        type="text"
+        name="title"
+        value={props.value}
+        onChange={props.onChange}
+        placeholder="Name your beadiful creation"
+        className="form-control"
+        aria-label="Sizing example input"
+        aria-describedby="inputGroup-sizing-lg"
+      />
+    </div>
+  );
+}
+
+export function ButtonGroup(props) {
+  return (
+    <div
+      className="btn-toolbar special"
+      role="toolbar"
+      aria-label="Toolbar with button groups"
+    >
+      <div
+        className="btn-group mt-2 mr-2 mb-2"
+        role="group"
+        aria-label="First group"
+      >
+        {props.button1}
+      </div>
+      <div
+        className="btn-group mt-2 mr-2 mb-2"
+        role="group"
+        aria-label="Second group"
+      >
+        {props.button2}
+      </div>
+      <div 
+        className="btn-group mt-2 mr-2 mb-2 w50"
+        role="group"
+        aria-label="Third group"
+      >
+        {props.button3}
+      </div>
+    </div>
   );
 }
 
@@ -35,6 +76,30 @@ export function CurrentColor(props) {
         }}
       />
     </svg>
+  );
+}
+
+export function ClearButton(props) {
+  return (
+    <button type="button" className="btn btn-light" onClick={props.onClick}>
+      <i className="fas fa-trash-alt" />
+    </button>
+  );
+}
+
+export function UndoButton(props) {
+  return (
+    <button type="button" className="btn btn-light" onClick={props.onClick}>
+      <i className="fas fa-undo-alt" />
+    </button>
+  );
+}
+
+export function SaveButton(props) {
+  return (
+    <button type="button" className="btn btn-light" onClick={props.onClick}>
+      <i className="fas fa-save" />
+    </button>
   );
 }
 
