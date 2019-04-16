@@ -5,30 +5,36 @@ const designSchema = new Schema({
     grid: {
         type: Array
     },
-    username: {
+    userId: {
         type: String
     },
     title: {
-        type: String
+        type: String,
+        default: "Untitled"
     },
     category: {
-        type: String
+        type: String,
+        default: "Misc"
     },
-    diffulty: {
-        type: String
+    difficulty: {
+        type: String,
+        default: "Unspecified"
     },
     rating: {
-        type: Number
+        type: Number,
+        default: 0
     },
     description: {
-        type: String
+        type: String,
+        default: "No description"
     },
     published: {
         type: Boolean,
         default: false
     },
     canvasImage: {
-        type: String
+        type: String,
+        default: "https://via.placeholder.com/400?text=No+Preview"
     },
     comments: [{
         type: Schema.Types.ObjectId,
