@@ -26,6 +26,38 @@ export function Title() {
   );
 }
 
+export function ButtonGroup(props) {
+  return (
+    <div
+      className="btn-toolbar special"
+      role="toolbar"
+      aria-label="Toolbar with button groups"
+    >
+      <div
+        className="btn-group mt-2 mr-2 mb-2"
+        role="group"
+        aria-label="First group"
+      >
+        {props.button1}
+      </div>
+      <div
+        className="btn-group mt-2 mr-2 mb-2"
+        role="group"
+        aria-label="Second group"
+      >
+        {props.button2}
+      </div>
+      <div
+        className="btn-group mt-2 mr-2 mb-2 w50"
+        role="group"
+        aria-label="Third group"
+      >
+        {props.button3}
+      </div>
+    </div>
+  );
+}
+
 export function CurrentColor(props) {
   return (
     <svg width="45" height="30">
