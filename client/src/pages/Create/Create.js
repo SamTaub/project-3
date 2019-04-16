@@ -1,5 +1,10 @@
 import React, { Component, Fragment } from "react";
-import { Board, ClearButton, CurrentColor } from "../../components/Board/Board";
+import {
+  Board,
+  ClearButton,
+  UndoButton,
+  CurrentColor
+} from "../../components/Board/Board";
 import { Container, Row, Col } from "../../components/Grid";
 import ColorPicker from "../../components/ColorPicker/ColorPicker";
 import "./style.css";
@@ -34,35 +39,43 @@ class Create extends Component {
     }
 
     history.push({ current, past, rowIdx, colIdx });
-    
+
     this.setState({
       history
     });
   };
 
   undo = () => {
-    const lastEvent = this.state.history[this.state.history.length - 1];
+    if (this.state.history.length > 0) {
+      const lastEvent = this.state.history[this.state.history.length - 1];
+      const { rowIdx, colIdx, past } = lastEvent;
+      // console.log(rowIdx, colIdx, current, past);
 
-    let squares = [...this.state.squares]; // Create a copy of the square values.
-    let square = { ...squares[lastEvent.rowIdx][lastEvent.colIdx] }; // Find our particular square.
+      let squares = [...this.state.squares]; // Create a copy of the square values.
+      // console.log(squares);
+      let square = squares[rowIdx][colIdx]; // Find the value of our particular square.
+      // console.log(square);
 
-    square = lastEvent.past;
-    squares[lastEvent.rowIdx][lastEvent.colIdx] = square;
+      // console.log(past);
 
-    let history = [...this.state.history];
-    history.pop();
+      square = past; // Set new value of square equal to the previous color state.
+      squares[lastEvent.rowIdx][lastEvent.colIdx] = square; // Set color at the copied location.
 
-    this.setState({
-      squares,
-      history
-    });
+      let history = [...this.state.history];
+      history.pop();
+
+      this.setState({
+        squares,
+        history
+      });
+    }
   };
 
   handleClick = (value, rowIdx, colIdx) => {
     let squares = [...this.state.squares]; // Create a copy of the square values.
     let square = { ...squares[rowIdx][colIdx] }; // Find our particular square.
 
-    const past = square; // Save past and current color for adding to our history object.
+    const past = squares[rowIdx][colIdx]; // Save past and current color for adding to our history object.
     const current = this.state.activeColor;
 
     square = this.state.activeColor; // Set new value of square equal to active color.
@@ -70,8 +83,7 @@ class Create extends Component {
 
     this.setState(
       { squares },
-      this.addToHistory(current, past, rowIdx, colIdx),
-      console.log(this.state.history)
+      this.addToHistory(current, past, rowIdx, colIdx)
     );
   };
 
@@ -129,6 +141,8 @@ class Create extends Component {
 
               <ColorPicker onChange={this.handleChange} />
               <ClearButton onClick={this.clearBoard} />
+
+              <UndoButton onClick={this.undo} />
             </Col>
           </Row>
         </Container>

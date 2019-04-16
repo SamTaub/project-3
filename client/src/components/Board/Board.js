@@ -38,6 +38,14 @@ export function CurrentColor(props) {
   );
 }
 
+export function UndoButton(props) {
+  return (
+    <button type="button" className="btn btn-warning" onClick={props.onClick}>
+      Undo
+    </button>
+  );
+}
+
 export class Board extends Component {
   renderSquare(value, rowIdx, colIdx) {
     return (
