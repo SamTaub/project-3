@@ -50,14 +50,9 @@ class Create extends Component {
     if (this.state.history.length > 0) {
       const lastEvent = this.state.history[this.state.history.length - 1];
       const { rowIdx, colIdx, past } = lastEvent;
-      // console.log(rowIdx, colIdx, current, past);
 
       let squares = [...this.state.squares]; // Create a copy of the square values.
-      // console.log(squares);
       let square = squares[rowIdx][colIdx]; // Find the value of our particular square.
-      // console.log(square);
-
-      // console.log(past);
 
       square = past; // Set new value of square equal to the previous color state.
       squares[lastEvent.rowIdx][lastEvent.colIdx] = square; // Set color at the copied location.
@@ -70,6 +65,13 @@ class Create extends Component {
         history
       });
     }
+  };
+
+  clearBoard = () => {
+    this.setState({
+      squares: this.genBlankBoard(),
+      history: []
+    });
   };
 
   handleClick = (value, rowIdx, colIdx) => {
@@ -103,13 +105,6 @@ class Create extends Component {
   onMouseUp = () => {
     this.setState({
       mouseIsDown: false
-    });
-  };
-
-  clearBoard = () => {
-    this.setState({
-      squares: this.genBlankBoard(),
-      history: []
     });
   };
 
