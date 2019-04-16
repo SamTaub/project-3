@@ -1,4 +1,4 @@
-const db = require('../models');
+const db = require("../models");
 
 module.exports = function (app) {
 
@@ -18,34 +18,34 @@ module.exports = function (app) {
         console.log("Getting design");
         db.Design
             .findById(req.params.id)
-            .populate('comments')
+            .populate("comments")
             .then(dbModel => res.json(dbModel))
             .catch(err => res.json(err));
     });
 
     // Find a design by title.  This function uses a regex to generate results based on designs with titles "like" the search term
     // NOT SURE IF THIS IS CORRECT ROUTING, NEED TO TEST
-    app.get("/api/designs/", function (req, res) {
+    app.get("/api/designs/title/:title", function (req, res) {
         db.Design
-            .find({ title: new RegExp('^' + req.params.title + '$', 'i') })
+            .find({ "title": new RegExp("^" + req.params.title + "$", "i") })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.json(err));
     });
 
     // Find a design based on its category
     // NOT IF THIS IS CORRECT ROUTING, NEED TO TEST
-    app.get("/api/designs", function (req, res) {
+    app.get("/api/designs/category/:category", function (req, res) {
         db.Design
-            .find({ category: req.query })
+            .find({ "category": req.query })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.json(err));
     });
 
     // Find a design based on its rating
-    // NOT SURE IF THIS IS CORRECT ROUTING, NEED TO TEST, LOT'S OF TESTING REQUIRED BETSY
-    app.get("/api/designs", function (req, res) {
+    // NOT SURE IF THIS IS CORRECT ROUTING, NEED TO TEST, LOT"S OF TESTING REQUIRED BETSY
+    app.get("/api/designs/rating/:rating", function (req, res) {
         db.Design
-            .find({ rating: req.query })
+            .find({ "rating": req.query })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.json(err));
     });
@@ -53,7 +53,7 @@ module.exports = function (app) {
     // DESIGN CONTROLLERS/ROUTES (Post, Put, Delete)
 
     // Create a design and post it 
-    app.post("/api/designs", function (req, res) {
+    app.post("/api/designs/", function (req, res) {
         db.Design
             .create(req.body)
             .then(dbModel => res.json(dbModel))
@@ -128,30 +128,30 @@ module.exports = function (app) {
 
     // Get a users favorites
     // NEEDS TESTING TO ENSURE PROPER ROUTE
-    app.get("/api/users/:id", function (req, res) {
+    app.get("/api/users/:id/favorites", function (req, res) {
         db.User
-            .find({ _id: req.params.id })
-            .populate('favorites')
+            .find({ "_id": req.params.id })
+            .populate("favorites")
             .then(dbModel => res.json(dbModel))
             .catch(err => res.json(err));
     });
 
     // Add to a users favorites
     // NEEDS TESTING TO ENSURE PROPER ROUTE
-    app.post("/api/users/:id/favorites", function (req, res) {
+    app.post("/api/users/:userId/favorites/:designId", function (req, res) {
         db.User
-            .findOneAndUpdate({ _id: req.params.userId }, { $push: { favorites: req.params.designId } }, { new: true })
+            .findOneAndUpdate({ "_id": req.params.userId }, { $push: { "favorites": req.params.designId } }, { new: true })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.json(err));
     });
 
     // Delete a users favorites?
     // NEEDS TESTING, add :id? to end?
-    app.delete("/api/users/:id/favorites", function (req, res) {
+    app.delete("/api/users/:userId/favorites/designId", function (req, res) {
         db.User
-            .deleteOne({ _id: req.params.designId })
+            .deleteOne({ "_id": req.params.designId })
             .then(() => {
-                return db.User.update({ _id: req.params.designId }, { $pull: { favorites: req.params.designId } })
+                return db.User.update({ "_id": req.params.designId }, { $pull: { "favorites": req.params.designId } })
             })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.json(err));
@@ -160,8 +160,8 @@ module.exports = function (app) {
     // Find a user
     app.get("/api/users/:id", function (req, res){
         db.User
-        .findOne({_id: req.params.id})
-        .populate('designs', 'favorites')
+        .findOne({"_id": req.params.id})
+        .populate("designs", "favorites")
         .then(dbModel => res.json(dbModel))
         .catch(err => res.josn(err));
     })
