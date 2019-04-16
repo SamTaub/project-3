@@ -1,7 +1,15 @@
+td, table {
+  border: 1px solid white;
+}
+
 td {
-  text-align: center;
+  display: inline-flex;
   cursor: pointer;
   font-size: 8px;
+  line-height: 2em;
+  height: 40px;
+  width: 14.285%;
+  vertical-align: bottom;
 }
 
 td:hover {

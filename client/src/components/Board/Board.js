@@ -50,7 +50,7 @@ export function ButtonGroup(props) {
       >
         {props.button2}
       </div>
-      <div 
+      <div
         className="btn-group mt-2 mr-2 mb-2 w50"
         role="group"
         aria-label="Third group"
@@ -63,7 +63,7 @@ export function ButtonGroup(props) {
 
 export function CurrentColor(props) {
   return (
-    <svg width="45" height="30">
+    <svg width="45" height="30" id="selectedColorRing">
       <circle
         cx="15"
         cy="15"
@@ -117,20 +117,21 @@ export class Board extends Component {
 
   render() {
     return (
-      <div
-        onMouseDown={() => this.props.onMouseDown()}
-        onMouseUp={() => this.props.onMouseUp()}
-      >
-        {this.props.squares.map((row, rowIdx) => {
-          return (
-            <div key={rowIdx} className="board-row" datarow={rowIdx}>
-              {row.map((value, colIdx) =>
-                this.renderSquare(value, rowIdx, colIdx)
-              )}
-            </div>
-          );
-        })}
-      </div>
+        <div
+          id="board"
+          onMouseDown={() => this.props.onMouseDown()}
+          onMouseUp={() => this.props.onMouseUp()}
+        >
+          {this.props.squares.map((row, rowIdx) => {
+            return (
+              <div key={rowIdx} className="board-row" datarow={rowIdx}>
+                {row.map((value, colIdx) =>
+                  this.renderSquare(value, rowIdx, colIdx)
+                )}
+              </div>
+            );
+          })}
+        </div>
     );
   }
 }

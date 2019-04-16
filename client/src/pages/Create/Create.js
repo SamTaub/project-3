@@ -21,7 +21,7 @@ class Create extends Component {
       mouseIsDown: false,
       squares: this.genBlankBoard(),
       history: [],
-      title: ""
+      colorName: ""
     };
   }
 
@@ -32,7 +32,8 @@ class Create extends Component {
 
   handleColorChange = event => {
     this.setState({
-      activeColor: `rgba(${event.target.getAttribute("data-value")})`
+      activeColor: `rgba(${event.target.getAttribute("data-value")})`,
+      colorName: `${event.target.getAttribute("title")}`
     });
   };
 
@@ -160,7 +161,7 @@ class Create extends Component {
                 value={this.state.title}
               />
               <div id="currentColor">
-                <p>Current Color:</p>
+                <p>{this.state.colorName}</p>
                 <CurrentColor activeColor={this.state.activeColor} />
               </div>
 
