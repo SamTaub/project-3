@@ -12,6 +12,20 @@ export function Square(props) {
   );
 }
 
+export function Title() {
+  return (
+    <div className="input-group input-group-lg">
+      <input
+        type="text"
+        placeholder="Name your beadiful creation"
+        className="form-control"
+        aria-label="Sizing example input"
+        aria-describedby="inputGroup-sizing-lg"
+      />
+    </div>
+  );
+}
+
 export function CurrentColor(props) {
   return (
     <svg width="45" height="30">

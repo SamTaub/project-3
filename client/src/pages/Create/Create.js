@@ -4,10 +4,12 @@ import {
   ClearButton,
   UndoButton,
   SaveButton,
-  CurrentColor
+  CurrentColor,
+  Title
 } from "../../components/Board/Board";
 import { Container, Row, Col } from "../../components/Grid";
 import ColorPicker from "../../components/ColorPicker/ColorPicker";
+import designAPI from "../../utils/designAPI";
 import "./style.css";
 
 class Create extends Component {
@@ -74,11 +76,23 @@ class Create extends Component {
     });
   };
 
+  save = () => {
+    designAPI
+      .saveDesign({
+        grid: this.state.squares
+      })
+      .then(res => {
+        console.log(res);
+        alert(`Design saved!`);
+      })
+      .catch(err => alert(`Hmm something went wrong. Try again!`));
+  };
+
   handleClick = (value, rowIdx, colIdx) => {
     let squares = [...this.state.squares]; // Create a copy of the square values.
     let square = { ...squares[rowIdx][colIdx] }; // Find our particular square.
 
-    const past = squares[rowIdx][colIdx]; // Save past and current color for adding to our history object.
+    const past = squares[rowIdx][colIdx]; // Save past and current color for our history object.
     const current = this.state.activeColor;
 
     square = this.state.activeColor; // Set new value of square equal to active color.
@@ -112,6 +126,9 @@ class Create extends Component {
     return (
       <Fragment>
         <Container styles="well">
+          <Row styles="mr-1 ml-1 pt-2 justify-content-left align-items-left">
+            <Title />
+          </Row>
           <Row styles="justify-content-left align-items-left">
             <Col size="lg-6">
               <div id="drawDiv">
@@ -161,7 +178,7 @@ class Create extends Component {
                   role="group"
                   aria-label="Third group"
                 >
-                  <SaveButton />
+                  <SaveButton onClick={this.save} />
                 </div>
               </div>
             </Col>
