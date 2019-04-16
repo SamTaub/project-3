@@ -10,31 +10,48 @@ class Create extends Component {
     this.state = {
       activeColor: "",
       mouseIsDown: false,
-      squares: this.genBlankBoard()
+      squares: this.genBlankBoard(),
+      history: []
     };
   }
 
-  // This won't work for browsers that don't have ES6 support btw. Should write a fallback option, probs one that is just using loops.
   genBlankBoard = () =>
     Array(20)
       .fill(0)
       .map(x => Array(20).fill(""));
 
   handleChange = event => {
-    this.setState({ activeColor: `rgba(${event.target.getAttribute("data-value")})` });
+    this.setState({
+      activeColor: `rgba(${event.target.getAttribute("data-value")})`
+    });
+  };
+
+  addToHistory = (current, past, rowIdx, colIdx) => {
+    if (this.state.history.length < 25) {
+      this.setState({
+        history: this.state.history.concat({ current, past, rowIdx, colIdx })
+      });
+    }
   };
 
   handleClick = (value, rowIdx, colIdx) => {
     console.log();
     let squares = [...this.state.squares]; // Create a copy of the square values.
     let square = { ...squares[rowIdx][colIdx] }; // Find our particular square.
+
+    const past = square; // Save past and current color for adding to our history object.
+    const current = this.state.activeColor;
+
     square = this.state.activeColor; // Set new value of square equal to active color.
     squares[rowIdx][colIdx] = square; // Set color at the copied location.
-    this.setState({ squares }, () => console.log(this.state.squares));
+    
+    this.setState(
+      { squares },
+      this.addToHistory(current, past, rowIdx, colIdx)
+    );
   };
 
   onMouseEnter = (value, rowIdx, colIdx) => {
-    // If the mouse is down, run handleClick() to set the color.
     if (this.state.mouseIsDown) {
       this.handleClick(value, rowIdx, colIdx);
     }
