@@ -55,7 +55,7 @@ const colorPalette = {
     "16, 131, 85, 1": "Dark Green",
     "203, 215, 53, 1": "Prickly Pear",
     "60, 97, 79, 1": "Evergreen",
-    "": "Clear"
+    "0, 0, 0, 0": "Clear"
 }
 
 export default colorPalette;
