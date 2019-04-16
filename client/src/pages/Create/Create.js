@@ -19,7 +19,8 @@ class Create extends Component {
       activeColor: "",
       mouseIsDown: false,
       squares: this.genBlankBoard(),
-      history: []
+      history: [],
+      title: ""
     };
   }
 
@@ -28,7 +29,7 @@ class Create extends Component {
       .fill(0)
       .map(x => Array(20).fill(""));
 
-  handleChange = event => {
+  handleColorChange = event => {
     this.setState({
       activeColor: `rgba(${event.target.getAttribute("data-value")})`
     });
@@ -152,7 +153,7 @@ class Create extends Component {
                 <CurrentColor activeColor={this.state.activeColor} />
               </div>
 
-              <ColorPicker onChange={this.handleChange} />
+              <ColorPicker onChange={this.handleColorChange} />
 
               <div
                 className="btn-toolbar special"
