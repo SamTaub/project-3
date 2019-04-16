@@ -14,7 +14,7 @@ class Published extends Component {
         userAPI.checkAuthStatus()
             .then(res => {
                 console.log(res.data.id)
-                this.setState({ currentUser: res.data.id}, this.getPublishedDesigns())
+                this.setState({ currentUser: res.data.id}, () => this.getPublishedDesigns())
             })
             .catch(err => {
                 console.log(err);
@@ -22,8 +22,8 @@ class Published extends Component {
     }
 
     getPublishedDesigns = () => {
-        console.log("getting published designs...")
-        dashboardAPI.getPublishedDesigns()
+        console.log("getting published designs... from " + this.state.currentUser);
+        dashboardAPI.getPublishedDesigns(this.state.currentUser)
             .then(res => {
                 this.setState({ publishedDesigns: res, content: true })
             })

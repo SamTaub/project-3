@@ -22,6 +22,8 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 // Define API routes
 require("./routes/login-routes.js")(app);
+require("./routes/api/users.js")(app);
+
 
 // Send every other request to the React app
 // Define any API routes before this runs

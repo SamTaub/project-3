@@ -120,10 +120,11 @@ module.exports = {
     },
 
     findPublished: function(req, res){
+        console.log("this is the controller for findPublished");
         db.Design
-        .find({_id: req.params.id}, {published: true})
+        .find({_id: req}, {published: true})
         .then(dbModel => res.json(dbModel))
-        .catch(err => res.status(422).json(err));
+        .catch(err => res.json(err));
     },
 
     //  Add fovories to an associated user

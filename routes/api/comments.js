@@ -1,4 +1,4 @@
-const router = require('express').router();
+const router = require('express').Router();
 const beadliController = require('../../controllers/beadliControllers');
 
 //Route for beadli/api/comments/:id

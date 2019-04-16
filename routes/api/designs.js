@@ -1,4 +1,4 @@
-const router = require('express').router();
+const router = require('express').Router();
 const beadliController = require('../../controllers/beadliControllers');
 
 // Route for beadli/api/designs
@@ -7,7 +7,7 @@ router.route('/')
     .post(beadliController.createDesign);
 
 // Route for beadlie/api/designs/:id    
-router.route(':id')
+router.route('/:id')
     .get(beadliController.findById)
     .put(beadliController.updateDesign)
     .delete(beadliController.removeDesign);
