@@ -2,7 +2,7 @@ import React from "react";
 
 function NavTabs(props) {
   return (
-    <ul className="nav nav-tabs">
+    <ul className="nav nav-pills">
       <li className="nav-item">
         <a
           href="#published"
