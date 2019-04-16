@@ -21,6 +21,7 @@ class Create extends Component {
       mouseIsDown: false,
       squares: this.genBlankBoard(),
       history: [],
+      title: "",
       colorName: ""
     };
   }
