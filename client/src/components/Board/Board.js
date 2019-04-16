@@ -12,14 +12,6 @@ export function Square(props) {
   );
 }
 
-export function ClearButton(props) {
-  return (
-    <button className="btn btn-light btn-block" onClick={props.onClick}>
-      Clear Board
-    </button>
-  );
-}
-
 export function CurrentColor(props) {
   return (
     <svg width="45" height="30">
@@ -38,10 +30,26 @@ export function CurrentColor(props) {
   );
 }
 
+export function ClearButton(props) {
+  return (
+    <button type="button" className="btn btn-light" onClick={props.onClick}>
+      <i className="fas fa-trash-alt" />
+    </button>
+  );
+}
+
 export function UndoButton(props) {
   return (
-    <button type="button" className="btn btn-warning" onClick={props.onClick}>
-      Undo
+    <button type="button" className="btn btn-light" onClick={props.onClick}>
+      <i className="fas fa-undo-alt" />
+    </button>
+  );
+}
+
+export function SaveButton(props) {
+  return (
+    <button type="button" className="btn btn-light" onClick={props.onClick}>
+      <i className="fas fa-save" />
     </button>
   );
 }

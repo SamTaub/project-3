@@ -1,3 +1,15 @@
+.btn-toolbar {
+  flex-wrap: nowrap
+}
+
+.btn-toolbar.special {
+  display: flex;
+}
+
+.special .btn-group {
+  flex: 1
+}
+
 #drawDiv {
   padding: 15px;
   width: 100%;

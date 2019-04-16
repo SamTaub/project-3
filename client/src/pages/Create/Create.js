@@ -3,6 +3,7 @@ import {
   Board,
   ClearButton,
   UndoButton,
+  SaveButton,
   CurrentColor
 } from "../../components/Board/Board";
 import { Container, Row, Col } from "../../components/Grid";
@@ -140,9 +141,34 @@ class Create extends Component {
               </div>
 
               <ColorPicker onChange={this.handleChange} />
-              <ClearButton onClick={this.clearBoard} />
 
-              <UndoButton onClick={this.undo} />
+              <div
+                className="btn-toolbar special"
+                role="toolbar"
+                aria-label="Toolbar with button groups"
+              >
+                <div
+                  className="btn-group mt-2 mr-2 mb-2"
+                  role="group"
+                  aria-label="First group"
+                >
+                  <UndoButton onClick={this.undo} />
+                </div>
+                <div
+                  className="btn-group mt-2 mr-2 mb-2"
+                  role="group"
+                  aria-label="Second group"
+                >
+                  <ClearButton onClick={this.clearBoard} />
+                </div>
+                <div
+                  className="btn-group mt-2 mr-2 mb-2 w50"
+                  role="group"
+                  aria-label="Third group"
+                >
+                  <SaveButton />
+                </div>
+              </div>
             </Col>
           </Row>
         </Container>
