@@ -1,15 +1,15 @@
-const router = require('express').Router();
-const beadliController = require('../../controllers/beadliControllers');
+// const router = require('express').Router();
+// const beadliController = require('../../controllers/beadliControllers');
 
-// Route for beadli/api/designs
-router.route('/')
-    .get(beadliController.findAll)
-    .post(beadliController.createDesign);
+// // Route for beadli/api/designs
+// router.route('/')
+//     .get(beadliController.findAll)
+//     .post(beadliController.createDesign);
 
-// Route for beadlie/api/designs/:id    
-router.route('/:id')
-    .get(beadliController.findById)
-    .put(beadliController.updateDesign)
-    .delete(beadliController.removeDesign);
+// // Route for beadlie/api/designs/:id    
+// router.route('/:id')
+//     .get(beadliController.findById)
+//     .put(beadliController.updateDesign)
+//     .delete(beadliController.removeDesign);
 
-module.exports = router;
+// module.exports = router;
