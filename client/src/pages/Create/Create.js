@@ -81,7 +81,9 @@ class Create extends Component {
   save = () => {
     designAPI
       .saveDesign({
-        grid: this.state.squares
+        grid: this.state.squares,
+        title: this.state.title,
+        published: false
       })
       .then(res => {
         console.log(res);
@@ -106,6 +108,13 @@ class Create extends Component {
     );
   };
 
+  handleInputChange = e => {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
   onMouseEnter = (value, rowIdx, colIdx) => {
     if (this.state.mouseIsDown) {
       this.handleClick(value, rowIdx, colIdx);
@@ -128,9 +137,6 @@ class Create extends Component {
     return (
       <Fragment>
         <Container styles="well">
-          <Row styles="mr-1 ml-1 pt-2 justify-content-left align-items-left">
-            <Title />
-          </Row>
           <Row styles="justify-content-left align-items-left">
             <Col size="lg-6">
               <div id="drawDiv">
@@ -149,6 +155,10 @@ class Create extends Component {
               </div>
             </Col>
             <Col size="lg-6">
+              <Title
+                onChange={this.handleInputChange}
+                value={this.state.title}
+              />
               <div id="currentColor">
                 <p>Current Color:</p>
                 <CurrentColor activeColor={this.state.activeColor} />

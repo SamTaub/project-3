@@ -12,11 +12,14 @@ export function Square(props) {
   );
 }
 
-export function Title() {
+export function Title(props) {
   return (
-    <div className="input-group input-group-lg">
+    <div className="input-group input-group-lg mt-2">
       <input
         type="text"
+        name="title"
+        value={props.value}
+        onChange={props.onChange}
         placeholder="Name your beadiful creation"
         className="form-control"
         aria-label="Sizing example input"
@@ -47,7 +50,7 @@ export function ButtonGroup(props) {
       >
         {props.button2}
       </div>
-      <div
+      <div 
         className="btn-group mt-2 mr-2 mb-2 w50"
         role="group"
         aria-label="Third group"
