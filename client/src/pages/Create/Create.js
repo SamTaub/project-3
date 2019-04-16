@@ -27,15 +27,38 @@ class Create extends Component {
   };
 
   addToHistory = (current, past, rowIdx, colIdx) => {
-    if (this.state.history.length < 25) {
-      this.setState({
-        history: this.state.history.concat({ current, past, rowIdx, colIdx })
-      });
+    let history = [...this.state.history];
+
+    if (this.state.history.length === 25) {
+      history.shift();
     }
+
+    history.push({ current, past, rowIdx, colIdx });
+    
+    this.setState({
+      history
+    });
+  };
+
+  undo = () => {
+    const lastEvent = this.state.history[this.state.history.length - 1];
+
+    let squares = [...this.state.squares]; // Create a copy of the square values.
+    let square = { ...squares[lastEvent.rowIdx][lastEvent.colIdx] }; // Find our particular square.
+
+    square = lastEvent.past;
+    squares[lastEvent.rowIdx][lastEvent.colIdx] = square;
+
+    let history = [...this.state.history];
+    history.pop();
+
+    this.setState({
+      squares,
+      history
+    });
   };
 
   handleClick = (value, rowIdx, colIdx) => {
-    console.log();
     let squares = [...this.state.squares]; // Create a copy of the square values.
     let square = { ...squares[rowIdx][colIdx] }; // Find our particular square.
 
@@ -44,10 +67,11 @@ class Create extends Component {
 
     square = this.state.activeColor; // Set new value of square equal to active color.
     squares[rowIdx][colIdx] = square; // Set color at the copied location.
-    
+
     this.setState(
       { squares },
-      this.addToHistory(current, past, rowIdx, colIdx)
+      this.addToHistory(current, past, rowIdx, colIdx),
+      console.log(this.state.history)
     );
   };
 
@@ -71,7 +95,8 @@ class Create extends Component {
 
   clearBoard = () => {
     this.setState({
-      squares: this.genBlankBoard()
+      squares: this.genBlankBoard(),
+      history: []
     });
   };
 
