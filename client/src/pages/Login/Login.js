@@ -77,7 +77,14 @@ class Login extends Component {
   render() {
     if (this.state.isLoggedIn) {
       // return window.location.replace("/dashboard");
-      return <Redirect to={{ pathname: "/dashboard" }} />;
+      return (
+        <Redirect
+          to={{
+            pathname: "/dashboard",
+            state: { from: this.props.location }
+          }}
+        />
+      );
     }
 
     return (
