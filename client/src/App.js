@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import {
   BrowserRouter as Router,
   Route,
-  Switch
-  // Redirect
+  Switch,
+  Redirect
 } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import NoMatch from "./pages/NoMatch";
@@ -54,7 +54,7 @@ class App extends Component {
 
   logout = () => {
     userAPI.logOut().then(() => {
-      localStorage.removeItem("beadli");
+      // localStorage.removeItem("beadli");
       window.location.replace("/");
       // return <Redirect to="/" />;
     });
