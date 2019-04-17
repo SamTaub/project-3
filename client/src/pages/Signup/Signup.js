@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, withRouter } from "react-router-dom";
 import { Container, Row, Col } from "../../components/Grid";
 import userAPI from "../../utils/userAPI";
 
@@ -11,7 +11,7 @@ class Signup extends Component {
       password: "",
       email: "",
       notification: "",
-      isLoggedIn: false
+      isSignedUp: false
     };
   }
 
@@ -29,7 +29,7 @@ class Signup extends Component {
 
     userAPI
       .signUp(this.state.username, this.state.email, this.state.password)
-      .then(res => this.setState({ isLoggedIn: true }))
+      .then(res => this.setState({ isSignedUp: true }))
       .catch(err =>
         alert(`It looks like something went wrong (${err}). Try signing up again!`)
       );
@@ -38,7 +38,7 @@ class Signup extends Component {
       email: "",
       password: ""
     });
-    console.log(this.state.isLoggedIn);
+    // console.log(this.state.isSignedUp);
   };
 
   resetNotification = () => {
@@ -56,7 +56,7 @@ class Signup extends Component {
   };
 
   render() {
-    if (this.state.isLoggedIn) {
+    if (this.state.isSignedUp) {
       return (
         <Redirect
           to={{
@@ -129,4 +129,4 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+export default withRouter(Signup);
