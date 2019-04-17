@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {
   BrowserRouter as Router,
   Route,
-  Switch,
+  Switch
   // Redirect
 } from "react-router-dom";
 import Home from "./pages/Home/Home";
@@ -19,9 +19,34 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      authenticated: false
+      authenticated: false,
+      username: null
     };
   }
+
+  componentDidMount() {
+    this.checkAuthStatus();
+  }
+
+  checkAuthStatus = () => {
+    userAPI
+      .checkAuthStatus()
+      .then(res => {
+        console.log(res);
+        if (res.data.isLoggedIn) {
+          this.setState({
+            authenticated: true,
+            username: res.data.username
+          });
+        } else {
+          this.setState({
+            authenticated: false,
+            username: null
+          });
+        }
+      })
+      .catch(err => console.error(err));
+  };
 
   logout = () => {
     userAPI.logOut().then(() => {

@@ -56,6 +56,7 @@ module.exports = function(app) {
       res.json({
         isLoggedIn: true,
         email: req.user.email,
+        username: req.user.username,
         id: req.user._id
       });
     }
