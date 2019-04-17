@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default {
-  saveDesign: function(data) {
+  createDesign: function(data) {
     return axios.post("/api/designs", data);
   },
 
@@ -9,8 +9,8 @@ export default {
     return axios.get(`api/designs/${id}`);
   },
 
-  updateDesign: function(id) {
-    return axios.put(`api/designs/${id}`);
+  updateDesign: function(id, data) {
+    return axios.put(`api/designs/${id}`, data);
   },
 
   deleteDesign: function(id) {
