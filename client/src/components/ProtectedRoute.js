@@ -7,7 +7,7 @@ function ProtectedRoute({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={props =>
-        localStorage.getItem("beadli") ? (
+        rest.isAuthed ? (
           <Component {...props} />
         ) : (
           <Redirect

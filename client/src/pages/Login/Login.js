@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, withRouter } from "react-router-dom";
 import { Container, Row, Col } from "../../components/Grid";
 import userAPI from "../../utils/userAPI";
 import "./style.css";
@@ -130,4 +130,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);

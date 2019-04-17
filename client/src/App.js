@@ -60,8 +60,6 @@ class App extends Component {
     });
   };
 
-  // I think we'll need to call userAPI.checkAuth() when componentDidMount so that we can check if auth status at the root level. This will then allow us to render private routes (See https://github.com/shouheiyamauchi/react-passport-example/blob/master/client/src/Main.js).
-
   render() {
     return (
       <Router>
@@ -75,8 +73,18 @@ class App extends Component {
               render={() => <Login setUser={this.setUser} />}
             />
             <Route exact path="/signup" component={Signup} />
-            <ProtectedRoute exact path="/create" component={Create} />
-            <ProtectedRoute exact path="/dashboard" component={Dashboard} />
+            <ProtectedRoute
+              exact
+              path="/create"
+              component={Create}
+              isAuthed={this.state.authenticated}
+            />
+            <ProtectedRoute
+              exact
+              path="/dashboard"
+              component={Dashboard}
+              isAuthed={this.state.authenticated}
+            />
             <Route component={NoMatch} />
           </Switch>
         </div>
