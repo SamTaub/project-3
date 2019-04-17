@@ -48,6 +48,10 @@ class App extends Component {
       .catch(err => console.error(err));
   };
 
+  setUser = user => {
+    this.setState(user);
+  };
+
   logout = () => {
     userAPI.logOut().then(() => {
       localStorage.removeItem("beadli");
@@ -65,7 +69,11 @@ class App extends Component {
           <Nav logout={this.logout} isAuthed={this.state.authenticated} />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/login" component={Login} />
+            <Route
+              exact
+              path="/login"
+              render={() => <Login setUser={this.setUser} />}
+            />
             <Route exact path="/signup" component={Signup} />
             <ProtectedRoute exact path="/create" component={Create} />
             <ProtectedRoute exact path="/dashboard" component={Dashboard} />
