@@ -5,7 +5,7 @@ import "./style.css";
 function ColorPicker(props) {
   let colorArray = Object.entries(colorPalette);
 
-  const groupSize = 5;
+  const groupSize = 7;
 
   const groups = colorArray
     .map((item, index) => {
@@ -20,12 +20,11 @@ function ColorPicker(props) {
       // console.log(item);
       return (
         <td
+          title={item[1]}
           key={item[0]}
           data-value={item[0]}
           style={{ background: `rgba(${item[0]})`, padding: "4px" }}
-        >
-          {item[1]}
-        </td>
+        />
       );
     });
 
