@@ -21,6 +21,8 @@ class Create extends Component {
       mouseIsDown: false,
       squares: this.genBlankBoard(),
       history: [],
+      saved: false,
+      designId: null,
       title: "",
       colorName: ""
     };
@@ -81,17 +83,36 @@ class Create extends Component {
   };
 
   save = () => {
-    designAPI
-      .saveDesign({
-        grid: this.state.squares,
-        title: this.state.title,
-        published: false
-      })
-      .then(res => {
-        console.log(res);
-        alert(`Design saved!`);
-      })
-      .catch(err => alert(`Hmm something went wrong. Try again!`));
+    if (!this.state.saved) {
+      designAPI
+        .createDesign({
+          grid: this.state.squares,
+          title: this.state.title,
+          published: false
+        })
+        .then(res => {
+          // console.log(res);
+          this.setState(
+            {
+              saved: true,
+              designId: res.data._id
+            },
+            () => alert(`Design saved!`)
+          );
+        })
+        .catch(err => alert(`Hmm something went wrong (${err}). Try again!`));
+    } else {
+      designAPI
+        .updateDesign(this.state.designId, {
+          grid: this.state.squares,
+          title: this.state.title
+        })
+        .then(res => {
+          // console.log(res);
+          alert(`Design saved!`);
+        })
+        .catch(err => alert(`Hmm something went wrong (${err}). Try again!`));
+    }
   };
 
   handleClick = (value, rowIdx, colIdx) => {
