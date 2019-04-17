@@ -34,7 +34,7 @@ function Nav(props) {
               Browse
             </Link>
           </li>
-          {localStorage.getItem("beadli") ? (
+          {props.isAuthed ? (
             <Fragment>
               <li className="nav-item">
                 <Link className="nav-link" to="/create">

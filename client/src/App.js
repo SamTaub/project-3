@@ -62,7 +62,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Nav logout={this.logout} />
+          <Nav logout={this.logout} isAuthed={this.state.authenticated} />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
