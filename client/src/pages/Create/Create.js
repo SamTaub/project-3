@@ -11,6 +11,7 @@ import {
 import { Container, Row, Col } from "../../components/Grid";
 import ColorPicker from "../../components/ColorPicker/ColorPicker";
 import designAPI from "../../utils/designAPI";
+import { Bitmap } from "../../utils/bitmap";
 import "./style.css";
 
 class Create extends Component {
@@ -83,12 +84,35 @@ class Create extends Component {
   };
 
   save = () => {
+    // Use Bitmap utility to generate a 2D array of RGBA values
+    let bmp = new Bitmap(20, 20);
+    this.state.squares.map((row, rowIdx) => {
+      row.map((value, colIdx) => {
+        if (value === "") {
+          bmp.pixel[colIdx][rowIdx] = [0, 0, 0, 0]
+        }
+        else {
+          let rgba = Array.from(value.match(/([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)/))
+          let r = parseInt(rgba[1], 10)/255;
+          let g = parseInt(rgba[2], 10)/255;
+          let b = parseInt(rgba[3], 10)/255;
+          let a = parseInt(rgba[4], 10)/255;
+          bmp.pixel[colIdx][rowIdx] = [r, g, b, a]
+        }
+      })
+    })
+    console.log(bmp);
+    let img = bmp.dataURL();
+    console.log(img);
+    // Save image URI to a variable
+
     if (!this.state.saved) {
       designAPI
         .createDesign({
           grid: this.state.squares,
           title: this.state.title,
-          published: false
+          published: false,
+          canvasImage: img
         })
         .then(res => {
           // console.log(res);
@@ -105,7 +129,8 @@ class Create extends Component {
       designAPI
         .updateDesign(this.state.designId, {
           grid: this.state.squares,
-          title: this.state.title
+          title: this.state.title,
+          canvasImage: this.state.title
         })
         .then(res => {
           // console.log(res);
@@ -129,6 +154,7 @@ class Create extends Component {
       { squares },
       this.addToHistory(current, past, rowIdx, colIdx)
     );
+    console.log(this.state.squares);
   };
 
   handleInputChange = e => {
