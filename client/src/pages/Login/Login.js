@@ -29,7 +29,7 @@ class Login extends Component {
       .logIn(this.state.email, this.state.password)
       .then(res => {
         // localStorage.setItem("beadli", res.data._id);
-        console.log(res);
+        // console.log(res);
         this.setState(
           {
             isLoggedIn: true
