@@ -32,7 +32,7 @@ class App extends Component {
     userAPI
       .checkAuthStatus()
       .then(res => {
-        console.log(res);
+        // console.log(res);
         if (res.data.isLoggedIn) {
           this.setState({
             authenticated: true,
@@ -52,12 +52,21 @@ class App extends Component {
     this.setState(user);
   };
 
-  logout = () => {
-    userAPI.logOut().then(() => {
-      // localStorage.removeItem("beadli");
-      window.location.replace("/");
-      // return <Redirect to="/" />;
-    });
+  logout = callback => {
+    userAPI
+      .logOut()
+      .then(() => {
+        // localStorage.removeItem("beadli");
+        // window.location.replace("/");
+        this.setState({
+          authenticated: false,
+          username: null
+        });
+        callback();
+      })
+      .catch(err =>
+        alert(`Something went wrong logging you out (${err}). Try again!`)
+      );
   };
 
   render() {
