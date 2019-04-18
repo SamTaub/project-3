@@ -132,7 +132,8 @@ class Create extends Component {
         .updateDesign(this.state.designId, {
           grid: this.state.squares,
           title: this.state.title,
-          canvasImage: img
+          canvasImage: img,
+          userId: this.props.id
         })
         .then(res => {
           // console.log(res);
