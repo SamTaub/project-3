@@ -36,8 +36,8 @@ class Login extends Component {
           },
           this.props.setUser({
             authenticated: true,
-            username: res.data.username,
-            id: res.data.id
+            username: res.data.username
+            // id: res.data.id
           })
         );
       })

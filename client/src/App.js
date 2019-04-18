@@ -29,6 +29,20 @@ class App extends Component {
     this.checkAuthStatus();
   }
 
+  componentDidUpdate() {
+    if (this.state.authenticated && !this.state.id) {
+      userAPI
+        .checkAuthStatus()
+        .then(res => {
+          // console.log(res);
+          this.setState({
+            id: res.data.id
+          });
+        })
+        .catch(err => console.err(err));
+    }
+  }
+
   checkAuthStatus = () => {
     userAPI
       .checkAuthStatus()
@@ -98,6 +112,7 @@ class App extends Component {
               path="/dashboard"
               component={Dashboard}
               isAuthed={this.state.authenticated}
+              id={this.state.id}
             />
             <Route component={NoMatch} />
           </Switch>
