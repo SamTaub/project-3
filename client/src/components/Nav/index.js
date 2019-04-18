@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect, withRouter } from "react-router-dom";
 import "./style.css";
 
 function Nav(props) {
@@ -34,7 +34,7 @@ function Nav(props) {
               Browse
             </Link>
           </li>
-          {localStorage.getItem("beadli") ? (
+          {props.isAuthed ? (
             <Fragment>
               <li className="nav-item">
                 <Link className="nav-link" to="/create">
@@ -60,7 +60,20 @@ function Nav(props) {
                   <Link className="dropdown-item" to="/dashboard">
                     Dashboard
                   </Link>
-                  <Link className="dropdown-item" onClick={props.logout} to="#">
+                  <Link
+                    className="dropdown-item"
+                    onClick={() =>
+                      props.logout(() => (
+                        <Redirect
+                          to={{
+                            pathname: "/",
+                            state: { from: props.location }
+                          }}
+                        />
+                      ))
+                    }
+                    to="#"
+                  >
                     Logout
                   </Link>
                 </div>
@@ -79,4 +92,4 @@ function Nav(props) {
   );
 }
 
-export default Nav;
+export default withRouter(Nav);

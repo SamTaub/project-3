@@ -107,12 +107,14 @@ class Create extends Component {
     // Save image URI to a variable
 
     if (!this.state.saved) {
+      console.log(this.props.id);
       designAPI
         .createDesign({
           grid: this.state.squares,
           title: this.state.title,
           published: false,
-          canvasImage: img
+          canvasImage: img,
+          userId: this.props.id
         })
         .then(res => {
           // console.log(res);
@@ -130,7 +132,7 @@ class Create extends Component {
         .updateDesign(this.state.designId, {
           grid: this.state.squares,
           title: this.state.title,
-          canvasImage: this.state.title
+          canvasImage: img
         })
         .then(res => {
           // console.log(res);

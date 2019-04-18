@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import { Link, 
-  // Redirect 
-} from "react-router-dom";
+import { Link, Redirect, withRouter } from "react-router-dom";
 import { Container, Row, Col } from "../../components/Grid";
-import "./style.css";
 import userAPI from "../../utils/userAPI";
+import "./style.css";
 
 class Login extends Component {
   constructor(props) {
@@ -17,8 +15,6 @@ class Login extends Component {
     };
   }
 
-  // Might need to add a component did mount to check the user API endpoint to see if we're already logged in? Can then setState right away from false to true.
-
   handleInputChange = e => {
     const { name, value } = e.target;
     this.setState({
@@ -28,50 +24,43 @@ class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    // Call the /api/login endpoint with the email and password.
-    // If we get back a positive response, setState to true.
-    // Otherwise set the notification to something like "Incorrect email or password. Try again!"
-    // The code below will be contained within the .then of the call.
-    console.log(this.state.isLoggedIn);
-    userAPI.logIn(this.state.email, this.state.password)
+    // console.log(this.state.isLoggedIn);
+    userAPI
+      .logIn(this.state.email, this.state.password)
       .then(res => {
-        localStorage.setItem("beadli", res.data._id);
-        this.setState({ 
-          isLoggedIn: true 
-        });
+        // localStorage.setItem("beadli", res.data._id);
+        // console.log(res);
+        this.setState(
+          {
+            isLoggedIn: true
+          },
+          this.props.setUser({
+            authenticated: true,
+            username: res.data.username,
+            id: res.data.id
+          })
+        );
       })
       .catch(err => {
         if (!this.state.isLoggedIn) {
-          this.setState({
-            notification: `Incorrect email or password (error code ${err})`
-          }, 
+          this.setState(
+            {
+              notification: `Incorrect email or password (error code ${err})`
+            },
+            () => alert(this.state.notification)
+          );
+        } else {
+          this.setState(
+            {
+              notification: `Something went wrong (error code ${err})`
+            },
             () => alert(this.state.notification)
           );
         }
-        else {
-          this.setState({
-            notification: `Something went wrong (error code ${err})`
-          }, 
-            () => alert(this.state.notification)
-          );
-        };
       });
     this.resetInputs();
     this.resetNotification();
   };
-    // if (!this.state.isLoggedIn) {
-    //   this.setState(
-    //     {
-    //       notification:
-    //         "It looks like you entered the wrong email or password. Try again!"
-    //     },
-    //     () => {
-    //       alert(this.state.notification);
-    //       this.resetNotification();
-    //       this.resetInputs();
-    //     }
-    //   );
-    // }
 
   resetNotification = () => {
     this.setState({
@@ -88,8 +77,15 @@ class Login extends Component {
 
   render() {
     if (this.state.isLoggedIn) {
-      return window.location.replace("/dashboard");
-      // return <Redirect to="/dashboard" />
+      // return window.location.replace("/dashboard");
+      return (
+        <Redirect
+          to={{
+            pathname: "/dashboard",
+            state: { from: this.props.location }
+          }}
+        />
+      );
     }
 
     return (
@@ -142,4 +138,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);

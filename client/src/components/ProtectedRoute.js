@@ -2,13 +2,13 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 // import API from "../utils/userAPI";
 
-function ProtectedRoute({ component: Component, ...rest }) {
+function ProtectedRoute({ component: Component, isAuthed, ...rest }) {
   return (
     <Route
       {...rest}
       render={props =>
-        localStorage.getItem("beadli") ? (
-          <Component {...props} />
+        isAuthed ? (
+          <Component {...props} {...rest} />
         ) : (
           <Redirect
             to={{

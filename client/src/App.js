@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  // Redirect
+  Redirect
 } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import NoMatch from "./pages/NoMatch";
@@ -19,31 +19,86 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      authenticated: false
+      authenticated: false,
+      username: null,
+      id: null
     };
   }
 
-  logout = () => {
-    userAPI.logOut().then(() => {
-      localStorage.removeItem("beadli");
-      window.location.replace("/");
-      // return <Redirect to="/" />;
-    });
+  componentDidMount() {
+    this.checkAuthStatus();
+  }
+
+  checkAuthStatus = () => {
+    userAPI
+      .checkAuthStatus()
+      .then(res => {
+        // console.log(res);
+        if (res.data.isLoggedIn) {
+          this.setState({
+            authenticated: true,
+            username: res.data.username,
+            id: res.data.id
+          });
+        } else {
+          this.setState({
+            authenticated: false,
+            username: null,
+            id: null
+          });
+        }
+      })
+      .catch(err => console.error(err));
   };
 
-  // I think we'll need to call userAPI.checkAuth() when componentDidMount so that we can check if auth status at the root level. This will then allow us to render private routes (See https://github.com/shouheiyamauchi/react-passport-example/blob/master/client/src/Main.js).
+  setUser = user => {
+    this.setState(user);
+  };
+
+  logout = callback => {
+    userAPI
+      .logOut()
+      .then(() => {
+        // localStorage.removeItem("beadli");
+        // window.location.replace("/");
+        this.setState({
+          authenticated: false,
+          username: null,
+          id: null
+        });
+        callback();
+      })
+      .catch(err =>
+        alert(`Something went wrong logging you out (${err}). Try again!`)
+      );
+  };
 
   render() {
     return (
       <Router>
         <div>
-          <Nav logout={this.logout} />
+          <Nav logout={this.logout} isAuthed={this.state.authenticated} />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/login" component={Login} />
+            <Route
+              exact
+              path="/login"
+              render={() => <Login setUser={this.setUser} />}
+            />
             <Route exact path="/signup" component={Signup} />
-            <ProtectedRoute exact path="/create" component={Create} />
-            <ProtectedRoute exact path="/dashboard" component={Dashboard} />
+            <ProtectedRoute
+              exact
+              path="/create"
+              component={Create}
+              isAuthed={this.state.authenticated}
+              id={this.state.id}
+            />
+            <ProtectedRoute
+              exact
+              path="/dashboard"
+              component={Dashboard}
+              isAuthed={this.state.authenticated}
+            />
             <Route component={NoMatch} />
           </Switch>
         </div>
