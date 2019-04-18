@@ -20,7 +20,8 @@ class App extends Component {
     super(props);
     this.state = {
       authenticated: false,
-      username: null
+      username: null,
+      id: null
     };
   }
 
@@ -36,12 +37,14 @@ class App extends Component {
         if (res.data.isLoggedIn) {
           this.setState({
             authenticated: true,
-            username: res.data.username
+            username: res.data.username,
+            id: res.data.id
           });
         } else {
           this.setState({
             authenticated: false,
-            username: null
+            username: null,
+            id: null
           });
         }
       })
@@ -60,7 +63,8 @@ class App extends Component {
         // window.location.replace("/");
         this.setState({
           authenticated: false,
-          username: null
+          username: null,
+          id: null
         });
         callback();
       })
@@ -87,6 +91,7 @@ class App extends Component {
               path="/create"
               component={Create}
               isAuthed={this.state.authenticated}
+              id={this.state.id}
             />
             <ProtectedRoute
               exact
