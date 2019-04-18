@@ -49,6 +49,7 @@ class Drafts extends Component {
                                     img={design.canvasImage}
                                     title={design.title}
                                     description={design.description}
+                                    page={"drafts"}
                                 />
                             </div>
                         );
