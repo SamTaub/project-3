@@ -74,13 +74,33 @@ module.exports = {
             .catch(err => res.json(err));
     },
 
+    //Publish a design
+    publishDesign: function(req, res) {
+        db.Design
+            .findOneAndUpdate({"_id": req.params.id }, { 
+                $set: { "published": true}
+            })
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.json(err));
+    },
+
+    // Unpublish a design
+    unpublishDesign: function(req, res) {
+        db.Design
+            .findOneAndUpdate({"_id": req.params.id }, { 
+                $set: { "published": false}
+            })
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.json(err));
+    },
+
     // COMMENTS
 
     // Create a comment
     createComment: function(req, res) {
         db.Comment
             .create(req.body)
-            .then(dbModel => { db.Design.findOneAndUpdate({ _id: req.params.id }, { $push: { comments: dbModel._id } }, { new: true }) })
+            .then(dbModel => { db.Design.findOneAndUpdate({ "_id": req.params.id }, { $push: { "comments": dbModel._id } }, { new: true }) })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.json(err));
     },
@@ -88,7 +108,7 @@ module.exports = {
     // Update/edit a comment
     updateComment: function(req, res) {
         db.Comment
-            .findByIdAndUpdate({ _id: req.params.id }, req.body)
+            .findByIdAndUpdate({ "_id": req.params.id }, req.body)
             .then(dbModel => res.json(dbModel))
             .catch(err => res.json(err));
     },
@@ -96,9 +116,9 @@ module.exports = {
     // Delete a comment
     deleteComment: function(req, res){
         db.Comment
-            .deleteOne({ _id: req.params.commentId })
+            .deleteOne({ "_id": req.params.commentId })
             .then(() => {
-                return db.Design.update({ _id: req.params.designId }, { $pull: { comments: req.params.commentId } })
+                return db.Design.update({ "_id": req.params.designId }, { $pull: { comments: req.params.commentId } })
             })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.json(err));

@@ -44,6 +44,16 @@ module.exports = function (app) {
         beadliController.updateDesign(req, res);
     });
 
+    // Publish a design
+    app.put("/api/designs/publish/:id", (req, res) => {
+        beadliController.publishDesign(req, res);
+    });
+
+    // Unpublish a design
+    app.put("/api/designs/unpublish/:id", (req, res) => {
+        beadliController.unpublishDesign(req, res);
+    });
+
     // Delete a design
     app.delete("/api/designs/:id", (req, res) => {
         beadliController.removeDesign(req, res);
@@ -92,7 +102,7 @@ module.exports = function (app) {
 
     // Delete a users favorites?
     // NEEDS TESTING, add :id? to end?
-    app.delete("/api/users/:userId/favorites/designId", (req, res) => {
+    app.delete("/api/users/:userId/favorites/:designId", (req, res) => {
         beadliController.removeFavorite(req, res);
     });
 

@@ -49,6 +49,7 @@ class Favorites extends Component {
                                     img={design.canvasImage}
                                     title={design.title}
                                     description={design.description}
+                                    page={"favorites"}
                                 />
                             </div>
                         );
