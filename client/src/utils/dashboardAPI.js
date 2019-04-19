@@ -29,7 +29,7 @@ export default {
 
   deleteDesign: function(designId) {
     console.log(`Deleting design ${designId}...`);
-    return axios.delete(`/api/designs/${designId}`);
+    return axios.delete(`/api/designs/design/${designId}`);
   }
   // Add /create route here or in a seperate file? Thinking a seperate file.
 };

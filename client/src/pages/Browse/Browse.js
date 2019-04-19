@@ -14,12 +14,10 @@ class Browse extends Component {
     }
 
     getAllPublishedDesigns = () => {
-        designAPI.getAllDesigns()
+        designAPI.getAllPublishedDesigns()
         .then(res =>{
             this.setState({
                 publishedDesigns: res.data
-            }, () => {
-                console.log(this.state.publishedDesigns);
             })
         })
         .catch(err => {
