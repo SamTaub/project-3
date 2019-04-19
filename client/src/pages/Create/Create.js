@@ -162,7 +162,7 @@ class Create extends Component {
       { squares },
       this.addToHistory(current, past, rowIdx, colIdx)
     );
-    console.log(this.state.squares);
+    // console.log(this.state.squares);
   };
 
   handleInputChange = e => {
