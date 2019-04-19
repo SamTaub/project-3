@@ -13,6 +13,15 @@ module.exports = {
             .catch(err => res.json(err));
     },
 
+    // Find all published designs
+    findAllPublished: function(req, res) {
+        console.log("Getting all published designs");
+        db.Design
+        .find({"published": true})
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.json(err));
+    },
+
     // Find a design based on it's ID
     findById: function(req, res) {
         console.log("Getting design");

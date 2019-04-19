@@ -5,6 +5,10 @@ export default {
     return axios.post("/api/designs", data);
   },
 
+  getAllDesigns: function(data){
+    return axios.get("/api/designs/published")
+  },
+
   getDesign: function(id) {
     return axios.get(`api/designs/${id}`);
   },

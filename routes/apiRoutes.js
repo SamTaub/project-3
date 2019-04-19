@@ -83,6 +83,10 @@ module.exports = function (app) {
         beadliController.findPublished(req, res);
     })
 
+    app.get("api/designs/published", (req, res) => {
+        beadliController.findAllPublished(req, res);
+    })
+
     // Get Request for drafts by the user
     app.get("/api/users/dashboard/:id/drafts", (req, res) => {
         beadliController.findDraft(req, res);
