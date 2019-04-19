@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ButtonGroup } from "../Board/Board";
-import {TrashButton} from "../DashboardButtons/DashboardButtons";
+import {TrashButton, EditButton, PublishButton, ViewButton, UnpublishButton} from "../DashboardButtons/DashboardButtons";
 console.log("hello design card");
 
 class DesignCard extends Component {
@@ -8,27 +8,41 @@ class DesignCard extends Component {
         super(props);
     }
 
+    // deleteEvent = (event, id) => {
+    //     event.preventDefault();
+    //     dashboardAPI.deleteDesign(id)
+    //         .then(res => {
+    //             this.setState({ drafts: res.data }, () => this.props.getDrafts)
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //         })
+    // }   
+
     buttons = (page) => {
-        // switch(page) {
-        //     case "published":
-        //         break;
-        //     case "drafts":
-        //             return (
-        //                 <ButtonGroup
-        //                     button1={<div className="btn-group mr-2" role="group" aria-label="First group">
-        //                         <button type="button" class="btn btn-light"><i class="fas fa-upload" data-toggle="tooltip" data-placement="bottom" title="Publish"/></button>
-        //                     </div>}
-        //                     button2={<div className="btn-group mr-2" role="group" aria-label="Second group">
-        //                         <button type="button" class="btn btn-light"><i class="fas fa-edit" data-toggle="tooltip" data-placement="bottom" title="Edit" /></button>
-        //                     </div>}
-        //                     button3={<TrashButton onClick={this.props.deleteDraftEvent} id={this.props.id}/>}
-        //                 />
-        //             )
-        //     case "favorites":
-        //         break;
-        //     case "browse":
-        //         break;
-        // }
+        switch(page) {
+            case "published":
+                return(
+                    <ButtonGroup
+                    // NOTE: Button1 will need to be changed to a link to the design detail page
+                        button1={<ViewButton onClick={event => this.props.view(event, this.props.id)} id={this.props.id}/>} 
+                        button2={<UnpublishButton onClick={event => this.props.unpublish(event, this.props.id)} id={this.props.id}/>}
+                        button3={<TrashButton onClick={event => this.props.delete(event, this.props.id)} id={this.props.id}/>}
+                    />
+                )
+            case "drafts":
+                return (
+                    <ButtonGroup
+                        button1={<EditButton onClick={event => this.props.edit(event, this.props.id)} id={this.props.id}/>}
+                        button2={<PublishButton onClick={event => this.props.publish(event, this.props.id)} id={this.props.id}/>}
+                        button3={<TrashButton onClick={event => this.props.delete(event, this.props.id)} id={this.props.id}/>}
+                    />
+                )
+            case "favorites":
+                break;
+            case "browse":
+                break;
+        }
     }
 
     render() {

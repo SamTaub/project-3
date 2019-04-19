@@ -21,6 +21,15 @@ class Drafts extends Component {
             })
     }
 
+    deleteEvent = (event, id) => {
+        event.preventDefault();
+        dashboardAPI.deleteDesign(id)
+            .then(res => this.getDrafts())
+            .catch(err => {
+                console.log(err);
+            })
+    }   
+
     getDrafts = () => {
         console.log("getting drafts... from " + this.state.currentUser);
         dashboardAPI.getDrafts(this.state.currentUser)
@@ -31,17 +40,6 @@ class Drafts extends Component {
                 console.log(err);
             })
     }
-
-    // deleteDraftEvent = (event, id) => {
-    //     event.preventDefault();
-    //     dashboardAPI.deleteDesign(id)
-    //         .then(res => {
-    //             this.setState({ drafts: res.data })
-    //         })
-    //         .catch(err => {
-    //             console.log(err);
-    //         })
-    // }   
 
     render() {
         return (
@@ -60,8 +58,9 @@ class Drafts extends Component {
                                     img={design.canvasImage}
                                     title={design.title}
                                     description={design.description}
+                                    refresh={this.getDrafts}
+                                    delete={this.deleteEvent}
                                     page={"drafts"}
-                                    deleteEvent={this.deleteDraftEvent}
                                 />
                             </div>
                         );

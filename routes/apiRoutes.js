@@ -50,7 +50,7 @@ module.exports = function (app) {
     });
 
     // Unpublish a design
-    app.put("api/designs/unpublish/:id", (req, res) => {
+    app.put("/api/designs/unpublish/:id", (req, res) => {
         beadliController.unpublishDesign(req, res);
     });
 
