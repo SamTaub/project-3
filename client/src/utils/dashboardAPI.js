@@ -17,6 +17,16 @@ export default {
     return axios.get(`/api/users/${userId}/favorites`)
   },
 
+  publishDesign: function(designId) {
+    console.log(`Dashboard API publishing design ${designId}`);
+    return axios.put(`/api/designs/publish/${designId}`);
+  },
+
+  unpublishDesign: function(designId) {
+    console.log(`Dashboard API unpublishing design ${designId}`);
+    return axios.put(`/api/designs/unpublish/${designId}`);
+  },
+
   deleteDesign: function(designId) {
     console.log(`Deleting design ${designId}...`);
     return axios.delete(`/api/designs/${designId}`);
