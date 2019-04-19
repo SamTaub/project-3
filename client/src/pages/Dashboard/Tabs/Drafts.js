@@ -32,6 +32,17 @@ class Drafts extends Component {
             })
     }
 
+    // deleteDraftEvent = (event, id) => {
+    //     event.preventDefault();
+    //     dashboardAPI.deleteDesign(id)
+    //         .then(res => {
+    //             this.setState({ drafts: res.data })
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //         })
+    // }   
+
     render() {
         return (
             <Row styles="p-3">
@@ -50,6 +61,7 @@ class Drafts extends Component {
                                     title={design.title}
                                     description={design.description}
                                     page={"drafts"}
+                                    deleteEvent={this.deleteDraftEvent}
                                 />
                             </div>
                         );

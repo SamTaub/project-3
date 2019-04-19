@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { ButtonGroup } from "../Board/Board";
+import {TrashButton} from "../DashboardButtons/DashboardButtons";
 console.log("hello design card");
 
 class DesignCard extends Component {
@@ -7,36 +8,29 @@ class DesignCard extends Component {
         super(props);
     }
 
-    trashButton = () => {
-        return (
-            <button type="button" class="btn btn-light">
-                <i className="fas fa-trash-alt" data-toggle="tooltip" data-placement="bottom" title="Trash" />
-            </button>
-        )
+    buttons = (page) => {
+        // switch(page) {
+        //     case "published":
+        //         break;
+        //     case "drafts":
+        //             return (
+        //                 <ButtonGroup
+        //                     button1={<div className="btn-group mr-2" role="group" aria-label="First group">
+        //                         <button type="button" class="btn btn-light"><i class="fas fa-upload" data-toggle="tooltip" data-placement="bottom" title="Publish"/></button>
+        //                     </div>}
+        //                     button2={<div className="btn-group mr-2" role="group" aria-label="Second group">
+        //                         <button type="button" class="btn btn-light"><i class="fas fa-edit" data-toggle="tooltip" data-placement="bottom" title="Edit" /></button>
+        //                     </div>}
+        //                     button3={<TrashButton onClick={this.props.deleteDraftEvent} id={this.props.id}/>}
+        //                 />
+        //             )
+        //     case "favorites":
+        //         break;
+        //     case "browse":
+        //         break;
+        // }
     }
 
-    buttons = (page) => {
-        switch(page) {
-            case "published":
-                break;
-            case "drafts":
-                    return (
-                        <ButtonGroup
-                            button1={<div className="btn-group mr-2" role="group" aria-label="First group">
-                                <button type="button" class="btn btn-light"><i class="fas fa-upload" data-toggle="tooltip" data-placement="bottom" title="Publish"/></button>
-                            </div>}
-                            button2={<div className="btn-group mr-2" role="group" aria-label="Second group">
-                                <button type="button" class="btn btn-light"><i class="fas fa-edit" data-toggle="tooltip" data-placement="bottom" title="Edit" /></button>
-                            </div>}
-                            button3={this.trashButton}
-                        />
-                    )
-            case "favorites":
-                break;
-            case "browse":
-                break;
-        }
-    }
     render() {
         return (
             <div className="card mb-3">

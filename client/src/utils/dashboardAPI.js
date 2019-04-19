@@ -15,7 +15,11 @@ export default {
   getFavorites: function(userId) {
     console.log(`dashboard API getting favorites for ${userId}`);
     return axios.get(`/api/users/${userId}/favorites`)
-  }
+  },
 
+  deleteDesign: function(designId) {
+    console.log(`Deleting design ${designId}...`);
+    return axios.delete(`/api/designs/${designId}`);
+  }
   // Add /create route here or in a seperate file? Thinking a seperate file.
 };

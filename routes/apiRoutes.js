@@ -92,7 +92,7 @@ module.exports = function (app) {
 
     // Delete a users favorites?
     // NEEDS TESTING, add :id? to end?
-    app.delete("/api/users/:userId/favorites/designId", (req, res) => {
+    app.delete("/api/users/:userId/favorites/:designId", (req, res) => {
         beadliController.removeFavorite(req, res);
     });
 
