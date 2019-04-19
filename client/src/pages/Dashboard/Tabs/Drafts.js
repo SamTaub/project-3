@@ -21,8 +21,24 @@ class Drafts extends Component {
             })
     }
 
+    editEvent = (event, id) => {
+        event.preventDefault();
+        alert("Edit function coming soon!");
+    }
+
+    publishEvent = (event, id) => {
+        event.preventDefault();
+        // Insert a modal here that asks the user if they're absolutely sure they want to publish this design
+        dashboardAPI.publishDesign(id)
+            .then(res => this.getDrafts())
+            .catch(err => {
+                console.log(err);
+            })
+    }   
+
     deleteEvent = (event, id) => {
         event.preventDefault();
+        // Insert a modal here that asks the user if they're absolutely sure they want to delete, as this can't be undone
         dashboardAPI.deleteDesign(id)
             .then(res => this.getDrafts())
             .catch(err => {
@@ -60,6 +76,8 @@ class Drafts extends Component {
                                     description={design.description}
                                     refresh={this.getDrafts}
                                     delete={this.deleteEvent}
+                                    publish={this.publishEvent}
+                                    edit={this.editEvent}
                                     page={"drafts"}
                                 />
                             </div>

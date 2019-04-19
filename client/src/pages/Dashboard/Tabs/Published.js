@@ -21,6 +21,31 @@ class Published extends Component {
             })
     }
 
+    viewEvent = (event, id) => {
+        event.preventDefault();
+        alert("View detail function coming soon!");
+    }
+
+    unpublishEvent = (event, id) => {
+        event.preventDefault();
+        // Insert a modal here that asks the user if they're absolutely sure they want to publish this design
+        dashboardAPI.unpublishDesign(id)
+            .then(res => this.getPublishedDesigns())
+            .catch(err => {
+                console.log(err);
+            })
+    }   
+
+    deleteEvent = (event, id) => {
+        event.preventDefault();
+        // Insert a modal here that asks the user if they're absolutely sure they want to delete, as this can't be undone
+        dashboardAPI.deleteDesign(id)
+            .then(res => this.getPublishedDesigns())
+            .catch(err => {
+                console.log(err);
+            })
+    }   
+
     getPublishedDesigns = () => {
         console.log("getting published designs... from " + this.state.currentUser);
         dashboardAPI.getPublishedDesigns(this.state.currentUser)
@@ -49,6 +74,9 @@ class Published extends Component {
                                     img={design.canvasImage}
                                     title={design.title}
                                     description={design.description}
+                                    view={this.viewEvent}
+                                    unpublish={this.unpublishEvent}
+                                    delete={this.deleteEvent}
                                     page={"published"}
                                 />
                             </div>
