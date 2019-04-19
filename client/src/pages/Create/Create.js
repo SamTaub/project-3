@@ -9,6 +9,7 @@ import {
   Title
 } from "../../components/Board/Board";
 import { Container, Row, Col } from "../../components/Grid";
+import SimpleModal from "../../components/Modals/SimpleModal";
 import ColorPicker from "../../components/ColorPicker/ColorPicker";
 import designAPI from "../../utils/designAPI";
 import { Bitmap } from "../../utils/bitmap";
@@ -25,7 +26,8 @@ class Create extends Component {
       saved: false,
       designId: null,
       title: "",
-      colorName: ""
+      colorName: "",
+      modalShow: false
     };
   }
 
@@ -89,25 +91,26 @@ class Create extends Component {
     this.state.squares.map((row, rowIdx) => {
       row.map((value, colIdx) => {
         if (value === "") {
-          bmp.pixel[colIdx][rowIdx] = [0, 0, 0, 0]
+          bmp.pixel[colIdx][rowIdx] = [0, 0, 0, 0];
+        } else {
+          let rgba = Array.from(
+            value.match(/([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)/)
+          );
+          let r = parseInt(rgba[1], 10) / 255;
+          let g = parseInt(rgba[2], 10) / 255;
+          let b = parseInt(rgba[3], 10) / 255;
+          let a = parseInt(rgba[4], 10) / 255;
+          bmp.pixel[colIdx][rowIdx] = [r, g, b, a];
         }
-        else {
-          let rgba = Array.from(value.match(/([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)/))
-          let r = parseInt(rgba[1], 10)/255;
-          let g = parseInt(rgba[2], 10)/255;
-          let b = parseInt(rgba[3], 10)/255;
-          let a = parseInt(rgba[4], 10)/255;
-          bmp.pixel[colIdx][rowIdx] = [r, g, b, a]
-        }
-      })
-    })
-    console.log(bmp);
+      });
+    });
+    // console.log(bmp);
     let img = bmp.dataURL();
-    console.log(img);
+    // console.log(img);
     // Save image URI to a variable
 
     if (!this.state.saved) {
-      console.log(this.props.id);
+      // console.log(this.props.id);
       designAPI
         .createDesign({
           grid: this.state.squares,
@@ -123,7 +126,8 @@ class Create extends Component {
               saved: true,
               designId: res.data._id
             },
-            () => alert(`Design saved!`)
+            // () => alert(`Design saved!`)
+            () => this.setState({ modalShow: true })
           );
         })
         .catch(err => alert(`Hmm something went wrong (${err}). Try again!`));
@@ -137,7 +141,8 @@ class Create extends Component {
         })
         .then(res => {
           // console.log(res);
-          alert(`Design saved!`);
+          // alert(`Design saved!`);
+          this.setState({ modalShow: true });
         })
         .catch(err => alert(`Hmm something went wrong (${err}). Try again!`));
     }
@@ -185,6 +190,8 @@ class Create extends Component {
     });
   };
 
+  modalClose = () => this.setState({ modalShow: false });
+
   render() {
     return (
       <Fragment>
@@ -225,6 +232,15 @@ class Create extends Component {
               />
             </Col>
           </Row>
+          <SimpleModal
+            show={this.state.modalShow}
+            onHide={this.modalClose}
+            title="Design Saved"
+            body="A draft of your design has been saved to your Dashboard. You can keep working on it here, or visit your Dashboard to publish or edit it later."
+            buttonActionText="View Dashboard"
+            buttonActionLink="/dashboard"
+            buttonRemainText="Keep Working"
+          />
         </Container>
       </Fragment>
     );
