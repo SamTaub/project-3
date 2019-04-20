@@ -15,22 +15,21 @@ class Detail extends Component {
     }
 
     countBeads = beadArray => {
-        let newBeadArray = [];
+        // let newBeadArray = [];
+        let beadCounts = {};
         beadArray.map((row, rowIdx) => {
             row.map((value, colIdx) => {
                 if (value !== "") {
                     let rgba = Array.from(
                         value.match(/([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)/)
                     );
-                    newBeadArray.push(colorPalette[rgba[0]]);
+                    let color = colorPalette[rgba[0]];
+                    beadCounts[color] = beadCounts[color] ? beadCounts[color] + 1 : 1;
+                    // newBeadArray.push(colorPalette[rgba[0]]);
                 }
             })
         })
-        let beadCounts = {};
-
-        newBeadArray.map((color) => {
-            beadCounts[color] = beadCounts[color] ? beadCounts[color] + 1 : 1;
-        })
+        console.log(beadCounts);
         
         this.setState({ beadCounts }, () => this.setState({ beadColors: Object.keys( beadCounts )}));
     };
