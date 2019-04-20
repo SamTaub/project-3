@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 // import { Link } from "react-router-dom";
 import { Button, Collapse, Modal, Form } from "react-bootstrap";
 
@@ -9,7 +9,7 @@ class PublishModal extends Component {
     this.state = {
       open: false,
       title: null,
-      description: null,
+      description: "",
       difficulty: null,
       categories: []
     };
@@ -30,9 +30,11 @@ class PublishModal extends Component {
 
   render() {
     const { open } = this.state;
+    const { id, onHide, publish, ...modalProps } = this.props;
+    // console.log(this.props);
     return (
       <Modal
-        {...this.props}
+        {...modalProps}
         size="lg"
         aria-labelledby="publish-modal-title"
         key={this.props.id}
@@ -116,6 +118,7 @@ class PublishModal extends Component {
           </Button>
           <Button
             variant="light"
+            id="publish-button"
             onClick={() => this.props.publish(this.props.id)}
           >
             Publish
