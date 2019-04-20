@@ -6,6 +6,7 @@ import colorPalette from "../../utils/colorPalette"
 class Detail extends Component {
     state = {
         design: {},
+        beadColors: [],
         beadCounts: {}
     };
 
@@ -25,37 +26,20 @@ class Detail extends Component {
                 }
             })
         })
+        let beadCounts = {};
 
         newBeadArray.map((color) => {
-            this.state.beadCounts[color] = this.state.beadCounts[color] ? this.state.beadCounts[color] + 1 : 1;
+            beadCounts[color] = beadCounts[color] ? beadCounts[color] + 1 : 1;
         })
-        console.log(this.state.beadCounts);
-
-        // newBeadArray.map((beadColor, i) => {
-        //     console.log(beadColor);
-        //     console.log(colorPalette[beadColor]);
-        // })
-
-        // beadArray.map((row, rowIdx) => {
-        //     row.map((value, colIdx) => {
-        //         if (value !== "") {
-        //             let rgba = Array.from(
-        //                 value.match(/([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)/)
-        //             );
-        //             rgba = rgba[0];
-        //             console.log(typeof rgba);
-        //             let color = Object.values(colorPalette).find(rgba );
-        //             console.log(color);
-        //         }
-        //     })
-        // })
-    }
+        
+        this.setState({ beadCounts }, () => this.setState({ beadColors: Object.keys( beadCounts )}));
+    };
 
     getDesign = () => {
         designAPI.getDesign(this.props.match.params.id)
             .then(res => this.setState({ design: res.data }, () => this.countBeads(this.state.design.grid)))
             .catch(err => console.log(err));
-    }
+    };
 
     render() {
         return (
@@ -72,7 +56,7 @@ class Detail extends Component {
                 </Row>
                 <div className="row mt-5">
                     <Col size="12">
-                        <h3>Beads needed</h3>
+                        <h3>Beads Needed</h3>
                     </Col>
                 </div>
             </Container>
