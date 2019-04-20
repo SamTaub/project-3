@@ -8,15 +8,24 @@ class PublishModal extends Component {
 
     this.state = {
       open: false,
-      title: this.props.title
+      title: null,
+      description: null,
+      difficulty: null,
+      categories: []
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      title: nextProps.title
+    });
   }
 
   handleInputChange = e => {
     const { name, value } = e.target;
     this.setState({
       [name]: value
-    });
+    }, () => console.log(this.state));
   };
 
   render() {
@@ -38,13 +47,19 @@ class PublishModal extends Component {
               <Form.Control
                 type="text"
                 name="title"
-                value={this.props.title}
+                value={this.state.title}
                 onChange={this.handleInputChange}
               />
             </Form.Group>
             <Form.Group controlId="design-description">
               <Form.Label>Description</Form.Label>
-              <Form.Control as="textarea" rows="3" />
+              <Form.Control
+                as="textarea"
+                rows="3"
+                name="description"
+                value={this.state.description}
+                onChange={this.handleInputChange}
+              />
             </Form.Group>
             <Form.Group controlId="difficulty">
               <Form.Label>Difficulty</Form.Label>
@@ -58,7 +73,6 @@ class PublishModal extends Component {
               </Form.Control>
             </Form.Group>
             <Form.Group>
-              {/* <Form.Label>Categories</Form.Label> */}
               <Button
                 variant="light"
                 onClick={() => this.setState({ open: !open })}
@@ -69,28 +83,26 @@ class PublishModal extends Component {
               </Button>
               <Collapse in={this.state.open}>
                 <div id="collapse-categories" style={{ marginTop: "5px" }}>
-                  {["checkbox"].map(type => (
-                    <div key={`default-${type}`} className="mb-3">
-                      {[
-                        "Animals",
-                        "Fantasy",
-                        "Food",
-                        "Holidays",
-                        "Miscellaneous",
-                        "Nature",
-                        "People",
-                        "Sports & Recreation",
-                        "Technology",
-                        "Transportation",
-                        "Video Games"
-                      ].map(checkbox => (
-                        <Form.Check
-                          type={type}
-                          id={checkbox}
-                          label={checkbox}
-                          key={`checkbox-${checkbox}`}
-                        />
-                      ))}
+                  {[
+                    "Animals",
+                    "Fantasy",
+                    "Food",
+                    "Holidays",
+                    "Miscellaneous",
+                    "Nature",
+                    "People",
+                    "Sports & Recreation",
+                    "Technology",
+                    "Transportation",
+                    "Video Games"
+                  ].map(checkbox => (
+                    <div key={`default-${checkbox}`} className="mb-1">
+                      <Form.Check
+                        type="checkbox"
+                        id={checkbox}
+                        label={checkbox}
+                        key={`checkbox-${checkbox}`}
+                      />
                     </div>
                   ))}
                 </div>
@@ -102,7 +114,10 @@ class PublishModal extends Component {
           <Button variant="light" onClick={this.props.onHide}>
             Close
           </Button>
-          <Button variant="light" onClick={this.props.publish}>
+          <Button
+            variant="light"
+            onClick={() => this.props.publish(this.props.id)}
+          >
             Publish
           </Button>
         </Modal.Footer>
