@@ -11,6 +11,7 @@ import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Create from "./pages/Create/Create";
+import Browse from "./pages/Browse/Browse";
 import Nav from "./components/Nav";
 import ProtectedRoute from "./components/ProtectedRoute";
 import userAPI from "./utils/userAPI";
@@ -94,6 +95,7 @@ class App extends Component {
           <Nav logout={this.logout} isAuthed={this.state.authenticated} />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/browse" component={Browse} />
             <Route
               exact
               path="/login"

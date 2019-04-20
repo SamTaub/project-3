@@ -10,7 +10,7 @@ module.exports = function (app) {
     });
 
     // Find a design by its ID and populate its comments
-    app.get("/api/designs/:id", (req, res) => {
+    app.get("/api/designs/design/:id", (req, res) => {
         beadliController.findById(req, res);
     });
 
@@ -81,6 +81,10 @@ module.exports = function (app) {
     // Get request for Published Designs by the user
     app.get("/api/users/dashboard/:id/published", (req, res) => {
         beadliController.findPublished(req, res);
+    })
+
+    app.get("/api/designs/published", (req, res) => {
+        beadliController.findAllPublished(req, res);
     })
 
     // Get Request for drafts by the user
