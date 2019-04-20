@@ -6,7 +6,7 @@ import colorPalette from "../../utils/colorPalette"
 class Detail extends Component {
     state = {
         design: {},
-        beads: []
+        beadCounts: {}
     };
 
     componentDidMount() {
@@ -14,17 +14,41 @@ class Detail extends Component {
     }
 
     countBeads = beadArray => {
+        let newBeadArray = [];
         beadArray.map((row, rowIdx) => {
             row.map((value, colIdx) => {
                 if (value !== "") {
                     let rgba = Array.from(
                         value.match(/([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)/)
                     );
-                    rgba = rgba[0];
-                    console.log(typeof rgba);
+                    newBeadArray.push(colorPalette[rgba[0]]);
                 }
             })
         })
+
+        newBeadArray.map((color) => {
+            this.state.beadCounts[color] = this.state.beadCounts[color] ? this.state.beadCounts[color] + 1 : 1;
+        })
+        console.log(this.state.beadCounts);
+
+        // newBeadArray.map((beadColor, i) => {
+        //     console.log(beadColor);
+        //     console.log(colorPalette[beadColor]);
+        // })
+
+        // beadArray.map((row, rowIdx) => {
+        //     row.map((value, colIdx) => {
+        //         if (value !== "") {
+        //             let rgba = Array.from(
+        //                 value.match(/([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)/)
+        //             );
+        //             rgba = rgba[0];
+        //             console.log(typeof rgba);
+        //             let color = Object.values(colorPalette).find(rgba );
+        //             console.log(color);
+        //         }
+        //     })
+        // })
     }
 
     getDesign = () => {
