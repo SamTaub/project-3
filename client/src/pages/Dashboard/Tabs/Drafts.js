@@ -33,12 +33,12 @@ class Drafts extends Component {
         // Insert a modal here that asks the user if they're absolutely sure they want to publish this design.
         this.setState(
           { modalShow: true },
-          dashboardAPI
-            .publishDesign(id)
-            .then(res => this.getDrafts())
-            .catch(err => {
-              console.log(err);
-            })
+        //   dashboardAPI
+        //     .publishDesign(id)
+        //     .then(res => this.getDrafts())
+        //     .catch(err => {
+        //       console.log(err);
+        //     })
         );
     }   
 
@@ -64,7 +64,7 @@ class Drafts extends Component {
     }
 
     modalClose = () => this.setState({ modalShow: false });
-    
+
     render() {
         return (
           <Row styles="p-3">
