@@ -9,7 +9,9 @@ class Drafts extends Component {
     state = {
         currentUser: "",
         drafts: [],
-        modalShow: false
+        modalShow: false,
+        currentId: "",
+        currentTitle: ""
     };
     
     componentDidMount() {
@@ -28,17 +30,18 @@ class Drafts extends Component {
         alert("Edit function coming soon!");
     }
 
-    publishEvent = (event, id) => {
+    publishEvent = (event, id, title) => {
+        console.log(id, title);
         event.preventDefault();
         // Insert a modal here that asks the user if they're absolutely sure they want to publish this design.
         this.setState(
-          { modalShow: true },
-        //   dashboardAPI
-        //     .publishDesign(id)
-        //     .then(res => this.getDrafts())
-        //     .catch(err => {
-        //       console.log(err);
-        //     })
+          { modalShow: true, currentId: id, currentTitle: title }
+          //   dashboardAPI
+          //     .publishDesign(id)
+          //     .then(res => this.getDrafts())
+          //     .catch(err => {
+          //       console.log(err);
+          //     })
         );
     }   
 
@@ -72,7 +75,7 @@ class Drafts extends Component {
               <Col size="12">No drafts to display</Col>
             ) : (
               this.state.drafts.map(design => {
-                console.log(this.state.drafts);
+                // console.log(this.state.drafts);
                 return (
                   <div
                     className="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12"
@@ -97,11 +100,8 @@ class Drafts extends Component {
             <PublishModal
               show={this.state.modalShow}
               onHide={this.modalClose}
-            //   title="Design Saved"
-            //   body="A draft of your design has been saved to your Dashboard. You can keep working on it here, or visit your Dashboard to publish or edit it later."
-            //   buttonActionText="View Dashboard"
-            //   buttonActionLink="/dashboard"
-            //   buttonRemainText="Keep Working"
+              title={this.state.currentTitle}
+              id={this.state.currentId}
             />
           </Row>
         );

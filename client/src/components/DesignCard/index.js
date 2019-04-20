@@ -34,7 +34,7 @@ class DesignCard extends Component {
                 return (
                     <ButtonGroup
                         button1={<EditButton onClick={event => this.props.edit(event, this.props.id)} id={this.props.id}/>}
-                        button2={<PublishButton onClick={event => this.props.publish(event, this.props.id)} id={this.props.id}/>}
+                        button2={<PublishButton onClick={event => this.props.publish(event, this.props.id, this.props.title)} id={this.props.id}/>}
                         button3={<TrashButton onClick={event => this.props.delete(event, this.props.id)} id={this.props.id}/>}
                     />
                 )

@@ -7,9 +7,17 @@ class PublishModal extends Component {
     super(props);
 
     this.state = {
-      open: false
+      open: false,
+      title: this.props.title
     };
   }
+
+  handleInputChange = e => {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: value
+    });
+  };
 
   render() {
     const { open } = this.state;
@@ -18,6 +26,7 @@ class PublishModal extends Component {
         {...this.props}
         size="lg"
         aria-labelledby="publish-modal-title"
+        key={this.props.id}
       >
         <Modal.Header closeButton>
           <Modal.Title id="publish-modal-title">Publish Design</Modal.Title>
@@ -26,7 +35,12 @@ class PublishModal extends Component {
           <Form>
             <Form.Group controlId="design-title">
               <Form.Label>Title</Form.Label>
-              <Form.Control type="text" />
+              <Form.Control
+                type="text"
+                name="title"
+                value={this.props.title}
+                onChange={this.handleInputChange}
+              />
             </Form.Group>
             <Form.Group controlId="design-description">
               <Form.Label>Description</Form.Label>
@@ -74,6 +88,7 @@ class PublishModal extends Component {
                           type={type}
                           id={checkbox}
                           label={checkbox}
+                          key={`checkbox-${checkbox}`}
                         />
                       ))}
                     </div>
