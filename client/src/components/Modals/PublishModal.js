@@ -38,6 +38,7 @@ class PublishModal extends Component {
         size="lg"
         aria-labelledby="publish-modal-title"
         key={this.props.id}
+        onHide={onHide}
       >
         <Modal.Header closeButton>
           <Modal.Title id="publish-modal-title">Publish Design</Modal.Title>

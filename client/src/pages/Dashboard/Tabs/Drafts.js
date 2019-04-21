@@ -42,8 +42,7 @@ class Drafts extends Component {
     });
   };
 
-  // This function actually sends the data to the API route.
-  // title, description, difficulty, categories   
+  // This function actually sends the data to the API route. 
   sendPublishData = (id, data) => {
     dashboardAPI
       .publishDesign(id, data)
