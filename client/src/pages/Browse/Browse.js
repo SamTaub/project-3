@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import { Container, Row, Col } from "../../components/Grid";
 import DesignCard from "../../components/DesignCard";
 import designAPI from "../../utils/designAPI";
+import CategoryForm from "../../components/CategoryForm/CategoryForm";
+import DifficultyForm from "../../components/DifficultyForm/DifficultyForm";
+import RatingForm from "../../components/RatingForm/RatingForm";
+import SortBy from "../../components/SortByForm/SortBy";
 
 class Browse extends Component {
 
@@ -31,10 +35,19 @@ class Browse extends Component {
             <Container styles="well p-3">
                 <h1 className="text-center">Browse</h1>
                 <Row styles="p-3">
+                <div className="col-xl-3">
+                    <SortBy></SortBy>
+                    <CategoryForm></CategoryForm>
+                    <DifficultyForm></DifficultyForm>
+                    <RatingForm></RatingForm>
+                </div>
+                <div className="col-xl-9">
+                <Row>
                 {!this.state.publishedDesigns.length > 0 
                 ? (
                     <Col size="12">No published designs to display</Col>
                 ) : (
+                    
                     this.state.publishedDesigns.map(design => {
                         console.log(this.state.publishedDesigns);
                         return (
@@ -49,7 +62,10 @@ class Browse extends Component {
                             </div>
                         );
                     })
+                    
                 )}
+                </Row>
+                </div>
             </Row>
             </Container>
         )
