@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container, Row, Col } from "../../components/Grid";
 import designAPI from "../../utils/designAPI";
-import colorPalette from "../../utils/colorPalette"
+import colorPalette from "../../utils/colorPalette";
 
 class Detail extends Component {
     state = {
@@ -42,10 +42,10 @@ class Detail extends Component {
 
     render() {
         return (
-            <Container>
+            <Container styles="well p-3">
                 <Row>
                     <div className="col-5 text-center">
-                        <img src={this.state.design.canvasImage} alt={this.state.design.title} style={{ imageRendering: "pixelated", height: "200px", width: "auto"}} className="fluid"/>
+                        <img src={this.state.design.canvasImage} alt={this.state.design.title} style={{height: "300px", width: "auto"}} className="fluid designPreview"/>
                     </div>
                     <div className="col-7 text-center">
                         <h1>{this.state.design.title}</h1>
@@ -56,6 +56,14 @@ class Detail extends Component {
                 <div className="row mt-5">
                     <Col size="12">
                         <h3>Beads Needed</h3>
+                        {this.state.beadColors.map((beadColor) => {
+                            return (
+                            <ul>
+                                <li>
+                                    {beadColor}: {this.state.beadCounts[beadColor]}
+                                </li>
+                            </ul>
+                        )})}
                     </Col>
                 </div>
             </Container>
