@@ -93,7 +93,8 @@ module.exports = {
               published: true,
               title: req.body.title,
               description: req.body.description,
-              difficulty: req.body.difficulty
+              difficulty: req.body.difficulty,
+              category: req.body.category
             }
           }
         )

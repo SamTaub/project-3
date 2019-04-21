@@ -11,7 +11,7 @@ class PublishModal extends Component {
       title: null,
       description: "",
       difficulty: "",
-      categories: []
+      category: ""
     };
   }
 
@@ -80,41 +80,30 @@ class PublishModal extends Component {
                 <option value="Very Hard">Very Hard</option>
               </Form.Control>
             </Form.Group>
-            <Form.Group>
-              <Button
-                variant="light"
-                onClick={() => this.setState({ open: !open })}
-                aria-controls="collapse-categories"
-                aria-expanded={open}
+            <Form.Group controlId="category">
+              <Form.Label>Category</Form.Label>
+              <Form.Control
+                as="select"
+                value={this.state.category}
+                name="category"
+                onChange={this.handleInputChange}
               >
-                <i className="fas fa-plus" /> Add Categories
-              </Button>
-              <Collapse in={this.state.open}>
-                <div id="collapse-categories" style={{ marginTop: "5px" }}>
-                  {[
-                    "Animals",
-                    "Fantasy",
-                    "Food",
-                    "Holidays",
-                    "Miscellaneous",
-                    "Nature",
-                    "People",
-                    "Sports & Recreation",
-                    "Technology",
-                    "Transportation",
-                    "Video Games"
-                  ].map(checkbox => (
-                    <div key={`default-${checkbox}`} className="mb-1">
-                      <Form.Check
-                        type="checkbox"
-                        id={checkbox}
-                        label={checkbox}
-                        key={`checkbox-${checkbox}`}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </Collapse>
+                {[
+                  "Animals",
+                  "Fantasy",
+                  "Food",
+                  "Holidays",
+                  "Miscellaneous",
+                  "Nature",
+                  "People",
+                  "Sports & Recreation",
+                  "Technology",
+                  "Transportation",
+                  "Video Games"
+                ].map(category => (
+                  <option value={category}>{category}</option>
+                ))}
+              </Form.Control>
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -129,8 +118,8 @@ class PublishModal extends Component {
               this.props.publish(this.props.id, {
                 title: this.state.title,
                 description: this.state.description,
-                difficulty: this.state.difficulty
-                // categories: this.state.categories
+                difficulty: this.state.difficulty,
+                category: this.state.category
               })
             }
           >
