@@ -32,7 +32,7 @@ class Drafts extends Component {
   };
 
   publishEvent = (event, id, title) => {
-    console.log(id, title);
+    // console.log(id, title);
     event.preventDefault();
     // Insert a modal here that asks the user if they're absolutely sure they want to publish this design.
     this.setState({

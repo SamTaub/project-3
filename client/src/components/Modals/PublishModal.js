@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from "react";
-// import { Link } from "react-router-dom";
-import { Button, Collapse, Modal, Form } from "react-bootstrap";
+import React, { Component } from "react";
+import { Button, Modal, Form } from "react-bootstrap";
+import designAPI from "../../utils/designAPI";
 
 class PublishModal extends Component {
   constructor(props) {
@@ -21,17 +21,32 @@ class PublishModal extends Component {
     });
   }
 
+  // FOR SHELBY/SAM: For some reason, I'm not getting a response from the API. It's hitting localhost://3000 instead of 3001.
+  componentWillMount() {
+    designAPI.getDesign(this.props.id)
+    .then(res => {
+      console.log(`the res: ${res}`)
+      if (res.data) {
+        this.setState({
+          description: res.data.description,
+          difficulty: res.data.difficulty,
+          category: res.data.category
+        })
+      }
+    })
+    .catch(err => console.error(err));
+  }
+
   handleInputChange = e => {
     const { name, value } = e.target;
     this.setState({
       [name]: value
-    }, () => console.log(this.state));
+    });
   };
 
   render() {
     const { open } = this.state;
     const { id, onHide, publish, ...modalProps } = this.props;
-    // console.log(this.props);
     return (
       <Modal
         {...modalProps}
