@@ -12,10 +12,10 @@ const designSchema = new Schema({
         type: String,
         default: "Untitled"
     },
-    category: {
+    category: [{
         type: String,
         default: "Misc"
-    },
+    }],
     difficulty: {
         type: String,
         default: "Unspecified"

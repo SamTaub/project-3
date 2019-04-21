@@ -10,7 +10,7 @@ class PublishModal extends Component {
       open: false,
       title: null,
       description: "",
-      difficulty: null,
+      difficulty: "",
       categories: []
     };
   }
@@ -65,13 +65,18 @@ class PublishModal extends Component {
             </Form.Group>
             <Form.Group controlId="difficulty">
               <Form.Label>Difficulty</Form.Label>
-              <Form.Control as="select">
-                <option>Easy</option>
-                <option>Somewhat Easy</option>
-                <option>Normal</option>
-                <option>Kind of Hard</option>
-                <option>Hard</option>
-                <option>Very Hard</option>
+              <Form.Control
+                as="select"
+                value={this.state.difficulty}
+                name="difficulty"
+                onChange={this.handleInputChange}
+              >
+                <option value="Easy">Easy</option>
+                <option value="Somewhat Easy">Somewhat Easy</option>
+                <option value="Normal">Normal</option>
+                <option value="Kind of Hard">Kind of Hard</option>
+                <option value="Hard">Hard</option>
+                <option value="Very Hard">Very Hard</option>
               </Form.Control>
             </Form.Group>
             <Form.Group>
@@ -119,7 +124,14 @@ class PublishModal extends Component {
           <Button
             variant="light"
             id="publish-button"
-            onClick={() => this.props.publish(this.props.id)}
+            onClick={() =>
+              this.props.publish(this.props.id, {
+                title: this.state.title,
+                description: this.state.description,
+                difficulty: this.state.difficulty
+                // categories: this.state.categories
+              })
+            }
           >
             Publish
           </Button>
