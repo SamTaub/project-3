@@ -80,7 +80,7 @@ class PublishModal extends Component {
                   "Hard",
                   "Very Hard"
                 ].map(difficulty => (
-                  <option value={difficulty}>{difficulty}</option>
+                  <option key={difficulty} value={difficulty}>{difficulty}</option>
                 ))}
               </Form.Control>
             </Form.Group>
@@ -105,7 +105,7 @@ class PublishModal extends Component {
                   "Transportation",
                   "Video Games"
                 ].map(category => (
-                  <option value={category}>{category}</option>
+                  <option key={category} value={category}>{category}</option>
                 ))}
               </Form.Control>
             </Form.Group>
