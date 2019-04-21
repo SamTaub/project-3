@@ -29,6 +29,16 @@ class Browse extends Component {
         })
     }
 
+    // We will also need an unfavorite event. The cards will eventually dynamically pass in either the favorite or unfavorite event based on whether or not the design is already in the user's favorites.
+    favoriteEvent = (event, designId, userId) => {
+        event.preventDefault();
+        alert("Favorite feature coming soon!");
+    }
+
+    editEvent = (event, id) => {
+        event.preventDefault();
+        alert("Edit feature coming soon!");
+    }
 
     render (){
         return(
@@ -58,6 +68,9 @@ class Browse extends Component {
                                     img={design.canvasImage}
                                     title={design.title}
                                     description={design.description}
+                                    favorite={this.favoriteEvent}
+                                    edit={this.editEvent}
+                                    page={"browse"}
                                 />
                             </div>
                         );
