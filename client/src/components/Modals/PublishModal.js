@@ -72,12 +72,16 @@ class PublishModal extends Component {
                 name="difficulty"
                 onChange={this.handleInputChange}
               >
-                <option value="Easy">Easy</option>
-                <option value="Somewhat Easy">Somewhat Easy</option>
-                <option value="Normal">Normal</option>
-                <option value="Kind of Hard">Kind of Hard</option>
-                <option value="Hard">Hard</option>
-                <option value="Very Hard">Very Hard</option>
+                {[
+                  "Easy",
+                  "Somewhat Easy",
+                  "Normal",
+                  "Kind of Hard",
+                  "Hard",
+                  "Very Hard"
+                ].map(difficulty => (
+                  <option value={difficulty}>{difficulty}</option>
+                ))}
               </Form.Control>
             </Form.Group>
             <Form.Group controlId="category">
