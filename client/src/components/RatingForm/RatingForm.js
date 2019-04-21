@@ -8,12 +8,12 @@ function RatingForm(props){
         <Form>
             <FormGroup controlId="rating">
                 <FormLabel>Find designs by rating:</FormLabel>
-                <Form.Control as="select">
-                    <option>*****</option>
-                    <option>****</option>
-                    <option>***</option>
-                    <option>**</option>
-                    <option>*</option>
+                <Form.Control as="select" onChange={props.onChange}>
+                    <option value="5">*****</option>
+                    <option value="4">****</option>
+                    <option value="3">***</option>
+                    <option value="2">**</option>
+                    <option value="1">*</option>
                 </Form.Control>
             </FormGroup>
         </Form>

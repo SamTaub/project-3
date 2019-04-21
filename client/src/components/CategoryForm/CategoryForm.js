@@ -9,50 +9,19 @@ function CategoryForm(props){
         <Form>
             <FormGroup controlId="category">
                 <FormLabel>Find designs by category:</FormLabel>
-                <Form.Check>
-                    <Form.Check.Input />
-                    <Form.Check.Label>Animals</Form.Check.Label>
-                </Form.Check>
-                <Form.Check>
-                    <Form.Check.Input />
-                    <Form.Check.Label>Fantasy</Form.Check.Label>
-                </Form.Check>
-                <Form.Check>
-                    <Form.Check.Input />
-                    <Form.Check.Label>Food</Form.Check.Label>
-                </Form.Check>
-                <Form.Check>
-                    <Form.Check.Input />
-                    <Form.Check.Label>Holidays</Form.Check.Label>
-                </Form.Check>
-                <Form.Check>
-                    <Form.Check.Input />
-                    <Form.Check.Label>Miscellaneous</Form.Check.Label>
-                </Form.Check>
-                <Form.Check>
-                    <Form.Check.Input />
-                    <Form.Check.Label>Nature</Form.Check.Label>
-                </Form.Check>
-                <Form.Check>
-                    <Form.Check.Input />
-                    <Form.Check.Label>People</Form.Check.Label>
-                </Form.Check>
-                <Form.Check>
-                    <Form.Check.Input />
-                    <Form.Check.Label>Sports & Recreation</Form.Check.Label>
-                </Form.Check>
-                <Form.Check>
-                    <Form.Check.Input />
-                    <Form.Check.Label>Technology</Form.Check.Label>
-                </Form.Check>
-                <Form.Check>
-                    <Form.Check.Input />
-                    <Form.Check.Label>Transportation</Form.Check.Label>
-                </Form.Check>
-                <Form.Check>
-                    <Form.Check.Input />
-                    <Form.Check.Label>Video Games</Form.Check.Label>
-                </Form.Check>
+                <Form.Control as="select" onChange={props.onChange}>
+                    <option value="Animals">Animals</option>
+                    <option value="Fantasy">Fantasy</option>
+                    <option value="Food">Food</option>
+                    <option value="Holidays">Holidays</option>
+                    <option value="Miscellaneous">Miscellaneous</option>
+                    <option value="Nature">Nature</option>
+                    <option value="People">People</option>
+                    <option value="Sports & Recreation">Sports & Recreation</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Transportation">Transportation</option>
+                    <option value="Video Games">Video Games</option>
+                </Form.Control>
             </FormGroup>
         </Form>
     );

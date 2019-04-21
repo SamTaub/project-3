@@ -8,9 +8,16 @@ import RatingForm from "../../components/RatingForm/RatingForm";
 import SortBy from "../../components/SortByForm/SortBy";
 
 class Browse extends Component {
+    constructor(props){
+        super(props)
 
-    state = {
-        publishedDesigns: []
+        this.state = {
+            publishedDesigns: [],
+            sort: "",
+            category: "",
+            difficulty: "",
+            rating: ""
+        }
     }
 
     componentDidMount(){
@@ -40,16 +47,56 @@ class Browse extends Component {
         alert("Edit feature coming soon!");
     }
 
+    // Change handlers for Browse forms
+
+    handleSortChange = (event) => {
+        event.preventDefault();
+        this.setState({
+            sort: event.target.value
+        }, () => {
+            console.log(`Sorting results by ${this.state.sort}`);
+        })
+    }
+
+    handleCategoryChange = (event) => {
+        event.preventDefault();
+        this.setState({
+            category: event.target.value
+        }, () => {
+            console.log(`Filtering results by ${this.state.category}`);
+        })
+    }
+
+    handleDifficultyChange = (event) => {
+        event.preventDefault();
+        this.setState({
+            difficulty: event.target.value
+        }, () =>{
+            // Verify state change with console.log()
+            console.log(`Filtering results by ${this.state.difficulty}`);
+        })
+    }
+
+    handleRatingChange = (event) => {
+        event.preventDefault();
+        this.setState({
+            rating: event.target.value
+        }, () =>{
+            // Verify state change with console.log()
+            console.log(`Filtering results by ${this.state.rating}`);
+        })
+    }
+
     render (){
         return(
             <Container styles="well p-3">
                 <h1 className="text-center">Browse</h1>
                 <Row styles="p-3">
                 <div className="col-xl-3">
-                    <SortBy></SortBy>
-                    <CategoryForm></CategoryForm>
-                    <DifficultyForm></DifficultyForm>
-                    <RatingForm></RatingForm>
+                    <SortBy onChange={this.handleSortChange}></SortBy>
+                    <CategoryForm onChange={this.handleCategoryChange}></CategoryForm>
+                    <DifficultyForm onChange={this.handleDifficultyChange}></DifficultyForm>
+                    <RatingForm onChange={this.handleRatingChange}></RatingForm>
                 </div>
                 <div className="col-xl-9">
                 <Row>
