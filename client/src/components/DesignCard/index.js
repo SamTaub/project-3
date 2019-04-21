@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { ButtonGroup } from "../Board/Board";
 import {TrashButton, EditButton, PublishButton, ViewButton, UnpublishButton} from "../DashboardButtons/DashboardButtons";
 console.log("hello design card");
@@ -25,7 +26,7 @@ class DesignCard extends Component {
                 return(
                     <ButtonGroup
                     // NOTE: Button1 will need to be changed to a link to the design detail page
-                        button1={<ViewButton onClick={event => this.props.view(event, this.props.id)} id={this.props.id}/>} 
+                        button1={<Link to={`/design/${this.props.id}`}><ViewButton onClick={event => this.props.view(event, this.props.id)} id={this.props.id}/></Link>} 
                         button2={<UnpublishButton onClick={event => this.props.unpublish(event, this.props.id)} id={this.props.id}/>}
                         button3={<TrashButton onClick={event => this.props.delete(event, this.props.id)} id={this.props.id}/>}
                     />
