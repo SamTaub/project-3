@@ -32,6 +32,16 @@ class Favorites extends Component {
             })
     }
 
+    unfavoriteEvent = (event, designId, userId) => {
+        event.preventDefault();
+        alert("Favorite feature coming soon!");
+    }
+
+    editEvent = (event, id) => {
+        event.preventDefault();
+        alert("Edit feature coming soon!");
+    }
+
     render() {
         return (
             <Row styles="p-3">
@@ -49,6 +59,8 @@ class Favorites extends Component {
                                     img={design.canvasImage}
                                     title={design.title}
                                     description={design.description}
+                                    unfavorite={this.unfavoriteEvent}
+                                    edit={this.editEvent}
                                     page={"favorites"}
                                 />
                             </div>

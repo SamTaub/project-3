@@ -34,3 +34,10 @@ p {
   border-radius: 10px;
   background-color: rgba(245, 245, 245, 0.4);
 }
+
+.designPreview {
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
