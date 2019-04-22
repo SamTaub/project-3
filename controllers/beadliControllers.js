@@ -159,28 +159,26 @@ module.exports = {
             .catch(err => res.json(err));
     },
 
-    //  Add fovories to an associated user
-    addFavorites: function(req, res){
+    //  Add favorites to an associated user
+    
+    findFavorites: function(req, res){
+        db.User
+        .find({ "_id": req.params.id })
+        .populate("favorites")
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.json(err));
+    },
+    
+    addFavorite: function(req, res){
         db.User
             .findOneAndUpdate({ "_id": req.params.userId }, { $push: { "favorites": req.params.designId } }, { new: true })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.json(err));
     },
 
-    findFavorites: function(req, res){
-        db.User
-            .find({ "_id": req.params.id })
-            .populate("favorites")
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.json(err));
-    },
-
     removeFavorite: function(req, res){
         db.User
-            .deleteOne({ "_id": req.params.designId })
-            .then(() => {
-                return db.User.update({ "_id": req.params.designId }, { $pull: { "favorites": req.params.designId } })
-            })
+            .findOneAndUpdate({ "_id": req.params.userId }, { $pull: { "favorites": req.params.designId } })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.json(err));
     },

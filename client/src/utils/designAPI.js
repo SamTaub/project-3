@@ -6,7 +6,7 @@ export default {
   },
 
   getAllPublishedDesigns: function(){
-    return axios.get("/api/designs/published")
+    return axios.get("/api/designs/published");
   },
 
   getDesign: function(id) {

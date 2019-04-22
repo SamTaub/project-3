@@ -30,6 +30,14 @@ export default {
   deleteDesign: function(designId) {
     console.log(`Deleting design ${designId}...`);
     return axios.delete(`/api/designs/design/${designId}`);
+  },
+
+  addFavorite: function(userId, designId) {
+    return axios.put(`/api/users/${userId}/favorites/${designId}`)
+  },
+
+  removeFavorite: function(userId, designId) {
+    return axios.delete(`/api/users/${userId}/favorites/${designId}`)
   }
   // Add /create route here or in a seperate file? Thinking a seperate file.
 };

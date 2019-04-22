@@ -100,8 +100,8 @@ module.exports = function (app) {
 
     // Add to a users favorites
     // NEEDS TESTING TO ENSURE PROPER ROUTE
-    app.post("/api/users/:userId/favorites/:designId", (req, res) => {
-        beadliController.addFavorites(req, res);
+    app.put("/api/users/:userId/favorites/:designId", (req, res) => {
+        beadliController.addFavorite(req, res);
     });
 
     // Delete a users favorites?
