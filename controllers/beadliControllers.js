@@ -59,19 +59,19 @@ module.exports = {
 
     // Find all designs that meet the faceted criteria on the Browse page.
     findByFacet: function(req, res) {
-        console.log(req.body);
+        // console.log(req.body);
         let query = {};
         query['$and'] = [];
 
-        if (req.body.category !== "" || !req.body.category) {
+        if (req.body.category !== "") {
             query['$and'].push({ category: req.body.category });
         }
 
-        if (req.body.difficulty !== "" || !req.body.difficulty) {
+        if (req.body.difficulty !== "") {
             query['$and'].push({ difficulty: req.body.difficulty });
         }
 
-        console.log(query);
+        // console.log(query);
 
         db.Design.find(query)
           .then(dbModel => res.json(dbModel))
