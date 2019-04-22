@@ -77,11 +77,11 @@ class PublishModal extends Component {
               >
                 {[
                   "Easy",
-                  "Somewhat Easy",
+                  "Slightly Easy",
                   "Normal",
                   "Kind of Hard",
                   "Hard",
-                  "Very Hard"
+                  "Crazy Hard"
                 ].map(difficulty => (
                   <option key={difficulty} value={difficulty}>{difficulty}</option>
                 ))}
