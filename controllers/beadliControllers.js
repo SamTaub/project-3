@@ -170,6 +170,7 @@ module.exports = {
     },
     
     addFavorite: function(req, res){
+        console.log(`adding ${req.params.designId} to ${req.params.userId}'s favorites`);
         db.User
             .findOneAndUpdate({ "_id": req.params.userId }, { $push: { "favorites": req.params.designId } }, { new: true })
             .then(dbModel => res.json(dbModel))
@@ -177,6 +178,7 @@ module.exports = {
     },
 
     removeFavorite: function(req, res){
+        console.log(`removing ${req.params.designId} from ${req.params.userId}'s favorites`);
         db.User
             .findOneAndUpdate({ "_id": req.params.userId }, { $pull: { "favorites": req.params.designId } })
             .then(dbModel => res.json(dbModel))

@@ -32,9 +32,15 @@ class Favorites extends Component {
             })
     }
 
-    unfavoriteEvent = (event, designId, userId) => {
+    unfavoriteEvent = (event, userId, designId) => {
         event.preventDefault();
-        alert("Favorite feature coming soon!");
+        dashboardAPI.removeFavorite(userId, designId)
+            .then(res => {
+                this.getFavorites()
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     editEvent = (event, id) => {
@@ -52,10 +58,11 @@ class Favorites extends Component {
                     this.state.favorites.map(design => {
                         console.log(this.state.favorites);
                         return (
-                            <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12" key={design._id}>
                                 <DesignCard 
                                     key={design._id}
                                     id={design._id}
+                                    currentUser={this.state.currentUser}
                                     img={design.canvasImage}
                                     title={design.title}
                                     description={design.description}

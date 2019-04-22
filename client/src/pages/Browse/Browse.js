@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Container, Row, Col } from "../../components/Grid";
 import DesignCard from "../../components/DesignCard";
 import designAPI from "../../utils/designAPI";
+import dashboardAPI from "../../utils/dashboardAPI";
+import userAPI from "../../utils/userAPI";
 import CategoryForm from "../../components/CategoryForm/CategoryForm";
 import DifficultyForm from "../../components/DifficultyForm/DifficultyForm";
 import RatingForm from "../../components/RatingForm/RatingForm";
@@ -16,12 +18,21 @@ class Browse extends Component {
             sort: "",
             category: "",
             difficulty: "",
-            rating: ""
+            rating: "",
+            currentUser: ""
         }
     }
 
     componentDidMount(){
-        this.getAllPublishedDesigns();
+        userAPI
+            .checkAuthStatus()
+            .then(res => {
+                console.log(res.data.id);
+                this.setState({ currentUser: res.data.id }, () => this.getAllPublishedDesigns());
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     getAllPublishedDesigns = () => {
@@ -37,9 +48,20 @@ class Browse extends Component {
     }
 
     // We will also need an unfavorite event. The cards will eventually dynamically pass in either the favorite or unfavorite event based on whether or not the design is already in the user's favorites.
-    favoriteEvent = (event, designId, userId) => {
+    favoriteEvent = (event, userId, designId) => {
         event.preventDefault();
-        alert("Favorite feature coming soon!");
+        if (!this.state.currentUser || this.state.currentUser === "") {
+            alert("You must be logged in to add a favorite!");
+        }
+        else {
+            dashboardAPI.addFavorite(userId, designId)
+                .then(res => {
+                    alert("Favorite added!");
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
     }
 
     editEvent = (event, id) => {
@@ -112,6 +134,7 @@ class Browse extends Component {
                                 <DesignCard 
                                     key={design._id}
                                     id={design._id}
+                                    currentUser={this.state.currentUser}
                                     img={design.canvasImage}
                                     title={design.title}
                                     description={design.description}

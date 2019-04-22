@@ -50,7 +50,7 @@ export function FavoriteButton(props) {
 
 export function UnfavoriteButton(props) {
     return (
-        <button type="button" className="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Favorite" onClick={props.onClick} id={props.id}>
+        <button type="button" className="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Remove favorite" onClick={props.onClick} id={props.id}>
             <i className="fas fa-heart" />
         </button>
     )
