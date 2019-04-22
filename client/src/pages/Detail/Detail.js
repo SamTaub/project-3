@@ -2,19 +2,50 @@ import React, { Component } from "react";
 import { Container, Row, Col } from "../../components/Grid";
 import designAPI from "../../utils/designAPI";
 import userAPI from "../../utils/userAPI";
+import dashboardAPI from "../../utils/dashboardAPI";
 import colorPalette from "../../utils/colorPalette";
+import { FavoriteButton, UnfavoriteButton } from "../../components/DashboardButtons/DashboardButtons";
 
 class Detail extends Component {
     state = {
         design: {},
         username: "Unknown",
         beadColors: [],
-        beadCounts: {}
+        beadCounts: {},
+        currentUser: "",
+        isFavorite: false
     };
 
     componentDidMount() {
-        this.getDesign();
+        userAPI
+            .checkAuthStatus()
+            .then(res => {
+                this.setState({ currentUser: res.data.id }, () => this.getDesign());
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
+
+    checkUserFavorites(){
+        if (this.state.currentUser) {
+            userAPI.findUserWithoutPopulation(this.state.currentUser)
+                .then(res => {
+                    if (res.data.favorites.indexOf(this.state.design._id) > -1) {
+                        this.setState({isFavorite: true });
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+    }
+    
+    getDesign = () => {
+        designAPI.getDesign(this.props.match.params.id)
+            .then(res => this.setState({ design: res.data }, () => this.countBeads(this.state.design.grid)))
+            .catch(err => console.log(err));
+    };
 
     countBeads = beadArray => {
         // let newBeadArray = [];
@@ -27,19 +58,15 @@ class Detail extends Component {
                     );
                     let color = colorPalette[rgba[0]];
                     beadCounts[color] = beadCounts[color] ? beadCounts[color] + 1 : 1;
-                    // newBeadArray.push(colorPalette[rgba[0]]);
                 }
             })
         })
         console.log(beadCounts);
         
-        this.setState({ beadCounts }, () => this.setState({ beadColors: Object.keys( beadCounts )}, () => this.getUsername(this.state.design.userId)));
-    };
-
-    getDesign = () => {
-        designAPI.getDesign(this.props.match.params.id)
-            .then(res => this.setState({ design: res.data }, () => this.countBeads(this.state.design.grid)))
-            .catch(err => console.log(err));
+        this.setState({ beadCounts }, () => this.setState({ beadColors: Object.keys( beadCounts )}, () => {
+            this.getUsername(this.state.design.userId);
+            this.checkUserFavorites();
+        }));
     };
 
     getUsername = (userId) => {
@@ -47,6 +74,39 @@ class Detail extends Component {
             .then(res => this.setState({username: res.data.username}))
             .catch(err => console.log(err));
     };
+
+    favoriteEvent = (event, userId, designId) => {
+        event.preventDefault();
+        if (!this.state.currentUser || this.state.currentUser === "") {
+            alert("You must be logged in to add a favorite!");
+        }
+        else {
+            dashboardAPI.addFavorite(userId, designId)
+                .then(res => {
+                    this.checkUserFavorites();
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+    }
+
+    unfavoriteEvent = (event, userId, designId) => {
+        event.preventDefault();
+        if (!this.state.currentUser || this.state.currentUser === "") {
+            alert("You must be logged in to add a favorite!");
+        }
+        else {
+            dashboardAPI.removeFavorite(userId, designId)
+                .then(res => {
+                    this.setState({isFavorite: false});
+                    this.checkUserFavorites();
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+    }
 
     render() {
         return (
@@ -60,6 +120,30 @@ class Detail extends Component {
                         <h5>Design by <strong>{this.state.username}</strong></h5>
                         <p><small className="text-muted">Difficulty: {this.state.design.difficulty}</small></p>
                         <p>{this.state.design.description}</p>
+                        {/* Dynamically render favorite/unfavorite button */}
+                        {this.state.isFavorite ? (
+                        <UnfavoriteButton 
+                            onClick={event => 
+                            this.unfavoriteEvent(
+                                event, 
+                                this.state.currentUser, 
+                                this.state.design._id
+                            )
+                            }
+                            id={this.state.design._id}
+                        />
+                        ) : (
+                        <FavoriteButton 
+                            onClick={event => 
+                            this.favoriteEvent(
+                                event, 
+                                this.state.currentUser, 
+                                this.state.design._id
+                            )
+                            } 
+                            id={this.state._id}
+                        />
+                        )}
                     </div>
                 </Row>
                 <Row styles="mt-3">
