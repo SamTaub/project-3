@@ -31,9 +31,14 @@ export default {
     return axios.get("/api/user");
   },
 
+  // Refactored in dashboard API- not needed
   // Get dashboard data associated with a user's id (or however else we want to structure this). DRAFT.
-  getDashboard: function(id) {
-    return axios.get(`/api/user/dashboard/${id}`);
+  // getDashboard: function(id) {
+  //   return axios.get(`/api/user/dashboard/${id}`);
+  // },
+
+  findUser: function(id) {
+    return axios.get(`/api/users/user/${id}`);
   }
 
   // Add /create route here or in a seperate file? Thinking a seperate file.

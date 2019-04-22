@@ -190,9 +190,9 @@ module.exports = {
     findUser: function(req, res){
         db.User
         .findOne({"_id": req.params.id})
-        .populate("designs", "favorites")
+        .populate("favorites")
         .then(dbModel => res.json(dbModel))
-        .catch(err => res.josn(err));
+        .catch(err => res.json(err));
     }
 
 };

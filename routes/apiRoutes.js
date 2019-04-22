@@ -111,7 +111,7 @@ module.exports = function (app) {
     });
 
     // Find a user
-    app.get("/api/users/:id", () => {
+    app.get("/api/users/user/:id", (req, res) => {
         beadliController.findUser(req, res);
     })
 

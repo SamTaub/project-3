@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { Container, Row, Col } from "../../components/Grid";
 import designAPI from "../../utils/designAPI";
+import userAPI from "../../utils/userAPI";
 import colorPalette from "../../utils/colorPalette";
 
 class Detail extends Component {
     state = {
         design: {},
+        username: "Unknown",
         beadColors: [],
         beadCounts: {}
     };
@@ -31,7 +33,7 @@ class Detail extends Component {
         })
         console.log(beadCounts);
         
-        this.setState({ beadCounts }, () => this.setState({ beadColors: Object.keys( beadCounts )}));
+        this.setState({ beadCounts }, () => this.setState({ beadColors: Object.keys( beadCounts )}, () => this.getUsername(this.state.design.userId)));
     };
 
     getDesign = () => {
@@ -40,35 +42,51 @@ class Detail extends Component {
             .catch(err => console.log(err));
     };
 
+    getUsername = (userId) => {
+        userAPI.findUser(userId)
+            .then(res => this.setState({username: res.data.username}))
+            .catch(err => console.log(err));
+    };
+
     render() {
         return (
-            <Container styles="well p-3">
+            <Container styles="well p-5">
                 <Row>
-                    <div className="col-5 text-center">
-                        <img src={this.state.design.canvasImage} alt={this.state.design.title} style={{height: "300px", width: "auto"}} className="fluid designPreview"/>
+                    <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 text-center">
+                        <img src={this.state.design.canvasImage} alt={this.state.design.title} style={{width: "100%", height: "auto"}} className="fluid designPreview"/>
                     </div>
-                    <div className="col-7 text-center">
-                        <h1>{this.state.design.title}</h1>
+                    <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 text-center">
+                        <h1 className="mt-3">{this.state.design.title}</h1>
+                        <h5>Design by <strong>{this.state.username}</strong></h5>
                         <p><small className="text-muted">Difficulty: {this.state.design.difficulty}</small></p>
                         <p>{this.state.design.description}</p>
                     </div>
                 </Row>
-                <div className="row mt-5">
+                <Row styles="mt-3">
                     <Col size="12">
                         <h3>Beads Needed</h3>
-                        {this.state.beadColors.map((beadColor) => {
-                            return (
-                            <ul>
-                                <li>
-                                    {beadColor}: {this.state.beadCounts[beadColor]}
-                                </li>
-                            </ul>
-                        )})}
+                        <ul className="list-unstyled">
+                        <Row>
+                                {this.state.beadColors.map((beadColor) => {
+                                    return (
+                                        <div className="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-xs-12" key={beadColor}>
+                                            <li key={beadColor}>
+                                                {beadColor}: {this.state.beadCounts[beadColor]}
+                                            </li>
+                                        </div>
+                                    )
+                                })}
+                        </Row>
+                        </ul>
                     </Col>
-                </div>
+                </Row>
             </Container>
         )
     }
 }
 
 export default Detail;
+
+// style={{display: "flex", flexDirection: "row", flexWrap: "wrap"}}
+
+// style={{width: "calc(100% / 3)"}}
