@@ -110,9 +110,13 @@ module.exports = function (app) {
         beadliController.removeFavorite(req, res);
     });
 
-    // Find a user
+    // Find a user with favorites populated
     app.get("/api/users/user/:id", (req, res) => {
         beadliController.findUser(req, res);
-    })
+    });
+
+    app.get("/api/users/user/:id/unpopulated", (req, res) => {
+        beadliController.findUserWithoutPopulation(req, res);
+    });
 
 }

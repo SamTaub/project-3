@@ -193,6 +193,13 @@ module.exports = {
         .populate("favorites")
         .then(dbModel => res.json(dbModel))
         .catch(err => res.json(err));
+    },
+
+    findUserWithoutPopulation: function(req, res){
+        db.User
+        .findOne({"_id": req.params.id})
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.json(err));
     }
 
 };

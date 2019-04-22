@@ -19,7 +19,8 @@ class Browse extends Component {
             category: "",
             difficulty: "",
             rating: "",
-            currentUser: ""
+            currentUser: "",
+            usersFavorites: []
         }
     }
 
@@ -28,11 +29,26 @@ class Browse extends Component {
             .checkAuthStatus()
             .then(res => {
                 console.log(res.data.id);
-                this.setState({ currentUser: res.data.id }, () => this.getAllPublishedDesigns());
+                this.setState({ currentUser: res.data.id }, () => this.checkUserFavorites());
             })
             .catch(err => {
                 console.log(err);
             });
+    }
+
+    checkUserFavorites(){
+        if (this.state.currentUser) {
+            userAPI.findUserWithoutPopulation(this.state.currentUser)
+                .then(res => {
+                    this.setState({usersFavorites: res.data.favorites }, () => this.getAllPublishedDesigns())
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+        else {
+            this.getAllPublishedDesigns();
+        }
     }
 
     getAllPublishedDesigns = () => {
@@ -56,7 +72,23 @@ class Browse extends Component {
         else {
             dashboardAPI.addFavorite(userId, designId)
                 .then(res => {
-                    alert("Favorite added!");
+                    this.checkUserFavorites();
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+    }
+
+    unfavoriteEvent = (event, userId, designId) => {
+        event.preventDefault();
+        if (!this.state.currentUser || this.state.currentUser === "") {
+            alert("You must be logged in to add a favorite!");
+        }
+        else {
+            dashboardAPI.removeFavorite(userId, designId)
+                .then(res => {
+                    this.checkUserFavorites();
                 })
                 .catch(err => {
                     console.log(err);
@@ -139,8 +171,10 @@ class Browse extends Component {
                                     title={design.title}
                                     description={design.description}
                                     favorite={this.favoriteEvent}
+                                    unfavorite={this.unfavoriteEvent}
                                     edit={this.editEvent}
                                     page={"browse"}
+                                    isFavorite={this.state.usersFavorites.indexOf(design._id) > -1 ? true : false}
                                 />
                             </div>
                         );

@@ -39,6 +39,10 @@ export default {
 
   findUser: function(id) {
     return axios.get(`/api/users/user/${id}`);
+  },
+
+  findUserWithoutPopulation: function(id) {
+    return axios.get(`/api/users/user/${id}/unpopulated`);
   }
 
   // Add /create route here or in a seperate file? Thinking a seperate file.

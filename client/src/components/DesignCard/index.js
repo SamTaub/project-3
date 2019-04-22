@@ -79,12 +79,20 @@ class DesignCard extends Component {
                     />
                 )
             case "browse":
+                  console.log(this.props.isFavorite);
                 return (
                     <ButtonGroup
                         button1={<ViewButton id={this.props.id} link={`/design/${this.props.id}`}/>}
                         // To do: Button 2 needs to be dynamically changed based on whether or not that design is already saved to the user's favorites.
-                        button2={<FavoriteButton onClick={event => this.props.favorite(event, this.props.currentUser, this.props.id)} id={this.props.id}/>}
-                        button3={<EditButton onClick={event => this.props.edit(event, this.props.id)} id={this.props.id}/>}
+                        button2={
+                          this.props.isFavorite ? (
+                            <UnfavoriteButton onClick={event => this.props.unfavorite(event, this.props.currentUser, this.props.id)} id={this.props.id}/>
+                          ) : (
+                          <FavoriteButton onClick={event => this.props.favorite(event, this.props.currentUser, this.props.id)} id={this.props.id}/>
+                          )
+                        }
+                        button3={
+                          <EditButton onClick={event => this.props.edit(event, this.props.id)} id={this.props.id}/>}
                     />
                 )
         }
