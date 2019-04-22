@@ -108,7 +108,7 @@ class Browse extends Component {
                     this.state.publishedDesigns.map(design => {
                         console.log(this.state.publishedDesigns);
                         return (
-                            <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12" key={design._id + 1}>
+                            <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" key={design._id + 1}>
                                 <DesignCard 
                                     key={design._id}
                                     id={design._id}
