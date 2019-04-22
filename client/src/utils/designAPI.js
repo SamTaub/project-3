@@ -13,6 +13,10 @@ export default {
     return axios.get(`/api/designs/design/${id}`);
   },
 
+  getFacetedResults: function(data) {
+    return axios.get("/api/designs/facet", data);
+  },
+
   updateDesign: function(id, data) {
     return axios.put(`/api/designs/${id}`, data);
   }

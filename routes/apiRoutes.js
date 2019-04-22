@@ -32,6 +32,7 @@ module.exports = function (app) {
         beadliController.findByRating(req, res);
     });
 
+    // Find all designs that meet the faceted queries (for Browse page).
     app.get("/api/designs/facet", (req, res) => {
         beadliController.findByFacet(req, res);
     });
