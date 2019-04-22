@@ -4,10 +4,10 @@ import "./style.css";
 export function Square(props) {
   return (
     <button
-      className={props.value !== "" ? "circle" : "square"}
+      className={props.dimension === 2 ? (props.value !== "" ? "circle" : "square") : (props.value !== "" ? "peg" : "square")}
       style={{ borderColor: props.value }}
       onClick={props.onClick}
-      onMouseEnter={props.onMouseEnter}
+      onPointerEnter={props.onPointerEnter}
     />
   );
 }
@@ -25,6 +25,25 @@ export function Title(props) {
         aria-label="Sizing example input"
         aria-describedby="inputGroup-sizing-lg"
       />
+    </div>
+  );
+}
+
+export function DimensionButton(props) {
+  return (
+    <div
+      className="btn-toolbar special"
+      role="toolbar"
+      aria-label="Toolbar with button groups"
+      id="dimensionButton" 
+    >
+      <div
+        className="btn-group mt-2 mr-2 mb-2"
+        role="group"
+        aria-label="dimension-toggle"
+      >
+        {props.toggle}
+      </div>
     </div>
   );
 }
@@ -79,6 +98,14 @@ export function CurrentColor(props) {
   );
 }
 
+export function ThreeDimensions(props) {
+  return (
+    <button type="button" className="btn btn-light" onClick={props.onClick}>
+      <i className="fas fa-cube" />
+    </button>
+  );
+}
+
 export function ClearButton(props) {
   return (
     <button type="button" className="btn btn-light" onClick={props.onClick}>
@@ -109,29 +136,30 @@ export class Board extends Component {
       <Square
         key={colIdx}
         value={value}
+        dimension={this.props.dimension}
         onClick={() => this.props.onClick(value, rowIdx, colIdx)}
-        onMouseEnter={() => this.props.onMouseEnter(value, rowIdx, colIdx)}
+        onPointerEnter={() => this.props.onPointerEnter(value, rowIdx, colIdx)}
       />
     );
   }
 
   render() {
     return (
-        <div
-          id="board"
-          onMouseDown={() => this.props.onMouseDown()}
-          onMouseUp={() => this.props.onMouseUp()}
-        >
-          {this.props.squares.map((row, rowIdx) => {
-            return (
-              <div key={rowIdx} className="board-row" datarow={rowIdx}>
-                {row.map((value, colIdx) =>
-                  this.renderSquare(value, rowIdx, colIdx)
-                )}
-              </div>
-            );
-          })}
-        </div>
+      <div
+        id="board"
+        onPointerDown={() => this.props.onPointerDown()}
+        onPointerUp={() => this.props.onPointerUp()}
+      >
+        {this.props.squares.map((row, rowIdx) => {
+          return (
+            <div key={rowIdx} className="board-row" datarow={rowIdx}>
+              {row.map((value, colIdx) =>
+                this.renderSquare(value, rowIdx, colIdx)
+              )}
+            </div>
+          );
+        })}
+      </div>
     );
   }
 }

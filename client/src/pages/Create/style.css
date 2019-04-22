@@ -15,6 +15,12 @@
   width: 100%;
 }
 
+.col-leftCol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #currentColor {
   display: flex;
   flex-direction: row;
@@ -32,4 +38,10 @@
 
 .well {
   padding: 20px;
+}
+@media screen and (max-width: 991px) {
+  #drawDiv {
+    padding: 5px;
+    width: 100%;
+  }
 }
