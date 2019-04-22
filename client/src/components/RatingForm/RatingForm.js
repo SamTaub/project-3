@@ -9,6 +9,7 @@ function RatingForm(props){
             <FormGroup controlId="rating">
                 <FormLabel>Find designs by rating:</FormLabel>
                 <Form.Control as="select" onChange={props.onChange}>
+                    <option value="All" defaultValue>All</option>
                     <option value="5">*****</option>
                     <option value="4">****</option>
                     <option value="3">***</option>
