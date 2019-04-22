@@ -26,9 +26,9 @@ export function PublishButton(props) {
 
 export function ViewButton(props) {
     return (
-        <button type="button" className="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="View Detail Page" onClick={props.onClick} id={props.id}>
+        <a role="button" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="View Detail Page" id={props.id} href={props.link}>
             <i className="fas fa-eye" />
-        </button>
+        </a>
     )
 }
 
@@ -36,6 +36,22 @@ export function UnpublishButton(props) {
     return (
         <button type="button" className="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Move to drafts" onClick={props.onClick} id={props.id}>
             <i className="fas fa-pencil-ruler" />
+        </button>
+    )
+}
+
+export function FavoriteButton(props) {
+    return (
+        <button type="button" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Favorite" onClick={props.onClick} id={props.id}>
+            <i class="far fa-heart" />
+        </button>
+    )
+}
+
+export function UnfavoriteButton(props) {
+    return (
+        <button type="button" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Favorite" onClick={props.onClick} id={props.id}>
+            <i class="fas fa-heart" />
         </button>
     )
 }

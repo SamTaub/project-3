@@ -55,7 +55,7 @@ module.exports = function (app) {
     });
 
     // Delete a design
-    app.delete("/api/designs/:id", (req, res) => {
+    app.delete("/api/designs/design/:id", (req, res) => {
         beadliController.removeDesign(req, res);
     });
 
