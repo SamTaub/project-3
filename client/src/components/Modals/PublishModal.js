@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
-import designAPI from "../../utils/designAPI";
+// import designAPI from "../../utils/designAPI";
 
 class PublishModal extends Component {
   constructor(props) {
@@ -17,24 +17,11 @@ class PublishModal extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      title: nextProps.title
+      title: nextProps.title,
+      description: nextProps.description,
+      category: nextProps.category,
+      difficulty: nextProps.difficulty
     });
-  }
-
-  // FOR SHELBY/SAM: For some reason, I'm not getting a response from the API. It's hitting localhost://3000 instead of 3001.
-  componentWillMount() {
-    designAPI.getDesign(this.props.id)
-    .then(res => {
-      console.log(`the res: ${res}`)
-      if (res.data) {
-        this.setState({
-          description: res.data.description,
-          difficulty: res.data.difficulty,
-          category: res.data.category
-        })
-      }
-    })
-    .catch(err => console.error(err));
   }
 
   handleInputChange = e => {
@@ -53,6 +40,7 @@ class PublishModal extends Component {
         size="lg"
         aria-labelledby="publish-modal-title"
         key={this.props.id}
+        id={this.props.id}
         onHide={onHide}
       >
         <Modal.Header closeButton>

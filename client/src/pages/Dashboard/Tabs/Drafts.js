@@ -11,7 +11,10 @@ class Drafts extends Component {
     drafts: [],
     modalShow: false,
     currentId: "",
-    currentTitle: ""
+    currentTitle: "",
+    currentDescription: "",
+    currentDifficulty: "",
+    currentCategory: ""
   };
 
   componentDidMount() {
@@ -31,14 +34,16 @@ class Drafts extends Component {
     alert("Edit function coming soon!");
   };
 
-  publishEvent = (event, id, title) => {
-    // console.log(id, title);
+  publishEvent = (event, id, title, description, difficulty, category) => {
     event.preventDefault();
     // Insert a modal here that asks the user if they're absolutely sure they want to publish this design.
     this.setState({
       modalShow: true,
       currentId: id,
-      currentTitle: title
+      currentTitle: title,
+      currentDescription: description,
+      currentDifficulty: difficulty,
+      currentCategory: category
     });
   };
 
@@ -103,6 +108,8 @@ class Drafts extends Component {
                   img={design.canvasImage}
                   title={design.title}
                   description={design.description}
+                  category={design.category}
+                  difficulty={design.difficulty}
                   refresh={this.getDrafts}
                   delete={this.deleteEvent}
                   publish={this.publishEvent}
@@ -117,6 +124,9 @@ class Drafts extends Component {
           show={this.state.modalShow}
           onHide={this.modalClose}
           title={this.state.currentTitle}
+          description={this.state.currentDescription}
+          category={this.state.currentCategory}
+          difficulty={this.state.currentDifficulty}
           publish={this.sendPublishData}
           id={this.state.currentId}
         />

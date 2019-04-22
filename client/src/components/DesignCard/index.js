@@ -33,12 +33,43 @@ class DesignCard extends Component {
                 )
             case "drafts":
                 return (
-                    <ButtonGroup
-                        button1={<EditButton onClick={event => this.props.edit(event, this.props.id)} id={this.props.id}/>}
-                        button2={<PublishButton onClick={event => this.props.publish(event, this.props.id, this.props.title)} id={this.props.id}/>}
-                        button3={<TrashButton onClick={event => this.props.delete(event, this.props.id)} id={this.props.id}/>}
-                    />
-                )
+                  <ButtonGroup
+                    button1={
+                      <EditButton
+                        onClick={event =>
+                          this.props.edit(event, this.props.id)
+                        }
+                        id={this.props.id}
+                      />
+                    }
+                    button2={
+                      <PublishButton
+                        onClick={event =>
+                          this.props.publish(
+                            event,
+                            this.props.id,
+                            this.props.title,
+                            this.props.description,
+                            this.props.difficulty,
+                            this.props.category
+                          )
+                        }
+                        id={this.props.id}
+                      />
+                    }
+                    button3={
+                      <TrashButton
+                        onClick={event =>
+                          this.props.delete(
+                            event,
+                            this.props.id
+                          )
+                        }
+                        id={this.props.id}
+                      />
+                    }
+                  />
+                );
             case "favorites":
                 return (
                     <ButtonGroup
