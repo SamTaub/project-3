@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Container, Row, Col } from "../../components/Grid";
 import DesignCard from "../../components/DesignCard";
 import designAPI from "../../utils/designAPI";
+import dashboardAPI from "../../utils/dashboardAPI";
+import userAPI from "../../utils/userAPI";
 import CategoryForm from "../../components/CategoryForm/CategoryForm";
 import DifficultyForm from "../../components/DifficultyForm/DifficultyForm";
 import RatingForm from "../../components/RatingForm/RatingForm";
@@ -16,12 +18,37 @@ class Browse extends Component {
             sort: "",
             category: "",
             difficulty: "",
-            rating: ""
+            rating: "",
+            currentUser: "",
+            usersFavorites: []
         }
     }
 
     componentDidMount(){
-        this.getAllPublishedDesigns();
+        userAPI
+            .checkAuthStatus()
+            .then(res => {
+                console.log(res.data.id);
+                this.setState({ currentUser: res.data.id }, () => this.checkUserFavorites());
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+    checkUserFavorites(){
+        if (this.state.currentUser) {
+            userAPI.findUserWithoutPopulation(this.state.currentUser)
+                .then(res => {
+                    this.setState({usersFavorites: res.data.favorites }, () => this.getAllPublishedDesigns())
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+        else {
+            this.getAllPublishedDesigns();
+        }
     }
 
     getAllPublishedDesigns = () => {
@@ -37,9 +64,36 @@ class Browse extends Component {
     }
 
     // We will also need an unfavorite event. The cards will eventually dynamically pass in either the favorite or unfavorite event based on whether or not the design is already in the user's favorites.
-    favoriteEvent = (event, designId, userId) => {
+    favoriteEvent = (event, userId, designId) => {
         event.preventDefault();
-        alert("Favorite feature coming soon!");
+        if (!this.state.currentUser || this.state.currentUser === "") {
+            alert("You must be logged in to add a favorite!");
+        }
+        else {
+            dashboardAPI.addFavorite(userId, designId)
+                .then(res => {
+                    this.checkUserFavorites();
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+    }
+
+    unfavoriteEvent = (event, userId, designId) => {
+        event.preventDefault();
+        if (!this.state.currentUser || this.state.currentUser === "") {
+            alert("You must be logged in to add a favorite!");
+        }
+        else {
+            dashboardAPI.removeFavorite(userId, designId)
+                .then(res => {
+                    this.checkUserFavorites();
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
     }
 
     editEvent = (event, id) => {
@@ -108,16 +162,19 @@ class Browse extends Component {
                     this.state.publishedDesigns.map(design => {
                         console.log(this.state.publishedDesigns);
                         return (
-                            <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12" key={design._id + 1}>
+                            <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" key={design._id + 1}>
                                 <DesignCard 
                                     key={design._id}
                                     id={design._id}
+                                    currentUser={this.state.currentUser}
                                     img={design.canvasImage}
                                     title={design.title}
                                     description={design.description}
                                     favorite={this.favoriteEvent}
+                                    unfavorite={this.unfavoriteEvent}
                                     edit={this.editEvent}
                                     page={"browse"}
+                                    isFavorite={this.state.usersFavorites.indexOf(design._id) > -1 ? true : false}
                                 />
                             </div>
                         );

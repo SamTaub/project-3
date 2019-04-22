@@ -100,8 +100,8 @@ module.exports = function (app) {
 
     // Add to a users favorites
     // NEEDS TESTING TO ENSURE PROPER ROUTE
-    app.post("/api/users/:userId/favorites/:designId", (req, res) => {
-        beadliController.addFavorites(req, res);
+    app.put("/api/users/:userId/favorites/:designId", (req, res) => {
+        beadliController.addFavorite(req, res);
     });
 
     // Delete a users favorites?
@@ -110,9 +110,13 @@ module.exports = function (app) {
         beadliController.removeFavorite(req, res);
     });
 
-    // Find a user
-    app.get("/api/users/:id", () => {
+    // Find a user with favorites populated
+    app.get("/api/users/user/:id", (req, res) => {
         beadliController.findUser(req, res);
-    })
+    });
+
+    app.get("/api/users/user/:id/unpopulated", (req, res) => {
+        beadliController.findUserWithoutPopulation(req, res);
+    });
 
 }

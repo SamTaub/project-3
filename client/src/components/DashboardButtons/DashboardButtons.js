@@ -1,5 +1,37 @@
 import React from "react";
 
+export function CardButtonGroup(props) {
+    return (
+        <div
+            className="btn-toolbar special"
+            role="toolbar"
+            aria-label="Toolbar with button groups"
+        >
+            <div
+                className="btn-group mt-2 mr-2 mb-2"
+                role="group"
+                aria-label="First group"
+            >
+                {props.button1}
+            </div>
+            <div
+                className="btn-group mt-2 mr-2 mb-2"
+                role="group"
+                aria-label="Second group"
+            >
+                {props.button2}
+            </div>
+            <div
+                className="btn-group mt-2 mr-2 mb-2 w50"
+                role="group"
+                aria-label="Third group"
+            >
+                {props.button3}
+            </div>
+        </div>
+    );
+}
+
 export function TrashButton(props) {
     return (
         <button type="button" className="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Trash" onClick={props.onClick} id={props.id}>
@@ -50,7 +82,7 @@ export function FavoriteButton(props) {
 
 export function UnfavoriteButton(props) {
     return (
-        <button type="button" className="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Favorite" onClick={props.onClick} id={props.id}>
+        <button type="button" className="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Remove favorite" onClick={props.onClick} id={props.id}>
             <i className="fas fa-heart" />
         </button>
     )
