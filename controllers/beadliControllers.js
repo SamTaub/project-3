@@ -32,7 +32,6 @@ module.exports = {
             .catch(err => res.json(err));
     },
 
-
     //  Find a design by a title 'like' the query
     //  Note:  Not sure if this will work cause req is not being used but this is what the docs say
     findByTitle: function(req, res) {
@@ -56,6 +55,31 @@ module.exports = {
             .find({ "rating": req.query })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.json(err));
+    },
+
+    // Find all designs that meet the faceted criteria on the Browse page.
+    findByFacet: function(req, res) {
+        // console.log(req.body);
+        let query = {};
+        query['$and'] = [];
+
+        if (req.body.category !== "") {
+            query['$and'].push({ category: req.body.category });
+        }
+
+        if (req.body.difficulty !== "") {
+            query['$and'].push({ difficulty: req.body.difficulty });
+        }
+
+        if (req.body.rating !== "") {
+            query['$and'].push({ rating: req.body.rating });
+        }
+
+        console.log(query);
+
+        db.Design.find(query)
+          .then(dbModel => res.json(dbModel))
+          .catch(err => res.json(err));
     },
 
     // Create a design
