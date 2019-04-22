@@ -9,7 +9,7 @@ function SortBy(props){
             <FormGroup controlId="sort">
                 <FormLabel>Sort by:</FormLabel>
                 <Form.Control as="select" onChange={props.onChange}>
-                    <option value="Newest">Newest</option>
+                    <option value="Newest" defaultValue>Newest</option>
                     <option value="Oldest">Oldest</option>
                 </Form.Control>
             </FormGroup>
