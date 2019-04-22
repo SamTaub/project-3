@@ -5,6 +5,8 @@ import {
   ClearButton,
   UndoButton,
   SaveButton,
+  ThreeDimensions,
+  DimensionButton,
   CurrentColor,
   Title
 } from "../../components/Board/Board";
@@ -27,7 +29,8 @@ class Create extends Component {
       designId: null,
       title: "",
       colorName: "",
-      modalShow: false
+      modalShow: false,
+      dimension: 2
     };
   }
 
@@ -55,6 +58,23 @@ class Create extends Component {
     this.setState({
       history
     });
+  };
+
+  toggle = () => {
+    if (this.state.dimension === 3) {
+      this.setState({
+        dimension: 2
+      });
+    } else {
+      this.setState({
+        dimension: 3
+      });
+    }
+    console.log("Dimensions: " + this.state.dimension);
+  };
+
+  erase = () => {
+    console.log("Erase");
   };
 
   undo = () => {
@@ -172,19 +192,19 @@ class Create extends Component {
     });
   };
 
-  onMouseEnter = (value, rowIdx, colIdx) => {
+  onPointerEnter = (value, rowIdx, colIdx) => {
     if (this.state.mouseIsDown) {
       this.handleClick(value, rowIdx, colIdx);
     }
   };
 
-  onMouseDown = () => {
+  onPointerDown = () => {
     this.setState({
       mouseIsDown: true
     });
   };
 
-  onMouseUp = () => {
+  onPointerUp = () => {
     this.setState({
       mouseIsDown: false
     });
@@ -197,7 +217,7 @@ class Create extends Component {
       <Fragment>
         <Container styles="well">
           <Row styles="justify-content-left align-items-left">
-            <Col size="lg-6">
+            <Col size="lg-6 leftCol">
               <div id="drawDiv">
                 <Board
                   activeColor={this.state.activeColor}
@@ -205,11 +225,12 @@ class Create extends Component {
                   onClick={(value, rowIdx, colIdx) =>
                     this.handleClick(value, rowIdx, colIdx)
                   }
-                  onMouseEnter={(value, rowIdx, colIdx) =>
-                    this.onMouseEnter(value, rowIdx, colIdx)
+                  onPointerEnter={(value, rowIdx, colIdx) =>
+                    this.onPointerEnter(value, rowIdx, colIdx)
                   }
-                  onMouseDown={this.onMouseDown}
-                  onMouseUp={this.onMouseUp}
+                  onPointerDown={this.onPointerDown}
+                  onPointerUp={this.onPointerUp}
+                  dimension={this.state.dimension}
                 />
               </div>
             </Col>
@@ -218,10 +239,19 @@ class Create extends Component {
                 onChange={this.handleInputChange}
                 value={this.state.title}
               />
-              <div id="currentColor">
-                <p>{this.state.colorName}</p>
-                <CurrentColor activeColor={this.state.activeColor} />
-              </div>
+              <Row>
+                <Col size="sm-6">
+                  <div id="currentColor">
+                    <p>{this.state.colorName}</p>
+                    <CurrentColor activeColor={this.state.activeColor} />
+                  </div>
+                </Col>
+                <Col size="sm-6">
+                  <DimensionButton
+                    toggle={<ThreeDimensions onClick={this.toggle} />}
+                  />
+                </Col>
+              </Row>
 
               <ColorPicker onChange={this.handleColorChange} />
 
