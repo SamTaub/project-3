@@ -14,11 +14,11 @@ const designSchema = new Schema({
     },
     category: {
         type: String,
-        default: "Misc"
+        default: "Miscellaneous"
     },
     difficulty: {
         type: String,
-        default: "Unspecified"
+        default: "Normal"
     },
     rating: {
         type: Number,
