@@ -32,6 +32,10 @@ module.exports = function (app) {
         beadliController.findByRating(req, res);
     });
 
+    app.get("/api/designs/facet", (req, res) => {
+        beadliController.findByFacet(req, res);
+    });
+
     // DESIGN CONTROLLERS/ROUTES (Post, Put, Delete)
 
     // Create a design and post it 
