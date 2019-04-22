@@ -85,12 +85,21 @@ module.exports = {
 
     //Publish a design
     publishDesign: function(req, res) {
-        db.Design
-            .findOneAndUpdate({"_id": req.params.id }, { 
-                $set: { "published": true}
-            })
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.json(err));
+        console.log(req.body);
+        db.Design.findOneAndUpdate(
+          { _id: req.params.id },
+          {
+            $set: {
+              published: true,
+              title: req.body.title,
+              description: req.body.description,
+              difficulty: req.body.difficulty,
+              category: req.body.category
+            }
+          }
+        )
+          .then(dbModel => res.json(dbModel))
+          .catch(err => res.json(err));
     },
 
     // Unpublish a design

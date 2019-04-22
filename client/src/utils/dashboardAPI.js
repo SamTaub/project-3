@@ -17,9 +17,9 @@ export default {
     return axios.get(`/api/users/${userId}/favorites`)
   },
 
-  publishDesign: function(designId) {
+  publishDesign: function(designId, data) {
     console.log(`Dashboard API publishing design ${designId}`);
-    return axios.put(`/api/designs/publish/${designId}`);
+    return axios.put(`/api/designs/publish/${designId}`, data);
   },
 
   unpublishDesign: function(designId) {
