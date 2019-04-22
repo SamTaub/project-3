@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {CardButtonGroup, TrashButton, EditButton, PublishButton, ViewButton, UnpublishButton, FavoriteButton, UnfavoriteButton } from "../DashboardButtons/DashboardButtons";
-console.log("hello design card");
 
 class DesignCard extends Component {
   constructor(props) {
