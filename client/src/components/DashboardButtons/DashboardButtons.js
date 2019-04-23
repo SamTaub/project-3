@@ -1,6 +1,6 @@
 import React from "react";
 
-export function CardButtonGroup(props) {
+export function CardTwoButtonGroup(props) {
     return (
         <div
             className="btn-toolbar special"
@@ -8,21 +8,46 @@ export function CardButtonGroup(props) {
             aria-label="Toolbar with button groups"
         >
             <div
-                className="btn-group mt-2 mr-2 mb-2"
+                className="btn-group mr-2"
                 role="group"
                 aria-label="First group"
             >
                 {props.button1}
             </div>
             <div
-                className="btn-group mt-2 mr-2 mb-2"
+                className="btn-group"
+                role="group"
+                aria-label="Second group"
+            >
+                {props.button2}
+            </div>
+        </div>
+    );
+}
+
+export function CardThreeButtonGroup(props) {
+    return (
+        <div
+            className="btn-toolbar special"
+            role="toolbar"
+            aria-label="Toolbar with button groups"
+        >
+            <div
+                className="btn-group mr-2"
+                role="group"
+                aria-label="First group"
+            >
+                {props.button1}
+            </div>
+            <div
+                className="btn-group mr-2"
                 role="group"
                 aria-label="Second group"
             >
                 {props.button2}
             </div>
             <div
-                className="btn-group mt-2 mr-2 mb-2 w50"
+                className="btn-group w50"
                 role="group"
                 aria-label="Third group"
             >
@@ -36,14 +61,6 @@ export function TrashButton(props) {
     return (
         <button type="button" className="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Trash" onClick={props.onClick} id={props.id}>
             <i className="fas fa-trash-alt" />
-        </button>
-    )
-}
-
-export function EditButton(props) {
-    return (
-        <button type="button" className="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Edit" onClick={props.onClick} id={props.id}>
-            <i className="fas fa-edit" />
         </button>
     )
 }
@@ -83,7 +100,7 @@ export function FavoriteButton(props) {
 export function UnfavoriteButton(props) {
     return (
         <button type="button" className="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Remove favorite" onClick={props.onClick} id={props.id}>
-            <i className="fas fa-heart" />
+            <i className="fas fa-heart" style={{color: "deeppink"}}/>
         </button>
     )
 }

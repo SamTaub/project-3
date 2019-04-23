@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import {CardButtonGroup, TrashButton, EditButton, PublishButton, ViewButton, UnpublishButton, FavoriteButton, UnfavoriteButton } from "../DashboardButtons/DashboardButtons";
+import {CardTwoButtonGroup, CardThreeButtonGroup, TrashButton, PublishButton, ViewButton, UnpublishButton, FavoriteButton, UnfavoriteButton } from "../DashboardButtons/DashboardButtons";
 
 class DesignCard extends Component {
   constructor(props) {
@@ -11,7 +11,7 @@ class DesignCard extends Component {
     switch(page) {
       case "published":
         return(
-          <CardButtonGroup
+          <CardThreeButtonGroup
             button1={
               <ViewButton 
                 id={this.props.id} 
@@ -41,20 +41,23 @@ class DesignCard extends Component {
         );
       case "drafts":
         return (
-          <CardButtonGroup
+          <CardThreeButtonGroup
             button1={
               <Link 
                 to={{
                   pathname: "/create", 
                   state: { 
-                    saved: true, 
                     squares: this.props.grid,
                     designId: this.props.id,
                     title: this.props.title
                   }
                 }}
+                className="btn btn-light"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title="Edit"
               >
-                <EditButton />
+                <i className="fas fa-edit" />
               </Link>
             }
             button2={
@@ -87,7 +90,7 @@ class DesignCard extends Component {
         );
       case "favorites":
         return (
-          <CardButtonGroup
+          <CardTwoButtonGroup
             button1={
               <ViewButton 
                 id={this.props.id} 
@@ -106,22 +109,11 @@ class DesignCard extends Component {
                 id={this.props.id}
               />
             }
-            button3={
-              <EditButton 
-                onClick={event => 
-                  this.props.edit(
-                    event, 
-                    this.props.id
-                  )
-                } 
-                id={this.props.id}
-              />
-            }
           />
         );
       case "browse":
         return (
-          <CardButtonGroup
+          <CardTwoButtonGroup
             button1={
               <ViewButton 
                 id={this.props.id} 
@@ -152,17 +144,6 @@ class DesignCard extends Component {
                   id={this.props.id}
                 />
               )
-            }
-            button3={
-              <EditButton 
-                onClick={event => 
-                  this.props.edit(
-                    event, 
-                    this.props.id
-                  )
-                }
-                id={this.props.id}
-              />
             }
           />
         );
