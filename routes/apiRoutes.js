@@ -32,11 +32,6 @@ module.exports = function (app) {
         beadliController.findByRating(req, res);
     });
 
-    // Find all designs that meet the faceted queries (for Browse page).
-    app.get("/api/designs/facet", (req, res) => {
-        beadliController.findByFacet(req, res);
-    });
-
     // DESIGN CONTROLLERS/ROUTES (Post, Put, Delete)
 
     // Create a design and post it 
@@ -86,9 +81,15 @@ module.exports = function (app) {
     // Get request for Published Designs by the user
     app.get("/api/users/dashboard/:id/published", (req, res) => {
         beadliController.findPublished(req, res);
-    })
+    });
 
-    app.get("/api/designs/published", (req, res) => {
+    // Find all designs that meet the faceted queries (for Browse page).
+    app.get("/api/designs/facet", (req, res) => {
+        beadliController.findByFacet(req, res);
+    });
+
+    app.get("/api/designs/published/:category/:difficulty/:sort", (req, res) => {
+        console.log(`ApiRoutes: ${req.params}`);
         beadliController.findAllPublished(req, res);
     })
 

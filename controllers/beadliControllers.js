@@ -15,11 +15,34 @@ module.exports = {
 
     // Find all published designs
     findAllPublished: function(req, res) {
-        console.log("Getting all published designs");
-        db.Design
-        .find({"published": true})
-        .then(dbModel => res.json(dbModel))
-        .catch(err => res.json(err));
+        // console.log("Getting all published designs");
+        console.log(`Controller req.body: ${req.params.category}`);
+        let query = {};
+        let sortVal = -1;
+        query["$and"] = [{ "published": true }];
+
+        if (req.params.category !== "All") {
+            query['$and'].push({ "category": req.params.category });
+        }
+
+        if (req.params.difficulty !== "All") {
+            query['$and'].push({ "difficulty": req.params.difficulty });
+        }
+
+        if (req.params.sort === "Oldest") {
+            sortVal = 1
+        }
+
+        console.log(query);
+
+        db.Design.find(query)
+          .sort({ _id: sortVal })
+          .then(dbModel => res.json(dbModel))
+          .catch(err => res.json(err));
+        // db.Design
+        // .find({"published": true})
+        // .then(dbModel => res.json(dbModel))
+        // .catch(err => res.json(err));
     },
 
     // Find a design based on it's ID
@@ -59,21 +82,27 @@ module.exports = {
 
     // Find all designs that meet the faceted criteria on the Browse page.
     findByFacet: function(req, res) {
-        // console.log(req.body);
+        console.log(req.body);
         let query = {};
-        query['$and'] = [];
+        let sortVal = 1;
+        query["$and"] = [{ published: true }];
 
-        if (req.body.category !== "") {
+        if (req.body.category !== "All") {
             query['$and'].push({ category: req.body.category });
         }
 
-        if (req.body.difficulty !== "") {
+        if (req.body.difficulty !== "All") {
             query['$and'].push({ difficulty: req.body.difficulty });
         }
 
-        // console.log(query);
+        if (req.body.sort === "Oldest") {
+            sortVal = -1
+        }
+
+        console.log(query);
 
         db.Design.find(query)
+          .sort({ "_id": sortVal })
           .then(dbModel => res.json(dbModel))
           .catch(err => res.json(err));
     },

@@ -6,7 +6,7 @@ import dashboardAPI from "../../utils/dashboardAPI";
 import userAPI from "../../utils/userAPI";
 import CategoryForm from "../../components/CategoryForm/CategoryForm";
 import DifficultyForm from "../../components/DifficultyForm/DifficultyForm";
-import RatingForm from "../../components/RatingForm/RatingForm";
+// import RatingForm from "../../components/RatingForm/RatingForm";
 import SortBy from "../../components/SortByForm/SortBy";
 
 class Browse extends Component {
@@ -15,10 +15,10 @@ class Browse extends Component {
 
         this.state = {
             publishedDesigns: [],
-            sort: "",
-            category: "",
-            difficulty: "",
-            rating: "",
+            sort: "Newest",
+            category: "All",
+            difficulty: "All",
+            // rating: "",
             currentUser: "",
             usersFavorites: []
         }
@@ -52,15 +52,20 @@ class Browse extends Component {
     }
 
     getAllPublishedDesigns = () => {
-        designAPI.getAllPublishedDesigns()
-        .then(res =>{
+        designAPI
+          .getAllPublishedDesigns(
+            this.state.category,
+            this.state.difficulty,
+            this.state.sort
+          )
+          .then(res => {
             this.setState({
-                publishedDesigns: res.data
-            })
-        })
-        .catch(err => {
+              publishedDesigns: res.data
+            });
+          })
+          .catch(err => {
             console.log(err);
-        })
+          });
     }
 
     // We will also need an unfavorite event. The cards will eventually dynamically pass in either the favorite or unfavorite event based on whether or not the design is already in the user's favorites.
@@ -108,7 +113,8 @@ class Browse extends Component {
         this.setState({
             sort: event.target.value
         }, () => {
-            console.log(`Sorting results by ${this.state.sort}`);
+            this.checkUserFavorites();
+            // console.log(`Sorting results by ${this.state.sort}`);
         })
     }
 
@@ -117,7 +123,8 @@ class Browse extends Component {
         this.setState({
             category: event.target.value
         }, () => {
-            console.log(`Filtering results by ${this.state.category}`);
+            this.checkUserFavorites();
+            // console.log(`Filtering results by ${this.state.category}`);
         })
     }
 
@@ -127,19 +134,20 @@ class Browse extends Component {
             difficulty: event.target.value
         }, () =>{
             // Verify state change with console.log()
-            console.log(`Filtering results by ${this.state.difficulty}`);
+            this.checkUserFavorites();
+            // console.log(`Filtering results by ${this.state.difficulty}`);
         })
     }
 
-    handleRatingChange = (event) => {
-        event.preventDefault();
-        this.setState({
-            rating: event.target.value
-        }, () =>{
-            // Verify state change with console.log()
-            console.log(`Filtering results by ${this.state.rating}`);
-        })
-    }
+    // handleRatingChange = (event) => {
+    //     event.preventDefault();
+    //     this.setState({
+    //         rating: event.target.value
+    //     }, () =>{
+    //         // Verify state change with console.log()
+    //         console.log(`Filtering results by ${this.state.rating}`);
+    //     })
+    // }
 
     render (){
         return(
@@ -150,7 +158,7 @@ class Browse extends Component {
                     <SortBy onChange={this.handleSortChange}></SortBy>
                     <CategoryForm onChange={this.handleCategoryChange}></CategoryForm>
                     <DifficultyForm onChange={this.handleDifficultyChange}></DifficultyForm>
-                    <RatingForm onChange={this.handleRatingChange}></RatingForm>
+                    {/* <RatingForm onChange={this.handleRatingChange}></RatingForm> */}
                 </div>
                 <div className="col-xl-9">
                 <Row>

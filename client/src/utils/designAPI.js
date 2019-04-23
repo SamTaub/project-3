@@ -5,8 +5,9 @@ export default {
     return axios.post("/api/designs", data);
   },
 
-  getAllPublishedDesigns: function(){
-    return axios.get("/api/designs/published");
+  getAllPublishedDesigns: function(category, difficulty, sort) {
+    // console.log(data);
+    return axios.get(`/api/designs/published/${category}/${difficulty}/${sort}`);
   },
 
   getDesign: function(id) {
