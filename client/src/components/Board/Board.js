@@ -4,7 +4,15 @@ import "./style.css";
 export function Square(props) {
   return (
     <button
-      className={props.dimension === 2 ? (props.value !== "" ? "circle" : "square") : (props.value !== "" ? "peg" : "square")}
+      className={
+        props.dimension === 2
+          ? props.value !== ""
+            ? "circle"
+            : "square"
+          : props.value !== ""
+          ? "peg"
+          : "square"
+      }
       style={{ borderColor: props.value }}
       onClick={props.onClick}
       onPointerEnter={props.onPointerEnter}
@@ -35,12 +43,13 @@ export function DimensionButton(props) {
       className="btn-toolbar special"
       role="toolbar"
       aria-label="Toolbar with button groups"
-      id="dimensionButton" 
+      id="dimension-toolbar"
     >
       <div
         className="btn-group mt-2 mr-2 mb-2"
         role="group"
         aria-label="dimension-toggle"
+        id="dimension-group"
       >
         {props.toggle}
       </div>
@@ -80,27 +89,9 @@ export function ButtonGroup(props) {
   );
 }
 
-export function CurrentColor(props) {
-  return (
-    <svg width="45" height="30" id="selectedColorRing">
-      <circle
-        cx="15"
-        cy="15"
-        r="10"
-        style={{
-          fill: "transparent",
-          fillOpacity: 1,
-          stroke: props.activeColor,
-          strokeWidth: "8"
-        }}
-      />
-    </svg>
-  );
-}
-
 export function ThreeDimensions(props) {
   return (
-    <button type="button" className="btn btn-light" onClick={props.onClick}>
+    <button id="dimensionbutton" type="button" className="btn btn-light" onClick={props.onClick}>
       <i className="fas fa-cube" />
     </button>
   );

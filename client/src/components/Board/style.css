@@ -17,12 +17,7 @@
   background: var(--default-bg);
   border: var(--default-border);
   float: left;
-  /* font-size: 24px;
-  font-weight: bold;
-  line-height: 34px; */
   height: 1.2vw;
-  /* margin-right: -1px;
-  margin-top: -1px; */
   padding: 0;
   text-align: center;
   width: 1.2vw;
@@ -48,14 +43,6 @@
   padding: 0;
   text-align: center;
   border-radius: 100%;
-  /* box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6),
-    inset 2px 1px 2px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6),
-    inset 2px 1px 2px rgba(0, 0, 0, 0.6);
-  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6),
-    inset 2px 1px 2px rgba(0, 0, 0, 0.6);
-  -o-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6),
-    inset 2px 1px 2px rgba(0, 0, 0, 0.6); */
   z-index: 5;
 }
 
@@ -104,20 +91,18 @@
   flex-direction: row;
 }
 
-#selectedColorRing {
-  position: absolute;
-  margin-left: 100px;
-}
-
-#dimensionButton {
-  display: flex;
-}
-
-/* #board {
-  margin: auto;
+#dimensionbutton {
   width: 100%;
-  touch-action: none;
-} */
+  height: 100%;
+}
+
+#dimension-toolbar {
+  width: 100%;
+}
+
+#dimension-group {
+  height: 100%;
+}
 
 @media screen and (max-width: 991px) {
   .square {
