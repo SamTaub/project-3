@@ -152,48 +152,43 @@ class Create extends Component {
     // console.log(img);
     // Save image URI to a variable
 
-    if (this.state.title === "") {
-      this.setState({title: "Untitled"}, () => {
-        if (!this.state.saved) {
-          // console.log(this.props.id);
-          designAPI
-            .createDesign({
-              grid: this.state.squares,
-              title: this.state.title,
-              published: false,
-              canvasImage: img,
-              userId: this.props.id
-            })
-            .then(res => {
-              // console.log(res);
-              this.setState(
-                {
-                  saved: true,
-                  designId: res.data._id
-                },
-                // () => alert(`Design saved!`)
-                () => this.setState({ modalShow: true })
-              );
-            })
-            .catch(err => alert(`Hmm something went wrong (${err}). Try again!`));
-        } else {
-          designAPI
-            .updateDesign(this.state.designId, {
-              grid: this.state.squares,
-              title: this.state.title,
-              canvasImage: img,
-              userId: this.props.id
-            })
-            .then(res => {
-              // console.log(res);
-              // alert(`Design saved!`);
-              this.setState({ modalShow: true });
-            })
-            .catch(err => alert(`Hmm something went wrong (${err}). Try again!`));
-        }
-      });
-    };
-
+    if (!this.state.saved) {
+      // console.log(this.props.id);
+      designAPI
+        .createDesign({
+          grid: this.state.squares,
+          title: this.state.title !== "" ? (this.state.title) : ("Untitled"),
+          published: false,
+          canvasImage: img,
+          userId: this.props.id
+        })
+        .then(res => {
+          // console.log(res);
+          this.setState(
+            {
+              saved: true,
+              designId: res.data._id
+            },
+            // () => alert(`Design saved!`)
+            () => this.setState({ modalShow: true })
+          );
+        })
+        .catch(err => alert(`Hmm something went wrong (${err}). Try again!`));
+    } else {
+      designAPI
+        .updateDesign(this.state.designId, {
+          grid: this.state.squares,
+          title: this.state.title !== "" ? (this.state.title) : ("Untitled"),
+          canvasImage: img,
+          userId: this.props.id
+        })
+        .then(res => {
+          // console.log(res);
+          // alert(`Design saved!`);
+          this.setState({ modalShow: true });
+        })
+        .catch(err => alert(`Hmm something went wrong (${err}). Try again!`));
+    }
   };
 
   handleClick = (value, rowIdx, colIdx) => {
