@@ -7,7 +7,6 @@ import {
   SaveButton,
   ThreeDimensions,
   DimensionButton,
-  CurrentColor,
   Title
 } from "../../components/Board/Board";
 import { Container, Row, Col } from "../../components/Grid";
@@ -44,6 +43,16 @@ class Create extends Component {
       activeColor: `rgba(${event.target.getAttribute("data-value")})`,
       colorName: `${event.target.getAttribute("title")}`
     });
+    console.log(this.getRGBTotal(this.state.activeColor));
+  };
+
+  getRGBTotal = rgb => {
+    let total = 0;
+    rgb = rgb.split(",");
+    for (let i = 0; i < rgb.length; i++) {
+      total += parseInt(rgb[i].replace ( /[^\d]/g, '' ));
+    }
+    return total-255;
   };
 
   addToHistory = (current, past, rowIdx, colIdx) => {
@@ -240,13 +249,15 @@ class Create extends Component {
                 value={this.state.title}
               />
               <Row>
-                <Col size="sm-6">
-                  <div id="currentColor">
+                <Col size="sm-6 color">
+                  <div
+                    id="currentColor"
+                    style={{ background: this.state.activeColor, color: this.getRGBTotal(this.state.activeColor) < 300 ? "white" : "black" }}
+                  >
                     <p>{this.state.colorName}</p>
-                    <CurrentColor activeColor={this.state.activeColor} />
                   </div>
                 </Col>
-                <Col size="sm-6">
+                <Col size="sm-6 dimension">
                   <DimensionButton
                     toggle={<ThreeDimensions onClick={this.toggle} />}
                   />
