@@ -33,10 +33,24 @@ class Create extends Component {
     };
   }
 
-  genBlankBoard = () =>
-    Array(20)
-      .fill(0)
-      .map(x => Array(20).fill(""));
+  componentDidMount() {
+    if (this.props.location.state) {
+      this.setState({
+        saved: true,
+        squares: this.props.location.state.squares,
+        designId: this.props.location.state.designId,
+        title: this.props.location.state.title
+      })
+    }
+  }
+
+  genBlankBoard = () => {
+    return (
+      Array(20)
+        .fill(0)
+        .map(x => Array(20).fill(""))
+    );
+  }
 
   handleColorChange = event => {
     this.setState({
@@ -143,7 +157,7 @@ class Create extends Component {
       designAPI
         .createDesign({
           grid: this.state.squares,
-          title: this.state.title,
+          title: this.state.title !== "" ? (this.state.title) : ("Untitled"),
           published: false,
           canvasImage: img,
           userId: this.props.id
@@ -164,7 +178,7 @@ class Create extends Component {
       designAPI
         .updateDesign(this.state.designId, {
           grid: this.state.squares,
-          title: this.state.title,
+          title: this.state.title !== "" ? (this.state.title) : ("Untitled"),
           canvasImage: img,
           userId: this.props.id
         })

@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { Container, Row, Col } from "../../../components/Grid";
+import { Row, Col } from "../../../components/Grid";
 import dashboardAPI from "../../../utils/dashboardAPI";
 import userAPI from "../../../utils/userAPI";
 import DesignCard from "../../../components/DesignCard";
 import PublishModal from "../../../components/Modals/PublishModal";
+import { Link } from "react-router-dom";
 
 class Drafts extends Component {
   state = {
@@ -31,7 +32,9 @@ class Drafts extends Component {
 
   editEvent = (event, id) => {
     event.preventDefault();
-    alert("Edit function coming soon!");
+    return (
+      <Link to="/create" />
+    )
   };
 
   publishEvent = (event, id, title, description, difficulty, category) => {
@@ -49,6 +52,12 @@ class Drafts extends Component {
 
   // This function actually sends the data to the API route. 
   sendPublishData = (id, data) => {
+    if (data.title === "") {
+      data.title = "Untitled";
+    };
+    if (data.description === "") {
+      data.description = "No description";
+    };
     dashboardAPI
       .publishDesign(id, data)
       .then(res => {
@@ -107,6 +116,7 @@ class Drafts extends Component {
                   id={design._id}
                   img={design.canvasImage}
                   title={design.title}
+                  grid={design.grid}
                   description={design.description}
                   category={design.category}
                   difficulty={design.difficulty}
