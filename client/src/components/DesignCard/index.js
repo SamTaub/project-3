@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import {CardButtonGroup, TrashButton, EditButton, PublishButton, ViewButton, UnpublishButton, FavoriteButton, UnfavoriteButton } from "../DashboardButtons/DashboardButtons";
 
 class DesignCard extends Component {
@@ -42,12 +43,19 @@ class DesignCard extends Component {
         return (
           <CardButtonGroup
             button1={
-              <EditButton
-                onClick={event =>
-                  this.props.edit(event, this.props.id)
-                }
-                id={this.props.id}
-              />
+              <Link 
+                to={{
+                  pathname: "/create", 
+                  state: { 
+                    saved: true, 
+                    squares: this.props.grid,
+                    designId: this.props.id,
+                    title: this.props.title
+                  }
+                }}
+              >
+                <EditButton />
+              </Link>
             }
             button2={
               <PublishButton
