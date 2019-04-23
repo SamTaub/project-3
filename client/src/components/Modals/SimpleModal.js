@@ -15,11 +15,11 @@ class SimpleModal extends Component {
             {this.props.buttonRemainText}
           </Button>
           {this.props.buttonActionFunc ? (
-            <Button variant="light" onClick={this.props.buttonActionFunc} />
+            <Button variant="light" onClick={this.props.buttonActionFunc}>
+              {this.props.buttonActionText}
+            </Button>
           ) : (
-            <Button
-              variant="light"
-            >
+            <Button variant="light">
               <Link
                 to={this.props.buttonActionLink}
                 style={{ textDecoration: "none", color: "black" }}
