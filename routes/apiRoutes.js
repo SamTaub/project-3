@@ -81,9 +81,10 @@ module.exports = function (app) {
     // Get request for Published Designs by the user
     app.get("/api/users/dashboard/:id/published", (req, res) => {
         beadliController.findPublished(req, res);
-    })
+    });
 
-    app.get("/api/designs/published", (req, res) => {
+    app.get("/api/designs/published/:category/:difficulty/:sort", (req, res) => {
+        console.log(`ApiRoutes: ${req.params}`);
         beadliController.findAllPublished(req, res);
     })
 

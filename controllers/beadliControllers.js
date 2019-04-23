@@ -15,11 +15,30 @@ module.exports = {
 
     // Find all published designs
     findAllPublished: function(req, res) {
-        console.log("Getting all published designs");
-        db.Design
-        .find({"published": true})
-        .then(dbModel => res.json(dbModel))
-        .catch(err => res.json(err));
+        // console.log("Getting all published designs");
+        console.log(`Controller req.body: ${req.params.category}`);
+        let query = {};
+        let sortVal = -1;
+        query["$and"] = [{ "published": true }];
+
+        if (req.params.category !== "All") {
+            query['$and'].push({ "category": req.params.category });
+        }
+
+        if (req.params.difficulty !== "All") {
+            query['$and'].push({ "difficulty": req.params.difficulty });
+        }
+
+        if (req.params.sort === "Oldest") {
+            sortVal = 1
+        }
+
+        console.log(query);
+
+        db.Design.find(query)
+          .sort({ _id: sortVal })
+          .then(dbModel => res.json(dbModel))
+          .catch(err => res.json(err));
     },
 
     // Find a design based on it's ID
@@ -31,7 +50,6 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .catch(err => res.json(err));
     },
-
 
     //  Find a design by a title 'like' the query
     //  Note:  Not sure if this will work cause req is not being used but this is what the docs say
