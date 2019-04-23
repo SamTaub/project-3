@@ -83,11 +83,6 @@ module.exports = function (app) {
         beadliController.findPublished(req, res);
     });
 
-    // Find all designs that meet the faceted queries (for Browse page).
-    app.get("/api/designs/facet", (req, res) => {
-        beadliController.findByFacet(req, res);
-    });
-
     app.get("/api/designs/published/:category/:difficulty/:sort", (req, res) => {
         console.log(`ApiRoutes: ${req.params}`);
         beadliController.findAllPublished(req, res);
