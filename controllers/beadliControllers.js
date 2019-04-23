@@ -15,8 +15,6 @@ module.exports = {
 
     // Find all published designs
     findAllPublished: function(req, res) {
-        // console.log("Getting all published designs");
-        console.log(`Controller req.body: ${req.params.category}`);
         let query = {};
         let sortVal = -1;
         query["$and"] = [{ "published": true }];
@@ -33,7 +31,7 @@ module.exports = {
             sortVal = 1
         }
 
-        console.log(query);
+        // console.log(query);
 
         db.Design.find(query)
           .sort({ _id: sortVal })
