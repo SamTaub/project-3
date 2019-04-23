@@ -52,6 +52,12 @@ class Drafts extends Component {
 
   // This function actually sends the data to the API route. 
   sendPublishData = (id, data) => {
+    if (data.title === "") {
+      data.title = "Untitled";
+    };
+    if (data.description === "") {
+      data.description = "No description";
+    };
     dashboardAPI
       .publishDesign(id, data)
       .then(res => {
