@@ -48,6 +48,22 @@ export function DimensionButton(props) {
       <div
         className="btn-group mt-2 mr-2 mb-2"
         role="group"
+        id="currentColor"
+        style={{ background: props.background, color: props.color }}
+      >
+        <p>{props.colorName}</p>
+      </div>
+      <div
+        className="btn-group mt-2 mr-2 mb-2"
+        role="group"
+        aria-label="eraser-toggle"
+        id="eraser-group"
+      >
+        {props.eraser}
+      </div>
+      <div
+        className="btn-group mt-2 mr-2 mb-2"
+        role="group"
         aria-label="dimension-toggle"
         id="dimension-group"
       >
@@ -91,8 +107,21 @@ export function ButtonGroup(props) {
 
 export function ThreeDimensions(props) {
   return (
-    <button id="dimensionbutton" type="button" className="btn btn-light" onClick={props.onClick}>
+    <button
+      id="dimensionbutton"
+      type="button"
+      className="btn btn-light"
+      onClick={props.onClick}
+    >
       <i className="fas fa-cube" />
+    </button>
+  );
+}
+
+export function EraserButton(props) {
+  return (
+    <button type="button" className="btn btn-light" onClick={props.onClick}>
+      <i class="fa fa-eraser" />
     </button>
   );
 }

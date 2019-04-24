@@ -7,6 +7,7 @@ import {
   SaveButton,
   ThreeDimensions,
   DimensionButton,
+  EraserButton,
   Title
 } from "../../components/Board/Board";
 import { Container, Row, Col } from "../../components/Grid";
@@ -40,17 +41,15 @@ class Create extends Component {
         squares: this.props.location.state.squares,
         designId: this.props.location.state.designId,
         title: this.props.location.state.title
-      })
+      });
     }
   }
 
   genBlankBoard = () => {
-    return (
-      Array(20)
-        .fill(0)
-        .map(x => Array(20).fill(""))
-    );
-  }
+    return Array(20)
+      .fill(0)
+      .map(x => Array(20).fill(""));
+  };
 
   handleColorChange = event => {
     this.setState({
@@ -64,9 +63,9 @@ class Create extends Component {
     let total = 0;
     rgb = rgb.split(",");
     for (let i = 0; i < rgb.length; i++) {
-      total += parseInt(rgb[i].replace ( /[^\d]/g, '' ));
+      total += parseInt(rgb[i].replace(/[^\d]/g, ""));
     }
-    return total-255;
+    return total - 255;
   };
 
   addToHistory = (current, past, rowIdx, colIdx) => {
@@ -97,7 +96,10 @@ class Create extends Component {
   };
 
   erase = () => {
-    console.log("Erase");
+    this.setState({
+      activeColor: "",
+      colorName: "Eraser"
+    });
   };
 
   undo = () => {
@@ -157,7 +159,7 @@ class Create extends Component {
       designAPI
         .createDesign({
           grid: this.state.squares,
-          title: this.state.title !== "" ? (this.state.title) : ("Untitled"),
+          title: this.state.title !== "" ? this.state.title : "Untitled",
           published: false,
           canvasImage: img,
           userId: this.props.id
@@ -178,7 +180,7 @@ class Create extends Component {
       designAPI
         .updateDesign(this.state.designId, {
           grid: this.state.squares,
-          title: this.state.title !== "" ? (this.state.title) : ("Untitled"),
+          title: this.state.title !== "" ? this.state.title : "Untitled",
           canvasImage: img,
           userId: this.props.id
         })
@@ -262,23 +264,23 @@ class Create extends Component {
                 onChange={this.handleInputChange}
                 value={this.state.title}
               />
+
+              <ColorPicker onChange={this.handleColorChange} />
               <Row>
-                <Col size="sm-6 color">
-                  <div
-                    id="currentColor"
-                    style={{ background: this.state.activeColor, color: this.getRGBTotal(this.state.activeColor) < 300 ? "white" : "black" }}
-                  >
-                    <p>{this.state.colorName}</p>
-                  </div>
-                </Col>
-                <Col size="sm-6 dimension">
+                <Col size="sm-12 dimension">
                   <DimensionButton
                     toggle={<ThreeDimensions onClick={this.toggle} />}
+                    colorName={this.state.colorName}
+                    background={this.state.activeColor}
+                    eraser={<EraserButton onClick={this.erase} />}
+                    color={
+                      this.getRGBTotal(this.state.activeColor) < 300
+                        ? "white"
+                        : "black"
+                    }
                   />
                 </Col>
               </Row>
-
-              <ColorPicker onChange={this.handleColorChange} />
 
               <ButtonGroup
                 button1={<UndoButton onClick={this.undo} />}

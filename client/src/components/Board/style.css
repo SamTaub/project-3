@@ -28,6 +28,10 @@
   outline: none;
 }
 
+.square:active {
+  outline: none;
+}
+
 .square:hover {
   cursor: pointer;
 }
@@ -44,6 +48,18 @@
   text-align: center;
   border-radius: 100%;
   z-index: 5;
+}
+
+.circle:focus {
+  outline: none;
+}
+
+.circle:active {
+  outline: none;
+}
+
+.circle:hover {
+  cursor: pointer;
 }
 
 .peg {
@@ -68,18 +84,22 @@
   z-index: 5;
 }
 
+.peg:focus {
+  outline: none;
+}
+
+.peg:active {
+  outline: none;
+}
+
+.peg:hover {
+  cursor: pointer;
+}
+
 #drawDiv {
   display: flex;
   justify-content: center;
   align-content: center;
-}
-
-.circle:focus {
-  outline: none;
-}
-
-.circle:hover {
-  cursor: pointer;
 }
 
 .kbd-navigation .square:focus {
@@ -102,6 +122,10 @@
 
 #dimension-group {
   height: 100%;
+}
+
+#eraser-group {
+  height: 100%
 }
 
 @media screen and (max-width: 991px) {
