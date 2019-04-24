@@ -252,6 +252,7 @@ class Create extends Component {
       title: "Design Saved",
       body:
         "A draft of your design has been saved to your Dashboard. You can keep working on it here, or visit your Dashboard to publish or edit it later.",
+      buttonVariant: "btn btn-outline-info",
       buttonActionText: "View Dashboard",
       buttonActionLink: "/dashboard",
       buttonRemainText: "Keep Working"
@@ -261,6 +262,7 @@ class Create extends Component {
       title: "Clear Board",
       body:
         "Are you sure that you want to clear the board? This action cannot be undone.",
+      buttonVariant: "outline-danger",
       buttonActionText: "Clear Board",
       buttonActionFunc: this.clearBoard,
       buttonRemainText: "Cancel"
@@ -322,11 +324,6 @@ class Create extends Component {
               show={this.state.modalShow}
               onHide={this.modalClose}
               {...saveModal}
-              // title="Design Saved"
-              // body="A draft of your design has been saved to your Dashboard. You can keep working on it here, or visit your Dashboard to publish or edit it later."
-              // buttonActionText="View Dashboard"
-              // buttonActionLink="/dashboard"
-              // buttonRemainText="Keep Working"
             />
           ) : (
             <SimpleModal
