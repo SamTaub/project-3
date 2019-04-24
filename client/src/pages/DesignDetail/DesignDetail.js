@@ -7,7 +7,7 @@ import colorPalette from "../../utils/colorPalette";
 import { FavoriteButton, UnfavoriteButton } from "../../components/DashboardButtons/DashboardButtons";
 import moment from "moment";
 
-class Detail extends Component {
+class DesignDetail extends Component {
   state = {
     design: {},
     username: "Unknown",
@@ -182,7 +182,7 @@ class Detail extends Component {
   }
 }
 
-export default Detail;
+export default DesignDetail;
 
 // style={{display: "flex", flexDirection: "row", flexWrap: "wrap"}}
 

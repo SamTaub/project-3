@@ -9,6 +9,10 @@ module.exports = function (app) {
         beadliController.findAll(req, res);
     });
 
+    app.get("/api/designs/user/:id", (req, res) => {
+      beadliController.findByUser(req, res);
+    })
+
     // Find a design by its ID and populate its comments
     app.get("/api/designs/design/:id", (req, res) => {
         beadliController.findById(req, res);

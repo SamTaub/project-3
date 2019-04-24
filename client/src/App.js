@@ -10,7 +10,8 @@ import NoMatch from "./pages/NoMatch";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import Dashboard from "./pages/Dashboard/Dashboard";
-import Detail from "./pages/Detail/Detail";
+import DesignDetail from "./pages/DesignDetail/DesignDetail";
+import UserDetail from "./pages/UserDetail/UserDetail";
 import Create from "./pages/Create/Create";
 import Browse from "./pages/Browse/Browse";
 import Nav from "./components/Nav";
@@ -103,7 +104,8 @@ class App extends Component {
               render={() => <Login setUser={this.setUser} />}
             />
             <Route exact path="/signup" component={Signup} />
-            <Route exact path="/design/:id" component={Detail} />
+            <Route exact path="/design/:id" component={DesignDetail} />
+            <Route exact path="/user/:id" component={UserDetail} />
             <ProtectedRoute
               exact
               path="/create"
