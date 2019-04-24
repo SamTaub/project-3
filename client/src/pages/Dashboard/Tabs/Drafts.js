@@ -4,13 +4,15 @@ import dashboardAPI from "../../../utils/dashboardAPI";
 import userAPI from "../../../utils/userAPI";
 import DesignCard from "../../../components/DesignCard";
 import PublishModal from "../../../components/Modals/PublishModal";
+import DeleteModal from "../../../components/Modals/DeleteModal";
 import { Link } from "react-router-dom";
 
 class Drafts extends Component {
   state = {
     currentUser: "",
     drafts: [],
-    modalShow: false,
+    modalShow1: false,
+    modalShow2: false,
     currentId: "",
     currentTitle: "",
     currentDescription: "",
@@ -39,9 +41,8 @@ class Drafts extends Component {
 
   publishEvent = (event, id, title, description, difficulty, category) => {
     event.preventDefault();
-    // Insert a modal here that asks the user if they're absolutely sure they want to publish this design.
     this.setState({
-      modalShow: true,
+      modalShow1: true,
       currentId: id,
       currentTitle: title,
       currentDescription: description,
@@ -65,7 +66,7 @@ class Drafts extends Component {
       })
       .then(
         this.setState({
-          modalShow: false
+          modalShow1: false
         })
       )
       .catch(err => {
@@ -73,12 +74,22 @@ class Drafts extends Component {
       });
   };
 
+  triggerDeleteEvent = (event, id) => {
+    event.preventDefault();
+    this.setState(
+      {
+        modalShow2: true,
+        currentId: id
+      }
+    );
+  };
+
   deleteEvent = (event, id) => {
     event.preventDefault();
-    // Insert a modal here that asks the user if they're absolutely sure they want to delete, as this can't be undone
     dashboardAPI
       .deleteDesign(id)
       .then(res => this.getDrafts())
+      .then(this.modalClose2())
       .catch(err => {
         console.log(err);
       });
@@ -96,7 +107,9 @@ class Drafts extends Component {
       });
   };
 
-  modalClose = () => this.setState({ modalShow: false });
+  modalClose1 = () => this.setState({ modalShow1: false });
+
+  modalClose2= () => this.setState({ modalShow2: false });
 
   render() {
     return (
@@ -121,7 +134,7 @@ class Drafts extends Component {
                   category={design.category}
                   difficulty={design.difficulty}
                   refresh={this.getDrafts}
-                  delete={this.deleteEvent}
+                  delete={this.triggerDeleteEvent}
                   publish={this.publishEvent}
                   edit={this.editEvent}
                   page={"drafts"}
@@ -131,14 +144,20 @@ class Drafts extends Component {
           })
         )}
         <PublishModal
-          show={this.state.modalShow}
-          onHide={this.modalClose}
+          show={this.state.modalShow1}
+          onHide={this.modalClose1}
           title={this.state.currentTitle}
           description={this.state.currentDescription}
           category={this.state.currentCategory}
           difficulty={this.state.currentDifficulty}
           publish={this.sendPublishData}
           id={this.state.currentId}
+        />
+        <DeleteModal
+          show={this.state.modalShow2}
+          onHide={this.modalClose2}
+          id={this.state.currentId}
+          deleteDesign={this.deleteEvent}
         />
       </Row>
     );
