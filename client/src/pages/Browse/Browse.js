@@ -8,6 +8,7 @@ import CategoryForm from "../../components/CategoryForm/CategoryForm";
 import DifficultyForm from "../../components/DifficultyForm/DifficultyForm";
 // import RatingForm from "../../components/RatingForm/RatingForm";
 import SortBy from "../../components/SortByForm/SortBy";
+import { Form } from "react-bootstrap";
 import "./style.css";
 
 class Browse extends Component {
@@ -153,20 +154,22 @@ class Browse extends Component {
     render() {
         return (
             <Container styles="well p-3">
-                <div className="sticky-top">
-                    <Row styles="p-3 justify-content-center">
-                        <h1>Browse</h1>
-                    </Row>
-                    <Row>
-                        <div className="col">
-                            <SortBy onChange={this.handleSortChange}></SortBy>
-                            <CategoryForm onChange={this.handleCategoryChange}></CategoryForm>
-                            <DifficultyForm onChange={this.handleDifficultyChange}></DifficultyForm>
+                {/* <Row styles="p-3 justify-content-center">
+                    <h1>Browse</h1>
+                </Row> */}
+                <div className="row pt-2 pr-5 pl-5 mb-3 sticky-top bg-light rounded">
+                    <Col size="4">
+                        <SortBy onChange={this.handleSortChange}></SortBy>
+                    </Col>
+                    <Col size="4">
+                        <CategoryForm onChange={this.handleCategoryChange}></CategoryForm>
+                    </Col>
+                    <Col size ="4">
+                        <DifficultyForm onChange={this.handleDifficultyChange}></DifficultyForm>
+                    </Col>
                             {/* <RatingForm onChange={this.handleRatingChange}></RatingForm> */}
-                        </div>
-                    </Row>
                 </div>
-                <Row styles="">
+                <div className="row">
                     {!this.state.publishedDesigns.length > 0
                         ? (
                             <Col size="12">No published designs to display</Col>
@@ -174,7 +177,7 @@ class Browse extends Component {
                             this.state.publishedDesigns.map(design => {
                                 console.log(this.state.publishedDesigns);
                                 return (
-                                    <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" key={design._id + 1}>
+                                    <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12" key={design._id + 1}>
                                         <DesignCard
                                             key={design._id}
                                             id={design._id}
@@ -192,7 +195,7 @@ class Browse extends Component {
                                 );
                             })
                         )}
-                </Row>
+                </div>
             </Container>
         )
     }
