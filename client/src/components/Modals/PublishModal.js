@@ -117,7 +117,7 @@ class PublishModal extends Component {
             Close
           </Button>
           <Button
-            variant="light"
+            variant="btn btn-outline-success"
             id="publish-button"
             onClick={() =>
               this.props.publish(this.props.id, {
