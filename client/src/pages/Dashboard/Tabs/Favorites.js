@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col } from "../../../components/Grid";
+import { Row, Col } from "../../../components/Grid";
 import dashboardAPI from "../../../utils/dashboardAPI";
 import userAPI from "../../../utils/userAPI";
 import DesignCard from "../../../components/DesignCard";
