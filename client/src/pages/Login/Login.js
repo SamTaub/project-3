@@ -15,6 +15,28 @@ class Login extends Component {
     };
   }
 
+  componentDidMount() {
+    userAPI
+      .checkAuthStatus()
+      .then(res => {
+        console.log(res.data.id);
+        this.setState({ isLoggedIn: res.data.isLoggedIn }, () => {
+          if (this.state.isLoggedIn) {
+            return (
+              <Redirect
+                to={{
+                  pathname: "/dashboard"
+                }}
+              />
+            )
+          }
+        });
+      })
+      .catch(err => {
+          console.log(err);
+      });
+  }
+
   handleInputChange = e => {
     const { name, value } = e.target;
     this.setState({
