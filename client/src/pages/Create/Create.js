@@ -30,6 +30,7 @@ class Create extends Component {
       title: "",
       colorName: "",
       modalShow: false,
+      modalType: "",
       dimension: 2
     };
   }
@@ -126,7 +127,15 @@ class Create extends Component {
   clearBoard = () => {
     this.setState({
       squares: this.genBlankBoard(),
-      history: []
+      history: [],
+      modalShow: false
+    });
+  };
+
+  triggerClearBoard = () => {
+    this.setState({
+      modalShow: true,
+      modalType: "clear"
     });
   };
 
@@ -172,7 +181,7 @@ class Create extends Component {
               designId: res.data._id
             },
             // () => alert(`Design saved!`)
-            () => this.setState({ modalShow: true })
+            () => this.setState({ modalShow: true, modalType: "save" })
           );
         })
         .catch(err => alert(`Hmm something went wrong (${err}). Try again!`));
@@ -187,7 +196,7 @@ class Create extends Component {
         .then(res => {
           // console.log(res);
           // alert(`Design saved!`);
-          this.setState({ modalShow: true });
+          this.setState({ modalShow: true, modalType: "save" });
         })
         .catch(err => alert(`Hmm something went wrong (${err}). Try again!`));
     }
@@ -238,6 +247,25 @@ class Create extends Component {
   modalClose = () => this.setState({ modalShow: false });
 
   render() {
+    // Props objects to conditionally render the SimpleModal
+    const saveModal = {
+      title: "Design Saved",
+      body:
+        "A draft of your design has been saved to your Dashboard. You can keep working on it here, or visit your Dashboard to publish or edit it later.",
+      buttonActionText: "View Dashboard",
+      buttonActionLink: "/dashboard",
+      buttonRemainText: "Keep Working"
+    };
+
+    const clearModal = {
+      title: "Clear Board",
+      body:
+        "Are you sure that you want to clear the board? This action cannot be undone.",
+      buttonActionText: "Clear Board",
+      buttonActionFunc: this.clearBoard,
+      buttonRemainText: "Cancel"
+    };
+
     return (
       <Fragment>
         <Container styles="well">
@@ -284,20 +312,29 @@ class Create extends Component {
 
               <ButtonGroup
                 button1={<UndoButton onClick={this.undo} />}
-                button2={<ClearButton onClick={this.clearBoard} />}
+                button2={<ClearButton onClick={this.triggerClearBoard} />}
                 button3={<SaveButton onClick={this.save} />}
               />
             </Col>
           </Row>
-          <SimpleModal
-            show={this.state.modalShow}
-            onHide={this.modalClose}
-            title="Design Saved"
-            body="A draft of your design has been saved to your Dashboard. You can keep working on it here, or visit your Dashboard to publish or edit it later."
-            buttonActionText="View Dashboard"
-            buttonActionLink="/dashboard"
-            buttonRemainText="Keep Working"
-          />
+          {this.state.modalType === "save" ? (
+            <SimpleModal
+              show={this.state.modalShow}
+              onHide={this.modalClose}
+              {...saveModal}
+              // title="Design Saved"
+              // body="A draft of your design has been saved to your Dashboard. You can keep working on it here, or visit your Dashboard to publish or edit it later."
+              // buttonActionText="View Dashboard"
+              // buttonActionLink="/dashboard"
+              // buttonRemainText="Keep Working"
+            />
+          ) : (
+            <SimpleModal
+              show={this.state.modalShow}
+              onHide={this.modalClose}
+              {...clearModal}
+            />
+          )}
         </Container>
       </Fragment>
     );
