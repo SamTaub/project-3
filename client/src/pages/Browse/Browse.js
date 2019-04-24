@@ -22,11 +22,13 @@ class Browse extends Component {
       difficulty: "All",
       // rating: "",
       currentUser: "",
-      usersFavorites: []
+      usersFavorites: [],
+      scrolling: false
     }
   }
 
   componentDidMount() {
+    window.addEventListener("scroll", this.handleScroll);
     userAPI
       .checkAuthStatus()
       .then(res => {
@@ -35,6 +37,10 @@ class Browse extends Component {
       .catch(err => {
         console.log(err);
       });
+  }
+
+  componentWillUnmount = () => {
+    window.removeEventListener("scroll", this.handleScroll);
   }
 
   checkUserFavorites() {
@@ -134,6 +140,15 @@ class Browse extends Component {
     })
   }
 
+  handleScroll = () => {
+    if (window.scrollY <= 250 && this.state.scrolling === true) {
+      this.setState({scrolling: false});
+    }
+    else if (window.scrollY > 250 && this.state.scrolling !== true) {
+      this.setState({scrolling: true});
+    }
+  }
+
   // handleRatingChange = (event) => {
   //     event.preventDefault();
   //     this.setState({
@@ -146,11 +161,14 @@ class Browse extends Component {
 
   render() {
     return (
-      <Container styles="well p-3">
-        {/* <Row styles="p-3 justify-content-center">
-                    <h1>Browse</h1>
-                </Row> */}
-        <div className="row pt-2 pr-5 pl-5 mb-3 sticky-top bg-light rounded">
+      <Container styles="well">
+        <Row styles="p-3 justify-content-center">
+          <Col size="12">
+            <h2 class="text-center">Browse</h2>
+          </Col>
+        </Row>
+        
+        <div className="row pr-5 pl-5 pt-2 mb-3 sticky-top rounded" onScroll={this.handleScroll} style={{background: this.state.scrolling ? "#f8f9fa" : "transparent"}}>
           <Col size="4">
             <SortBy onChange={this.handleSortChange}></SortBy>
           </Col>
@@ -168,9 +186,8 @@ class Browse extends Component {
               <Col size="12">No published designs to display</Col>
             ) : (
               this.state.publishedDesigns.map(design => {
-                console.log(this.state.publishedDesigns);
                 return (
-                  <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12" key={design._id + 1}>
+                  <div className="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-12" key={design._id + 1}>
                     <DesignCard
                       key={design._id}
                       id={design._id}
