@@ -8,9 +8,10 @@ import CategoryForm from "../../components/CategoryForm/CategoryForm";
 import DifficultyForm from "../../components/DifficultyForm/DifficultyForm";
 // import RatingForm from "../../components/RatingForm/RatingForm";
 import SortBy from "../../components/SortByForm/SortBy";
+import "./style.css";
 
 class Browse extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
 
         this.state = {
@@ -24,7 +25,7 @@ class Browse extends Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         userAPI
             .checkAuthStatus()
             .then(res => {
@@ -36,11 +37,11 @@ class Browse extends Component {
             });
     }
 
-    checkUserFavorites(){
+    checkUserFavorites() {
         if (this.state.currentUser) {
             userAPI.findUserWithoutPopulation(this.state.currentUser)
                 .then(res => {
-                    this.setState({usersFavorites: res.data.favorites }, () => this.getAllPublishedDesigns())
+                    this.setState({ usersFavorites: res.data.favorites }, () => this.getAllPublishedDesigns())
                 })
                 .catch(err => {
                     console.log(err);
@@ -53,19 +54,19 @@ class Browse extends Component {
 
     getAllPublishedDesigns = () => {
         designAPI
-          .getAllPublishedDesigns(
-            this.state.category,
-            this.state.difficulty,
-            this.state.sort
-          )
-          .then(res => {
-            this.setState({
-              publishedDesigns: res.data
+            .getAllPublishedDesigns(
+                this.state.category,
+                this.state.difficulty,
+                this.state.sort
+            )
+            .then(res => {
+                this.setState({
+                    publishedDesigns: res.data
+                });
+            })
+            .catch(err => {
+                console.log(err);
             });
-          })
-          .catch(err => {
-            console.log(err);
-          });
     }
 
     // We will also need an unfavorite event. The cards will eventually dynamically pass in either the favorite or unfavorite event based on whether or not the design is already in the user's favorites.
@@ -132,7 +133,7 @@ class Browse extends Component {
         event.preventDefault();
         this.setState({
             difficulty: event.target.value
-        }, () =>{
+        }, () => {
             // Verify state change with console.log()
             this.checkUserFavorites();
             // console.log(`Filtering results by ${this.state.difficulty}`);
@@ -149,49 +150,50 @@ class Browse extends Component {
     //     })
     // }
 
-    render (){
-        return(
-            <Container styles="well p-3">
-                <h1 className="text-center">Browse</h1>
-                <Row styles="p-3">
-                <div className="col-xl-3">
-                    <SortBy onChange={this.handleSortChange}></SortBy>
-                    <CategoryForm onChange={this.handleCategoryChange}></CategoryForm>
-                    <DifficultyForm onChange={this.handleDifficultyChange}></DifficultyForm>
-                    {/* <RatingForm onChange={this.handleRatingChange}></RatingForm> */}
-                </div>
-                <div className="col-xl-9">
+    render() {
+        return (
+            <Container styles="well p-3 container-fluid">
+                <div className="sticky-top">
+                <Row styles="p-3 justify-content-center">
+                    <h1>Browse</h1>
+                </Row>
                 <Row>
-                {!this.state.publishedDesigns.length > 0 
-                ? (
-                    <Col size="12">No published designs to display</Col>
-                ) : (
-                    
-                    this.state.publishedDesigns.map(design => {
-                        console.log(this.state.publishedDesigns);
-                        return (
-                            <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" key={design._id + 1}>
-                                <DesignCard 
-                                    key={design._id}
-                                    id={design._id}
-                                    currentUser={this.state.currentUser}
-                                    img={design.canvasImage}
-                                    title={design.title}
-                                    description={design.description}
-                                    favorite={this.favoriteEvent}
-                                    unfavorite={this.unfavoriteEvent}
-                                    edit={this.editEvent}
-                                    page={"browse"}
-                                    isFavorite={this.state.usersFavorites.indexOf(design._id) > -1 ? true : false}
-                                />
-                            </div>
-                        );
-                    })
-                    
-                )}
+                    <div className="col">
+                        <SortBy onChange={this.handleSortChange}></SortBy>
+                        <CategoryForm onChange={this.handleCategoryChange}></CategoryForm>
+                        <DifficultyForm onChange={this.handleDifficultyChange}></DifficultyForm>
+                        {/* <RatingForm onChange={this.handleRatingChange}></RatingForm> */}
+                    </div>
                 </Row>
                 </div>
-            </Row>
+                    <div className="row">
+                        {!this.state.publishedDesigns.length > 0
+                            ? (
+                                <Col size="12">No published designs to display</Col>
+                            ) : (
+                                this.state.publishedDesigns.map(design => {
+                                    console.log(this.state.publishedDesigns);
+                                    return (
+                                        <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" key={design._id + 1}>
+                                            <DesignCard
+                                                key={design._id}
+                                                id={design._id}
+                                                currentUser={this.state.currentUser}
+                                                img={design.canvasImage}
+                                                title={design.title}
+                                                description={design.description}
+                                                favorite={this.favoriteEvent}
+                                                unfavorite={this.unfavoriteEvent}
+                                                edit={this.editEvent}
+                                                page={"browse"}
+                                                isFavorite={this.state.usersFavorites.indexOf(design._id) > -1 ? true : false}
+                                            />
+                                        </div>
+                                    );
+                                })
+
+                            )}
+                    </div>
             </Container>
         )
     }
