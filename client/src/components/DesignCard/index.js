@@ -100,9 +100,8 @@ class DesignCard extends Component {
             button2={
               <UnfavoriteButton 
                 onClick={event => 
-                  this.props.unfavorite(
-                    event, 
-                    this.props.currentUser, 
+                  this.props.triggerUnfavoriteEvent(
+                    event,
                     this.props.id
                   )
                 } 
