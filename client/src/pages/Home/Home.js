@@ -29,7 +29,6 @@ function Home(props) {
               Get Started
             </Link>
           )}
-          {/* <Link className="btn btn-outline-light btn-lg" to="/login" role="button">Get Started</Link> */}
         </Col>
       </Row>
     </Container>
