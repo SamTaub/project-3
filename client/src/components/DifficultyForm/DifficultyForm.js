@@ -7,7 +7,7 @@ function DifficultyForm(props){
     return (
         <Form>
             <FormGroup controlId="difficulty">
-                <FormLabel>Find designs by difficulty:</FormLabel>
+                <FormLabel>Difficulty:</FormLabel>
                 <Form.Control as="select" onChange={props.onChange}>
                     <option value="All" defaultValue>All</option>
                     <option value="Easy">Easy</option>

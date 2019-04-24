@@ -1,5 +1,5 @@
 .btn-toolbar {
-  flex-wrap: nowrap
+  flex-wrap: nowrap;
 }
 
 .btn-toolbar.special {
@@ -7,7 +7,7 @@
 }
 
 .special .btn-group {
-  flex: 1
+  flex: 1;
 }
 
 #drawDiv {
@@ -39,17 +39,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  vertical-align: middle;
   background: white;
-  width: 100%;
   border-radius: 0.25vw;
-  margin: auto;
-  font-size: 1rem;
-  line-height: 1.25;
+  line-height: 0.75;
+  /* vertical-align: middle; */
 }
 
 #currentColor p {
-  padding-top: 2px;
-  position: relative;
+  margin: 0.1vw 0;
 }
 
 .well {
