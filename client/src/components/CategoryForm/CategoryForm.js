@@ -8,7 +8,7 @@ function CategoryForm(props){
     return (
         <Form>
             <FormGroup controlId="category">
-                <FormLabel>Find designs by category:</FormLabel>
+                <FormLabel>Category:</FormLabel>
                 <Form.Control as="select" onChange={props.onChange}>
                     <option value="All" defaultValue>All</option>
                     <option value="Animals">Animals</option>
