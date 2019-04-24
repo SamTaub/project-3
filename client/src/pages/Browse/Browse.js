@@ -152,48 +152,47 @@ class Browse extends Component {
 
     render() {
         return (
-            <Container styles="well p-3 container-fluid">
+            <Container styles="well p-3">
                 <div className="sticky-top">
-                <Row styles="p-3 justify-content-center">
-                    <h1>Browse</h1>
-                </Row>
-                <Row>
-                    <div className="col">
-                        <SortBy onChange={this.handleSortChange}></SortBy>
-                        <CategoryForm onChange={this.handleCategoryChange}></CategoryForm>
-                        <DifficultyForm onChange={this.handleDifficultyChange}></DifficultyForm>
-                        {/* <RatingForm onChange={this.handleRatingChange}></RatingForm> */}
-                    </div>
-                </Row>
+                    <Row styles="p-3 justify-content-center">
+                        <h1>Browse</h1>
+                    </Row>
+                    <Row>
+                        <div className="col">
+                            <SortBy onChange={this.handleSortChange}></SortBy>
+                            <CategoryForm onChange={this.handleCategoryChange}></CategoryForm>
+                            <DifficultyForm onChange={this.handleDifficultyChange}></DifficultyForm>
+                            {/* <RatingForm onChange={this.handleRatingChange}></RatingForm> */}
+                        </div>
+                    </Row>
                 </div>
-                    <div className="row">
-                        {!this.state.publishedDesigns.length > 0
-                            ? (
-                                <Col size="12">No published designs to display</Col>
-                            ) : (
-                                this.state.publishedDesigns.map(design => {
-                                    console.log(this.state.publishedDesigns);
-                                    return (
-                                        <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" key={design._id + 1}>
-                                            <DesignCard
-                                                key={design._id}
-                                                id={design._id}
-                                                currentUser={this.state.currentUser}
-                                                img={design.canvasImage}
-                                                title={design.title}
-                                                description={design.description}
-                                                favorite={this.favoriteEvent}
-                                                unfavorite={this.unfavoriteEvent}
-                                                edit={this.editEvent}
-                                                page={"browse"}
-                                                isFavorite={this.state.usersFavorites.indexOf(design._id) > -1 ? true : false}
-                                            />
-                                        </div>
-                                    );
-                                })
-
-                            )}
-                    </div>
+                <Row styles="">
+                    {!this.state.publishedDesigns.length > 0
+                        ? (
+                            <Col size="12">No published designs to display</Col>
+                        ) : (
+                            this.state.publishedDesigns.map(design => {
+                                console.log(this.state.publishedDesigns);
+                                return (
+                                    <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" key={design._id + 1}>
+                                        <DesignCard
+                                            key={design._id}
+                                            id={design._id}
+                                            currentUser={this.state.currentUser}
+                                            img={design.canvasImage}
+                                            title={design.title}
+                                            description={design.description}
+                                            favorite={this.favoriteEvent}
+                                            unfavorite={this.unfavoriteEvent}
+                                            edit={this.editEvent}
+                                            page={"browse"}
+                                            isFavorite={this.state.usersFavorites.indexOf(design._id) > -1 ? true : false}
+                                        />
+                                    </div>
+                                );
+                            })
+                        )}
+                </Row>
             </Container>
         )
     }
