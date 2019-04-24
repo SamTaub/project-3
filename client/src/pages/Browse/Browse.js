@@ -30,7 +30,6 @@ class Browse extends Component {
     userAPI
       .checkAuthStatus()
       .then(res => {
-        console.log(res.data.id);
         this.setState({ currentUser: res.data.id }, () => this.checkUserFavorites());
       })
       .catch(err => {
@@ -70,7 +69,6 @@ class Browse extends Component {
       });
   }
 
-  // We will also need an unfavorite event. The cards will eventually dynamically pass in either the favorite or unfavorite event based on whether or not the design is already in the user's favorites.
   favoriteEvent = (event, userId, designId) => {
     event.preventDefault();
     if (!this.state.currentUser || this.state.currentUser === "") {
@@ -109,14 +107,12 @@ class Browse extends Component {
   }
 
   // Change handlers for Browse forms
-
   handleSortChange = (event) => {
     event.preventDefault();
     this.setState({
       sort: event.target.value
     }, () => {
       this.checkUserFavorites();
-      // console.log(`Sorting results by ${this.state.sort}`);
     })
   }
 
@@ -126,7 +122,6 @@ class Browse extends Component {
       category: event.target.value
     }, () => {
       this.checkUserFavorites();
-      // console.log(`Filtering results by ${this.state.category}`);
     })
   }
 
@@ -135,9 +130,7 @@ class Browse extends Component {
     this.setState({
       difficulty: event.target.value
     }, () => {
-      // Verify state change with console.log()
       this.checkUserFavorites();
-      // console.log(`Filtering results by ${this.state.difficulty}`);
     })
   }
 
@@ -199,8 +192,6 @@ class Browse extends Component {
       </Container>
     )
   }
-
-
 };
 
 export default Browse;
