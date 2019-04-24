@@ -15,18 +15,21 @@ class SimpleModal extends Component {
             {this.props.buttonRemainText}
           </Button>
           {this.props.buttonActionFunc ? (
-            <Button variant="light" onClick={this.props.buttonActionFunc}>
+            <Button
+              variant={this.props.buttonVariant}
+              onClick={this.props.buttonActionFunc}
+            >
               {this.props.buttonActionText}
             </Button>
           ) : (
-            <Button variant="light">
-              <Link
-                to={this.props.buttonActionLink}
-                style={{ textDecoration: "none", color: "black" }}
-              >
-                {this.props.buttonActionText}
-              </Link>
-            </Button>
+            <Link
+              to={{
+                pathname: this.props.buttonActionLink
+              }}
+              className={this.props.buttonVariant}
+            >
+              {this.props.buttonActionText}
+            </Link>
           )}
         </Modal.Footer>
       </Modal>

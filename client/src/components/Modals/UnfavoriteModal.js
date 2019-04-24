@@ -50,7 +50,7 @@ class UnfavoriteModal extends Component {
             Close
           </Button>
           <Button
-            variant="light"
+            variant="btn btn-outline-danger"
             id="publish-button"
             onClick={event =>
               this.props.unfavorite(
@@ -60,7 +60,7 @@ class UnfavoriteModal extends Component {
               )
             }
           >
-            Confirm
+            Unfavorite
           </Button>
         </Modal.Footer>
       </Modal>
