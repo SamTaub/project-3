@@ -7,14 +7,12 @@ class DeleteModal extends Component {
 
     this.state = {
       open: false,
-      userId: null,
       designId: null
     };
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-     userId: nextProps.currentUser,
      designId: nextProps.id
     });
   }
@@ -55,7 +53,6 @@ class DeleteModal extends Component {
             onClick={event =>
               this.props.deleteDesign(
                 event,
-                this.state.userId,
                 this.state.designId
               )
             }
