@@ -17,7 +17,7 @@ class Published extends Component {
     userAPI
       .checkAuthStatus()
       .then(res => {
-        console.log(res.data.id);
+        // console.log(res.data.id);
         this.setState({ currentUser: res.data.id }, () =>
           this.getPublishedDesigns()
         );
@@ -59,7 +59,7 @@ class Published extends Component {
   };
 
   getPublishedDesigns = () => {
-    console.log("getting published designs... from " + this.state.currentUser);
+    // console.log("getting published designs... from " + this.state.currentUser);
     dashboardAPI
       .getPublishedDesigns(this.state.currentUser)
       .then(res => {
@@ -79,7 +79,7 @@ class Published extends Component {
           <Col size="12">No published designs to display</Col>
         ) : (
           this.state.publishedDesigns.map(design => {
-            console.log(this.state.publishedDesigns);
+            // console.log(this.state.publishedDesigns);
             return (
               <div
                 className="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-xs-12"

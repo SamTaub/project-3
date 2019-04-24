@@ -8,7 +8,7 @@ import CategoryForm from "../../components/CategoryForm/CategoryForm";
 import DifficultyForm from "../../components/DifficultyForm/DifficultyForm";
 // import RatingForm from "../../components/RatingForm/RatingForm";
 import SortBy from "../../components/SortByForm/SortBy";
-import { Form } from "react-bootstrap";
+// import { Form } from "react-bootstrap";
 import "./style.css";
 
 class Browse extends Component {
@@ -164,7 +164,7 @@ class Browse extends Component {
       <Container styles="well">
         <Row styles="p-3 justify-content-center">
           <Col size="12">
-            <h2 class="text-center">Browse</h2>
+            <h2 className="text-center">Browse</h2>
           </Col>
         </Row>
         
