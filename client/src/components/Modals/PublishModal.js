@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
-// import designAPI from "../../utils/designAPI";
 
 class PublishModal extends Component {
   constructor(props) {
@@ -32,7 +31,6 @@ class PublishModal extends Component {
   };
 
   render() {
-    const { open } = this.state;
     const { id, onHide, publish, ...modalProps } = this.props;
     return (
       <Modal
