@@ -76,7 +76,7 @@ class DesignDetail extends Component {
   getDate = () => {
     let timestamp = this.state.design._id.toString().substring(0, 8)
     let date = new Date(parseInt(timestamp, 16) * 1000)
-    this.setState({ date: `Created on ${moment(date).format("MMM D, YYYY H:mma")}`});
+    this.setState({ date: `Created on ${moment(date).format("MMM D, YYYY")}`});
   };
 
   getUsername = (userId) => {
@@ -183,7 +183,3 @@ class DesignDetail extends Component {
 }
 
 export default DesignDetail;
-
-// style={{display: "flex", flexDirection: "row", flexWrap: "wrap"}}
-
-// style={{width: "calc(100% / 3)"}}
