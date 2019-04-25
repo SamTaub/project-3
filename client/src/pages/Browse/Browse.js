@@ -32,6 +32,7 @@ class Browse extends Component {
     userAPI
       .checkAuthStatus()
       .then(res => {
+        console.log(res.data.id);
         this.setState({ currentUser: res.data.id }, () => this.checkUserFavorites());
       })
       .catch(err => {
@@ -164,7 +165,7 @@ class Browse extends Component {
       <Container styles="well">
         <Row styles="p-3 justify-content-center">
           <Col size="12">
-            <h2 className="text-center">Browse</h2>
+            <h1 className="text-center">Browse</h1>
           </Col>
         </Row>
         

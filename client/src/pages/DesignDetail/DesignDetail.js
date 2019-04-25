@@ -6,8 +6,9 @@ import dashboardAPI from "../../utils/dashboardAPI";
 import colorPalette from "../../utils/colorPalette";
 import { FavoriteButton, UnfavoriteButton } from "../../components/DashboardButtons/DashboardButtons";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
-class Detail extends Component {
+class DesignDetail extends Component {
   state = {
     design: {},
     username: "Unknown",
@@ -76,7 +77,7 @@ class Detail extends Component {
   getDate = () => {
     let timestamp = this.state.design._id.toString().substring(0, 8)
     let date = new Date(parseInt(timestamp, 16) * 1000)
-    this.setState({ date: `Created on ${moment(date).format("MMM D, YYYY H:mma")}`});
+    this.setState({ date: `Created on ${moment(date).format("MMM D, YYYY")}`});
   };
 
   getUsername = (userId) => {
@@ -127,7 +128,7 @@ class Detail extends Component {
           </div>
           <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 text-center">
             <h1 className="mt-3">{this.state.design.title}</h1>
-            <h4>Design by <strong>{this.state.username}</strong></h4>
+            <h4>Design by <strong><Link to={`/user/${this.state.design.userId}`}>{this.state.username}</Link></strong></h4>
             <h6>{this.state.date}</h6>
             <p><small className="text-muted">Difficulty: {this.state.design.difficulty}</small>
             <br/>
@@ -182,8 +183,4 @@ class Detail extends Component {
   }
 }
 
-export default Detail;
-
-// style={{display: "flex", flexDirection: "row", flexWrap: "wrap"}}
-
-// style={{width: "calc(100% / 3)"}}
+export default DesignDetail;

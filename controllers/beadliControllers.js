@@ -49,6 +49,14 @@ module.exports = {
             .catch(err => res.json(err));
     },
 
+    findByUser: function(req, res) {
+      console.log("Finding designs by user");
+      db.Design
+        .find({ "userId": req.params.id })
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.json(err));
+    },
+
     //  Find a design by a title 'like' the query
     //  Note:  Not sure if this will work cause req is not being used but this is what the docs say
     findByTitle: function(req, res) {
