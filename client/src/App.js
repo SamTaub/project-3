@@ -13,6 +13,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Detail from "./pages/Detail/Detail";
 import Create from "./pages/Create/Create";
 import Browse from "./pages/Browse/Browse";
+import Devs from "./pages/Devs/Devs";
 import Nav from "./components/Nav";
 import ProtectedRoute from "./components/ProtectedRoute";
 import userAPI from "./utils/userAPI";
@@ -97,6 +98,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/browse" component={Browse} />
+            <Route exact path="/devs" component={Devs} />
             <Route
               exact
               path="/login"
