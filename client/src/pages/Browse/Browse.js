@@ -32,6 +32,7 @@ class Browse extends Component {
     userAPI
       .checkAuthStatus()
       .then(res => {
+        console.log(res.data.id);
         this.setState({ currentUser: res.data.id }, () => this.checkUserFavorites());
       })
       .catch(err => {

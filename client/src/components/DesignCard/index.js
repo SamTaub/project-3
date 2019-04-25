@@ -111,6 +111,7 @@ class DesignCard extends Component {
           />
         );
       case "browse":
+      case "user-detail":
         return (
           <CardTwoButtonGroup
             button1={

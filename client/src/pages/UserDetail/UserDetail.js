@@ -5,7 +5,6 @@ import designAPI from "../../utils/designAPI";
 import userAPI from "../../utils/userAPI";
 import dashboardAPI from "../../utils/dashboardAPI";
 import { FavoriteButton, UnfavoriteButton } from "../../components/DashboardButtons/DashboardButtons";
-import moment from "moment";
 
 class UserDetail extends Component {
   state = {
@@ -30,16 +29,20 @@ class UserDetail extends Component {
   }
 
   getUsername = () => {
-    userAPI.findUserWithoutPopulation(this.props.match.params.id)
-      .then(res => {
-        this.setState({ username: res.data.username })
-      })
+    console.log(`finding username for ${this.props.match.params.id}`)
+    userAPI.findUser(this.props.match.params.id)
+    .then(res => {
+      console.log(res.data);
+      this.setState({ username: res.data.username })
+    })
+    .catch(err => console.log(err));
   }
 
   checkUserFavorites = () => {
-    if (this.state.currentUser !== "") {
+    if (this.state.currentUser) {
       userAPI.findUserWithoutPopulation(this.state.currentUser)
         .then(res => {
+          console.log("user found, favorites added");
           this.setState({ usersFavorites: res.data.favorites }, () => this.getUserDesigns())
         })
         .catch(err => {
@@ -52,6 +55,7 @@ class UserDetail extends Component {
   }
 
   getUserDesigns = () => {
+    console.log("getting designs for" + this.props.match.params.id);
     designAPI
       .getUserDesigns(
         this.props.match.params.id
@@ -64,12 +68,44 @@ class UserDetail extends Component {
       .catch(err => {
         console.log(err);
       });
-  }  
+  }
+
+  favoriteEvent = (event, userId, designId) => {
+    event.preventDefault();
+    if (!this.state.currentUser || this.state.currentUser === "") {
+      alert("You must be logged in to add a favorite!");
+    }
+    else {
+      dashboardAPI.addFavorite(userId, designId)
+        .then(res => {
+          this.checkUserFavorites();
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
+  }
+
+  unfavoriteEvent = (event, userId, designId) => {
+    event.preventDefault();
+    if (!this.state.currentUser || this.state.currentUser === "") {
+      alert("You must be logged in to add a favorite!");
+    }
+    else {
+      dashboardAPI.removeFavorite(userId, designId)
+        .then(res => {
+          this.checkUserFavorites();
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
+  }
 
   render() {
     return (
       <Container styles="well p-3">
-        <Row>
+        <Row styles="p-3 justify-content-center">
           <Col size="12">
             <h2 className="text-center">Designs by {this.state.username}</h2>
           </Col>
@@ -87,12 +123,14 @@ class UserDetail extends Component {
                 <DesignCard
                   key={design._id}
                   id={design._id}
+                  currentUser={this.state.currentUser}
                   img={design.canvasImage}
                   title={design.title}
                   description={design.description}
-                  unpublish={this.unpublishEvent}
-                  delete={this.triggerDeleteEvent}
-                  page={"userdetail"}
+                  favorite={this.favoriteEvent}
+                  unfavorite={this.unfavoriteEvent}
+                  page={"user-detail"}
+                  isFavorite={this.state.usersFavorites.indexOf(design._id) > -1 ? true : false}
                 />
               </div>
               )
