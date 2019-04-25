@@ -48,7 +48,7 @@ class DeleteModal extends Component {
             Close
           </Button>
           <Button
-            variant="light"
+            variant="btn btn-outline-danger"
             id="delete-button"
             onClick={event =>
               this.props.deleteDesign(
