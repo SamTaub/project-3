@@ -14,6 +14,7 @@ import DesignDetail from "./pages/DesignDetail/DesignDetail";
 import UserDetail from "./pages/UserDetail/UserDetail";
 import Create from "./pages/Create/Create";
 import Browse from "./pages/Browse/Browse";
+import Devs from "./pages/Devs/Devs";
 import Nav from "./components/Nav";
 import ProtectedRoute from "./components/ProtectedRoute";
 import userAPI from "./utils/userAPI";
@@ -102,6 +103,7 @@ class App extends Component {
               render={() => <Home isAuthed={this.state.authenticated} />}
             />
             <Route exact path="/browse" component={Browse} />
+            <Route exact path="/devs" component={Devs} />
             <Route
               exact
               path="/login"

@@ -53,11 +53,12 @@ class Create extends Component {
   };
 
   handleColorChange = event => {
-    this.setState({
-      activeColor: `rgba(${event.target.getAttribute("data-value")})`,
-      colorName: `${event.target.getAttribute("title")}`
-    });
-    console.log(this.getRGBTotal(this.state.activeColor));
+    if (event.target.getAttribute("data-value")) {
+      this.setState({
+        activeColor: `rgba(${event.target.getAttribute("data-value")})`,
+        colorName: `${event.target.getAttribute("title")}`
+      });
+    }
   };
 
   getRGBTotal = rgb => {
