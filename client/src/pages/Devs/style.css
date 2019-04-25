@@ -1,5 +1,6 @@
 #dreamteam {
   display: flex;
+  justify-content: space-evenly;
 }
 
 #dev-header {
@@ -12,5 +13,9 @@
     #dreamteam {
         flex-direction: column;
       }
-      
+
+}
+
+.m-3 img {
+    width: 12vw;
 }
