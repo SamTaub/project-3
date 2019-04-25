@@ -107,7 +107,7 @@ class UserDetail extends Component {
       <Container styles="well p-3">
         <Row styles="p-3 justify-content-center">
           <Col size="12">
-            <h2 className="text-center">Designs by {this.state.username}</h2>
+            <h1 className="text-center">Designs by {this.state.username}</h1>
           </Col>
         </Row>
         <Row>

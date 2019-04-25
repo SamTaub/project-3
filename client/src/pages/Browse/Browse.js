@@ -165,7 +165,7 @@ class Browse extends Component {
       <Container styles="well">
         <Row styles="p-3 justify-content-center">
           <Col size="12">
-            <h2 className="text-center">Browse</h2>
+            <h1 className="text-center">Browse</h1>
           </Col>
         </Row>
         
