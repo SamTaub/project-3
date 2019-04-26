@@ -147,18 +147,22 @@ class DesignDetail extends Component {
                 id={this.state.design._id}
               />
             ) : (
-                <FavoriteButton
-                  onClick={event =>
-                    this.favoriteEvent(
-                      event,
-                      this.state.currentUser,
-                      this.state.design._id
-                    )
-                  }
-                  id={this.state._id}
-                />
-              )}
-              <button className="btn btn-light ml-2"><div className="fb-share-button" data-href={`http://www.bead.li/design/${this.state.design._id}`} data-layout="button" data-size="large"><a target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A3000%2Fdesign%2F${this.state.design._id}&amp;src=sdkpreparse`} className="fb-xfbml-parse-ignore">Share</a></div></button>
+              <FavoriteButton
+                onClick={event =>
+                  this.favoriteEvent(
+                    event,
+                    this.state.currentUser,
+                    this.state.design._id
+                  )
+                }
+                id={this.state._id}
+              />
+            )}
+            <button className="btn btn-light ml-2">
+              <div className="fb-share-button" data-href={`http://www.bead.li/design/${this.state.design._id}`} data-layout="button" data-size="large">
+                <a target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A3000%2Fdesign%2F${this.state.design._id}&amp;src=sdkpreparse`} className="fb-xfbml-parse-ignore">Share</a>
+              </div>
+            </button>
           </div>
         </Row>
         <Row styles="mt-3">
