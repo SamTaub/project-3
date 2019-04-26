@@ -19,7 +19,6 @@ class Login extends Component {
     userAPI
       .checkAuthStatus()
       .then(res => {
-        console.log(res.data.id);
         this.setState({ isLoggedIn: res.data.isLoggedIn }, () => {
           if (this.state.isLoggedIn) {
             return (

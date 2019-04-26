@@ -32,7 +32,6 @@ class UserDetail extends Component {
   }
 
   getUsername = () => {
-    console.log(`finding username for ${this.props.match.params.id}`)
     userAPI.findUser(this.props.match.params.id)
     .then(res => {
       if (
@@ -64,7 +63,6 @@ class UserDetail extends Component {
   }
 
   getUserDesigns = () => {
-    console.log("getting designs for" + this.props.match.params.id);
     designAPI
       .getUserDesigns(
         this.props.match.params.id
