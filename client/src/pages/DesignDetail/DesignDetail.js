@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 class DesignDetail extends Component {
   state = {
     design: {},
-    username: "Unknown",
+    username: "",
     beadColors: [],
     beadCounts: {},
     currentUser: "",
@@ -128,7 +128,7 @@ class DesignDetail extends Component {
           </div>
           <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 text-center">
             <h1 className="mt-3">{this.state.design.title}</h1>
-            <h4>Design by <strong><Link to={`/user/${this.state.design.userId}`}>{this.state.username}</Link></strong></h4>
+            <h4>Design by <strong>{(this.state.username === "") ? "Unknown" : (<Link to={`/user/${this.state.design.userId}`}>{this.state.username}</Link>)}</strong></h4>
             <h6>{this.state.date}</h6>
             <p><small className="text-muted">Difficulty: {this.state.design.difficulty}</small>
             <br/>

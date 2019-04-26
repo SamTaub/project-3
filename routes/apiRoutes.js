@@ -88,7 +88,6 @@ module.exports = function (app) {
   });
 
   app.get("/api/designs/published/:category/:difficulty/:sort", (req, res) => {
-    console.log(`ApiRoutes: ${req.params}`);
     beadliController.findAllPublished(req, res);
   })
 
