@@ -63,7 +63,6 @@ class DesignDetail extends Component {
   };
 
   countBeads = beadArray => {
-    // let newBeadArray = [];
     let beadCounts = {};
     beadArray.map((row, rowIdx) => {
       row.map((value, colIdx) => {
@@ -76,7 +75,6 @@ class DesignDetail extends Component {
         }
       })
     })
-    console.log(beadCounts);
 
     this.setState({ beadCounts }, () => this.setState({ beadColors: Object.keys(beadCounts) }, () => {
       this.getUsername(this.state.design.userId);
