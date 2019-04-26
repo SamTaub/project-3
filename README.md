@@ -1,10 +1,5 @@
-# Create React Express App
-
-## About This Boilerplate
-
-This setup allows for a Node/Express/React app which can be easily deployed to Heroku.
-
-The front-end React app will auto-reload as it's updated via webpack dev server, and the backend Express app will auto-reload independently with nodemon.
+# Beadli
+> Make interesting designs with fuse beads.
 
 ## Starting the app locally
 
@@ -27,3 +22,19 @@ Your app should now be running on <http://localhost:3000>. The Express server sh
 ## Deployment (Heroku)
 
 To deploy, simply add and commit your changes, and push to Heroku. As is, the NPM scripts should take care of the rest.
+
+## Links
+
+- Deployed: http://bead.li
+- Repository: https://github.com/SamTaub/project-3
+
+## Authors
+
+- Chris Luber: http://chrisluber.com/
+- Shelby Reyes: http://shelbyreyes.net/
+- Kenny Whitebloom: http://kennywhitebloom.net/
+- Sam Taub: https://www.samtaubweb.dev/
+
+## Resources
+
+- Bitmap.js: http://althenia.net/notes/js_bitmap
