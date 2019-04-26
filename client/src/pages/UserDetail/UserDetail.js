@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import { Container, Row, Col } from "../../components/Grid";
 import DesignCard from "../../components/DesignCard";
 import designAPI from "../../utils/designAPI";
@@ -13,7 +14,8 @@ class UserDetail extends Component {
     usersFavorites: [],
     currentUser: "",
     isFavorite: false,
-    date: ""
+    date: "",
+    redirect: false
   };
 
   componentDidMount() {
@@ -33,7 +35,13 @@ class UserDetail extends Component {
     console.log(`finding username for ${this.props.match.params.id}`)
     userAPI.findUser(this.props.match.params.id)
     .then(res => {
-      console.log(res.data);
+      if (
+        res.data.name === "CastError"
+      ) {
+        this.setState({
+          redirect: true
+        });
+      }
       this.setState({ username: res.data.username })
     })
     .catch(err => console.log(err));
@@ -111,6 +119,9 @@ class UserDetail extends Component {
   };
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to='/404' />;
+    }
     return (
       <Container styles="well p-3">
         <Row styles="p-3 justify-content-center">
