@@ -147,6 +147,8 @@ class DesignCard extends Component {
             }
           />
         );
+      default:
+        return("Error");
     }
   }
 
