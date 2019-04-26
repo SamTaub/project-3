@@ -29,6 +29,7 @@ class Signup extends Component {
 
     if (
       this.state.username.length > 3 &&
+      this.state.username.length < 20 &&
       this.state.password.length > 6 &&
       this.state.email.includes("@")
     ) {
