@@ -11,7 +11,7 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      notification: "", // We'll use this later for telling the user something (probably if there's an error with login).
+      notification: "",
       isLoggedIn: false,
       modalShow: false
     };
@@ -47,12 +47,9 @@ class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    // console.log(this.state.isLoggedIn);
     userAPI
       .logIn(this.state.email, this.state.password)
       .then(res => {
-        // localStorage.setItem("beadli", res.data._id);
-        // console.log(res);
         this.setState(
           {
             isLoggedIn: true
@@ -60,7 +57,6 @@ class Login extends Component {
           this.props.setUser({
             authenticated: true,
             username: res.data.username
-            // id: res.data.id
           })
         );
       })
@@ -98,7 +94,6 @@ class Login extends Component {
 
   render() {
     if (this.state.isLoggedIn) {
-      // return window.location.replace("/dashboard");
       return (
         <Redirect
           to={{
