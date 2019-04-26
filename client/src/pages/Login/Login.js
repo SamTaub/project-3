@@ -157,7 +157,7 @@ class Login extends Component {
           buttonVariant="light"
           buttonActionText="OK"
           buttonActionFunc={this.modalClose}
-          buttonRemainText="Cancel"
+          // buttonRemainText="Cancel"
         />
       </Container>
     );
