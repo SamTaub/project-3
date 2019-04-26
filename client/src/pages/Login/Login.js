@@ -47,34 +47,42 @@ class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    userAPI
-      .logIn(this.state.email, this.state.password)
-      .then(res => {
-        this.setState(
-          {
-            isLoggedIn: true
-          },
-          this.props.setUser({
-            authenticated: true,
-            username: res.data.username
-          })
-        );
-      })
-      .catch(err => {
-        if (!this.state.isLoggedIn) {
-          this.setState({
-            notification: `Incorrect email or password. Please try again.`,
-            modalShow: true
-          });
-        } else {
-          this.setState({
-            notification: `Something went wrong when attemping to log you in. Please try again.`,
-            modalShow: true
-          });
-        }
+
+    if (this.state.email && this.state.password) {
+      userAPI
+        .logIn(this.state.email, this.state.password)
+        .then(res => {
+          this.setState(
+            {
+              isLoggedIn: true
+            },
+            this.props.setUser({
+              authenticated: true,
+              username: res.data.username
+            })
+          );
+        })
+        .catch(err => {
+          if (!this.state.isLoggedIn) {
+            this.setState({
+              notification: `Incorrect email or password. Please try again.`,
+              modalShow: true
+            });
+          } else {
+            this.setState({
+              notification: `Something went wrong when attemping to log you in. Please try again.`,
+              modalShow: true
+            });
+          }
+        });
+      this.resetInputs();
+      this.resetNotification();
+    } else {
+      this.setState({
+        notification: `Please provide a username and password.`,
+        modalShow: true
       });
-    this.resetInputs();
-    this.resetNotification();
+    }
   };
 
   resetNotification = () => {
