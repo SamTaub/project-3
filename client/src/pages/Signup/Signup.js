@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link, Redirect, withRouter } from "react-router-dom";
 import { Container, Row, Col } from "../../components/Grid";
+import SimpleModal from "../../components/Modals/SimpleModal";
 import userAPI from "../../utils/userAPI";
 
 class Signup extends Component {
@@ -11,7 +12,8 @@ class Signup extends Component {
       password: "",
       email: "",
       notification: "",
-      isSignedUp: false
+      isSignedUp: false,
+      modalShow: false
     };
   }
 
@@ -25,20 +27,47 @@ class Signup extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    // console.log(this.state.username, this.state.email, this.state.password);
+    if (
+      this.state.username.length > 3 &&
+      this.state.password.length > 6 &&
+      this.state.email.includes("@")
+    ) {
+      userAPI
+        .signUp(this.state.username, this.state.email, this.state.password)
+        .then(res => this.setState({ isSignedUp: true }))
+        .catch(err =>
+          this.setState({
+            notification: `Something went wrong when attemping to sign you up with an account. Please try again.`,
+            modalShow: true
+          })
+        );
+      this.setState({
+        username: "",
+        email: "",
+        password: ""
+      });
+    } else {
+      let notifications = "";
 
-    userAPI
-      .signUp(this.state.username, this.state.email, this.state.password)
-      .then(res => this.setState({ isSignedUp: true }))
-      .catch(err =>
-        alert(`It looks like something went wrong (${err}). Try signing up again!`)
-      );
-    this.setState({
-      username: "",
-      email: "",
-      password: ""
-    });
-    // console.log(this.state.isSignedUp);
+      if (this.state.username.length < 3) {
+        notifications +=
+          "Username is too short (must be longer than 3 characters). ";
+      }
+
+      if (this.state.password.length < 6) {
+        notifications +=
+          "Password is too short (must be longer than 6 characters). ";
+      }
+
+      if (!this.state.email.includes("@")) {
+        notifications += "Email address must be properly formatted. ";
+      }
+
+      this.setState({
+        notification: notifications,
+        modalShow: true
+      });
+    }
   };
 
   resetNotification = () => {
@@ -54,6 +83,8 @@ class Signup extends Component {
       password: ""
     });
   };
+
+  modalClose = () => this.setState({ modalShow: false });
 
   render() {
     if (this.state.isSignedUp) {
@@ -124,6 +155,16 @@ class Signup extends Component {
             </div>
           </Col>
         </Row>
+        <SimpleModal
+          show={this.state.modalShow}
+          onHide={this.modalClose}
+          title="Signup Error"
+          body={this.state.notification}
+          buttonVariant="light"
+          buttonActionText="OK"
+          buttonActionFunc={this.modalClose}
+          // buttonRemainText="Cancel"
+        />
       </Container>
     );
   }
