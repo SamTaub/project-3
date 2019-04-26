@@ -29,8 +29,9 @@ class Signup extends Component {
 
     if (
       this.state.username.length > 3 &&
-      this.state.username.length < 20 &&
+      this.state.username.length < 25 &&
       this.state.password.length > 6 &&
+      this.state.password.length < 25 &&
       this.state.email.includes("@")
     ) {
       userAPI
@@ -55,14 +56,19 @@ class Signup extends Component {
           "Username is too short (must be longer than 3 characters). ";
       }
 
-      if (this.state.username.length > 20) {
+      if (this.state.username.length > 25) {
         notifications +=
-          "Username is too long (must be shorter than 20 characters). ";
+          "Username is too long (must be shorter than 25 characters). ";
       }
 
       if (this.state.password.length < 6) {
         notifications +=
           "Password is too short (must be longer than 6 characters). ";
+      }
+
+      if (this.state.password.length > 25) {
+        notifications +=
+          "Password is too long (must be shorter than 25 characters). ";
       }
 
       if (!this.state.email.includes("@")) {
