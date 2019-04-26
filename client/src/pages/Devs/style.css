@@ -1,6 +1,7 @@
 #dreamteam {
   display: flex;
   justify-content: space-evenly;
+  padding: 0 auto;
 }
 
 #dev-header {
@@ -9,13 +10,16 @@
   align-items: center;
 }
 
-@media screen and (max-width: 1025px) {
-    #dreamteam {
-        flex-direction: column;
-      }
-
+.m-3 img {
+  width: 12vw;
 }
 
-.m-3 img {
-    width: 12vw;
+@media screen and (max-width: 1160px) {
+  #dreamteam {
+    flex-direction: column;
+  }
+
+  .m-3 img {
+    width: 50%;
+  }
 }
