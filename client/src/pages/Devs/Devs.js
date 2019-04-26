@@ -16,12 +16,12 @@ class Devs extends Component {
             <Link
               to="//chrisluber.com"
               className="card-text text-center"
-              target="_blank"
+              target="_blank" rel="noopener noreferrer"
             >
               <h2 className="text-center">Chris</h2>
             </Link>
             <div className="m-3">
-              <a href="//chrisluber.com" target="_blank">
+              <a href="//chrisluber.com" target="_blank" rel="noopener noreferrer">
                 <img
                   src={require("../../assets/images/chris.jpg")}
                   className="card-img-top rounded-circle"
@@ -31,17 +31,17 @@ class Devs extends Component {
             </div>
             <div className="social-icons">
               <div className="icon icon--linkedin">
-                <a href="//www.linkedin.com/in/cluber/" target="_blank">
+                <a href="//www.linkedin.com/in/cluber/" target="_blank" rel="noopener noreferrer">
                   <span className="icon__name">LinkedIn</span>
                 </a>
               </div>
               <div className="icon icon--github">
-                <a href="//github.com/luberchris" target="_blank">
+                <a href="//github.com/luberchris" target="_blank" rel="noopener noreferrer">
                   <span className="icon__name">GitHub</span>
                 </a>
               </div>
               <div className="icon icon--portfolio">
-                <a href="//chrisluber.com" target="_blank">
+                <a href="//chrisluber.com" target="_blank" rel="noopener noreferrer">
                   <span className="icon__name">Portfolio</span>
                 </a>
               </div>
@@ -51,12 +51,12 @@ class Devs extends Component {
             <Link
               to="//shelbyreyes.net"
               className="card-text text-center"
-              target="_blank"
+              target="_blank" rel="noopener noreferrer"
             >
               <h2 className="text-center">Shelby</h2>
             </Link>
             <div className="m-3">
-              <a href="//shelbyreyes.net" target="_blank">
+              <a href="//shelbyreyes.net" target="_blank" rel="noopener noreferrer">
                 <img
                   src={require("../../assets/images/shelby.jpeg")}
                   className="card-img-top rounded-circle"
@@ -66,17 +66,17 @@ class Devs extends Component {
             </div>
             <div className="social-icons">
               <div className="icon icon--linkedin">
-                <a href="//www.linkedin.com/in/shelbyreyes/" target="_blank">
+                <a href="//www.linkedin.com/in/shelbyreyes/" target="_blank" rel="noopener noreferrer">
                   <span className="icon__name">LinkedIn</span>
                 </a>
               </div>
               <div className="icon icon--github">
-                <a href="//github.com/sdreyes" target="_blank">
+                <a href="//github.com/sdreyes" target="_blank" rel="noopener noreferrer">
                   <span className="icon__name">GitHub</span>
                 </a>
               </div>
               <div className="icon icon--portfolio">
-                <a href="//shelbyreyes.net" target="_blank">
+                <a href="//shelbyreyes.net" target="_blank" rel="noopener noreferrer">
                   <span className="icon__name">Portfolio</span>
                 </a>
               </div>
@@ -86,12 +86,12 @@ class Devs extends Component {
             <Link
               to="//samtaubweb.dev"
               className="card-text text-center"
-              target="_blank"
+              target="_blank" rel="noopener noreferrer"
             >
               <h2 className="text-center">Sam</h2>
             </Link>
             <div className="m-3">
-              <a href="//samtaubweb.dev" target="_blank">
+              <a href="//samtaubweb.dev" target="_blank" rel="noopener noreferrer">
                 <img
                   src={require("../../assets/images/sam.jpeg")}
                   className="card-img-top rounded-circle"
@@ -101,17 +101,17 @@ class Devs extends Component {
             </div>
             <div className="social-icons">
               <div className="icon icon--linkedin">
-                <a href="//linkedin.com/in/samtaub" target="_blank">
+                <a href="//linkedin.com/in/samtaub" target="_blank" rel="noopener noreferrer">
                   <span className="icon__name">LinkedIn</span>
                 </a>
               </div>
               <div className="icon icon--github">
-                <a href="//github.com/SamTaub" target="_blank">
+                <a href="//github.com/SamTaub" target="_blank" rel="noopener noreferrer">
                   <span className="icon__name">GitHub</span>
                 </a>
               </div>
               <div className="icon icon--portfolio">
-                <a href="//samtaubweb.dev" target="_blank">
+                <a href="//samtaubweb.dev" target="_blank" rel="noopener noreferrer">
                   <span className="icon__name">Portfolio</span>
                 </a>
               </div>
@@ -121,12 +121,12 @@ class Devs extends Component {
             <Link
               to="//kennywhitebloom.net"
               className="card-text text-center"
-              target="_blank"
+              target="_blank" rel="noopener noreferrer"
             >
               <h2 className="text-center">Kenny</h2>
             </Link>
             <div className="m-3">
-              <a href="//github.com/calemonte" target="_blank">
+              <a href="//github.com/calemonte" target="_blank" rel="noopener noreferrer">
                 <img
                   src={require("../../assets/images/kenny.jpg")}
                   className="card-img-top rounded-circle"
@@ -138,18 +138,18 @@ class Devs extends Component {
               <div className="icon icon--linkedin">
                 <a
                   href="//www.linkedin.com/in/kenny-whitebloom"
-                  target="_blank"
+                  target="_blank" rel="noopener noreferrer"
                 >
                   <span className="icon__name">LinkedIn</span>
                 </a>
               </div>
               <div className="icon icon--github">
-                <a href="//github.com/calemonte" target="_blank">
+                <a href="//github.com/calemonte" target="_blank" rel="noopener noreferrer">
                   <span className="icon__name">GitHub</span>
                 </a>
               </div>
               <div className="icon icon--portfolio">
-                <a href="//kennywhitebloom.net" target="_blank">
+                <a href="//kennywhitebloom.net" target="_blank" rel="noopener noreferrer">
                   <span className="icon__name">Portfolio</span>
                 </a>
               </div>

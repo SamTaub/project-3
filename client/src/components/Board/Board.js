@@ -121,7 +121,7 @@ export function ThreeDimensions(props) {
 export function EraserButton(props) {
   return (
     <button type="button" className="btn btn-light" onClick={props.onClick}>
-      <i class="fa fa-eraser" />
+      <i className="fa fa-eraser" />
     </button>
   );
 }

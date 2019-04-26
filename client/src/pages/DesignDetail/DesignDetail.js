@@ -6,7 +6,7 @@ import dashboardAPI from "../../utils/dashboardAPI";
 import colorPalette from "../../utils/colorPalette";
 import { FavoriteButton, UnfavoriteButton } from "../../components/DashboardButtons/DashboardButtons";
 import moment from "moment";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 class DesignDetail extends Component {
   state = {
@@ -16,7 +16,8 @@ class DesignDetail extends Component {
     beadCounts: {},
     currentUser: "",
     isFavorite: false,
-    date: ""
+    date: "",
+    redirect: false
   };
 
   componentDidMount() {
@@ -46,12 +47,22 @@ class DesignDetail extends Component {
 
   getDesign = () => {
     designAPI.getDesign(this.props.match.params.id)
-      .then(res => this.setState({ design: res.data }, () => this.countBeads(this.state.design.grid)))
+      .then(res => this.setState({ design: res.data }, () => {
+        if (
+          this.state.design.name === "CastError" ||
+          this.state.design === {}
+        ) {
+          this.setState({
+            redirect: true
+          });
+        } else {
+          return this.countBeads(this.state.design.grid);
+        }
+      }))
       .catch(err => console.log(err));
   };
 
   countBeads = beadArray => {
-    // let newBeadArray = [];
     let beadCounts = {};
     beadArray.map((row, rowIdx) => {
       row.map((value, colIdx) => {
@@ -64,7 +75,6 @@ class DesignDetail extends Component {
         }
       })
     })
-    console.log(beadCounts);
 
     this.setState({ beadCounts }, () => this.setState({ beadColors: Object.keys(beadCounts) }, () => {
       this.getUsername(this.state.design.userId);
@@ -120,6 +130,10 @@ class DesignDetail extends Component {
   }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to='/404' />;
+    }
+
     return (
       <Container styles="well p-5">
         <Row>
