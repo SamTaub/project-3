@@ -54,6 +54,11 @@ class Signup extends Component {
           "Username is too short (must be longer than 3 characters). ";
       }
 
+      if (this.state.username.length > 20) {
+        notifications +=
+          "Username is too long (must be shorter than 20 characters). ";
+      }
+
       if (this.state.password.length < 6) {
         notifications +=
           "Password is too short (must be longer than 6 characters). ";
