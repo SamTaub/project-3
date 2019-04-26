@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link, Redirect, withRouter } from "react-router-dom";
 import { Container, Row, Col } from "../../components/Grid";
+import SimpleModal from "../../components/Modals/SimpleModal";
 import userAPI from "../../utils/userAPI";
 import "./style.css";
 
@@ -11,7 +12,8 @@ class Login extends Component {
       email: "",
       password: "",
       notification: "", // We'll use this later for telling the user something (probably if there's an error with login).
-      isLoggedIn: false
+      isLoggedIn: false,
+      modalShow: false
     };
   }
 
@@ -27,12 +29,12 @@ class Login extends Component {
                   pathname: "/dashboard"
                 }}
               />
-            )
+            );
           }
         });
       })
       .catch(err => {
-          console.log(err);
+        console.log(err);
       });
   }
 
@@ -64,19 +66,15 @@ class Login extends Component {
       })
       .catch(err => {
         if (!this.state.isLoggedIn) {
-          this.setState(
-            {
-              notification: `Incorrect email or password (error code ${err})`
-            },
-            () => alert(this.state.notification)
-          );
+          this.setState({
+            notification: `Incorrect email or password. Please try again.`,
+            modalShow: true
+          });
         } else {
-          this.setState(
-            {
-              notification: `Something went wrong (error code ${err})`
-            },
-            () => alert(this.state.notification)
-          );
+          this.setState({
+            notification: `Something went wrong when attemping to log you in. Please try again.`,
+            modalShow: true
+          });
         }
       });
     this.resetInputs();
@@ -95,6 +93,8 @@ class Login extends Component {
       password: ""
     });
   };
+
+  modalClose = () => this.setState({ modalShow: false });
 
   render() {
     if (this.state.isLoggedIn) {
@@ -154,6 +154,16 @@ class Login extends Component {
             </div>
           </Col>
         </Row>
+        <SimpleModal
+          show={this.state.modalShow}
+          onHide={this.modalClose}
+          title="Login Error"
+          body={this.state.notification}
+          buttonVariant="light"
+          buttonActionText="OK"
+          buttonActionFunc={this.modalClose}
+          buttonRemainText="Cancel"
+        />
       </Container>
     );
   }
