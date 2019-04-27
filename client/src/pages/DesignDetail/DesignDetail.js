@@ -7,6 +7,7 @@ import colorPalette from "../../utils/colorPalette";
 import { FavoriteButton, UnfavoriteButton } from "../../components/DashboardButtons/DashboardButtons";
 import moment from "moment";
 import { Link, Redirect } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 class DesignDetail extends Component {
   state = {
@@ -135,6 +136,14 @@ class DesignDetail extends Component {
     }
 
     return (
+      <div>
+      <Helmet>
+        <meta property="og:url"           content={`http://bead.li/design/${this.state.design._id}`} />
+        <meta property="og:type"          content="website" />
+        <meta property="og:title"         content={`${this.state.design.title} by ${this.state.username} - Beadli`} />
+        <meta property="og:image"         content={this.state.design.canvasImage} />
+        <title>Something else</title>
+      </Helmet>
       <Container styles="well p-5">
         <Row>
           <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 text-center">
@@ -198,6 +207,7 @@ class DesignDetail extends Component {
           </Col>
         </Row>
       </Container>
+      </div>
     )
   }
 }
