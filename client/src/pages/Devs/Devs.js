@@ -20,7 +20,7 @@ class Devs extends Component {
             >
               <h2 className="text-center">Chris</h2>
             </Link>
-            <div className="m-3">
+            <div className="m-3 text-center">
               <a href="//chrisluber.com" target="_blank" rel="noopener noreferrer">
                 <img
                   src={require("../../assets/images/chris.jpg")}
@@ -55,7 +55,7 @@ class Devs extends Component {
             >
               <h2 className="text-center">Shelby</h2>
             </Link>
-            <div className="m-3">
+            <div className="m-3 text-center">
               <a href="//shelbyreyes.net" target="_blank" rel="noopener noreferrer">
                 <img
                   src={require("../../assets/images/shelby.jpeg")}
@@ -90,7 +90,7 @@ class Devs extends Component {
             >
               <h2 className="text-center">Sam</h2>
             </Link>
-            <div className="m-3">
+            <div className="m-3 text-center">
               <a href="//samtaubweb.dev" target="_blank" rel="noopener noreferrer">
                 <img
                   src={require("../../assets/images/sam.jpeg")}
@@ -125,8 +125,8 @@ class Devs extends Component {
             >
               <h2 className="text-center">Kenny</h2>
             </Link>
-            <div className="m-3">
-              <a href="//github.com/calemonte" target="_blank" rel="noopener noreferrer">
+            <div className="m-3 text-center">
+              <a href="//kennywhitebloom.net" target="_blank" rel="noopener noreferrer">
                 <img
                   src={require("../../assets/images/kenny.jpg")}
                   className="card-img-top rounded-circle"
