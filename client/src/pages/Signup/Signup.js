@@ -36,7 +36,16 @@ class Signup extends Component {
     ) {
       userAPI
         .signUp(this.state.username, this.state.email, this.state.password)
-        .then(res => this.setState({ isSignedUp: true }))
+        .then(res => {
+          if (res.data.code === 11000) {
+            this.setState({
+              notification: `Account already exists. Please try logging in, or sign up with a different username and email address.`,
+              modalShow: true
+            });
+          } else {
+            this.setState({ isSignedUp: true });
+          }
+        })
         .catch(err =>
           this.setState({
             notification: `Something went wrong when attemping to sign you up with an account. Please try again.`,
