@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link, Redirect, withRouter } from "react-router-dom";
 import { Container, Row, Col } from "../../components/Grid";
+import SimpleModal from "../../components/Modals/SimpleModal";
 import userAPI from "../../utils/userAPI";
 import "./style.css";
 
@@ -10,8 +11,9 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      notification: "", // We'll use this later for telling the user something (probably if there's an error with login).
-      isLoggedIn: false
+      notification: "",
+      isLoggedIn: false,
+      modalShow: false
     };
   }
 
@@ -27,12 +29,12 @@ class Login extends Component {
                   pathname: "/dashboard"
                 }}
               />
-            )
+            );
           }
         });
       })
       .catch(err => {
-          console.log(err);
+        console.log(err);
       });
   }
 
@@ -45,42 +47,42 @@ class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    // console.log(this.state.isLoggedIn);
-    userAPI
-      .logIn(this.state.email, this.state.password)
-      .then(res => {
-        // localStorage.setItem("beadli", res.data._id);
-        // console.log(res);
-        this.setState(
-          {
-            isLoggedIn: true
-          },
-          this.props.setUser({
-            authenticated: true,
-            username: res.data.username
-            // id: res.data.id
-          })
-        );
-      })
-      .catch(err => {
-        if (!this.state.isLoggedIn) {
+
+    if (this.state.email && this.state.password) {
+      userAPI
+        .logIn(this.state.email, this.state.password)
+        .then(res => {
           this.setState(
             {
-              notification: `Incorrect email or password (error code ${err})`
+              isLoggedIn: true
             },
-            () => alert(this.state.notification)
+            this.props.setUser({
+              authenticated: true,
+              username: res.data.username
+            })
           );
-        } else {
-          this.setState(
-            {
-              notification: `Something went wrong (error code ${err})`
-            },
-            () => alert(this.state.notification)
-          );
-        }
+        })
+        .catch(err => {
+          if (!this.state.isLoggedIn) {
+            this.setState({
+              notification: `Incorrect email or password. Please try again.`,
+              modalShow: true
+            });
+          } else {
+            this.setState({
+              notification: `Something went wrong when attemping to log you in. Please try again.`,
+              modalShow: true
+            });
+          }
+        });
+      this.resetInputs();
+      this.resetNotification();
+    } else {
+      this.setState({
+        notification: `Please provide a username and password.`,
+        modalShow: true
       });
-    this.resetInputs();
-    this.resetNotification();
+    }
   };
 
   resetNotification = () => {
@@ -96,9 +98,10 @@ class Login extends Component {
     });
   };
 
+  modalClose = () => this.setState({ modalShow: false });
+
   render() {
     if (this.state.isLoggedIn) {
-      // return window.location.replace("/dashboard");
       return (
         <Redirect
           to={{
@@ -154,6 +157,16 @@ class Login extends Component {
             </div>
           </Col>
         </Row>
+        <SimpleModal
+          show={this.state.modalShow}
+          onHide={this.modalClose}
+          title="Login Error"
+          body={this.state.notification}
+          buttonVariant="light"
+          buttonActionText="OK"
+          buttonActionFunc={this.modalClose}
+          // buttonRemainText="Cancel"
+        />
       </Container>
     );
   }
