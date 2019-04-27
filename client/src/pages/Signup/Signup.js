@@ -60,22 +60,22 @@ class Signup extends Component {
     } else {
       let notifications = "";
 
-      if (this.state.username.length < 3) {
+      if (this.state.username.length <= 3) {
         notifications +=
           "Username is too short (must be longer than 3 characters). ";
       }
 
-      if (this.state.username.length > 25) {
+      if (this.state.username.length >= 25) {
         notifications +=
           "Username is too long (must be shorter than 25 characters). ";
       }
 
-      if (this.state.password.length < 6) {
+      if (this.state.password.length <= 6) {
         notifications +=
           "Password is too short (must be longer than 6 characters). ";
       }
 
-      if (this.state.password.length > 25) {
+      if (this.state.password.length >= 25) {
         notifications +=
           "Password is too long (must be shorter than 25 characters). ";
       }
