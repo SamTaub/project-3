@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import { Container, Row, Col } from "../../components/Grid";
 import DesignCard from "../../components/DesignCard";
 import designAPI from "../../utils/designAPI";
 import userAPI from "../../utils/userAPI";
 import dashboardAPI from "../../utils/dashboardAPI";
-import { FavoriteButton, UnfavoriteButton } from "../../components/DashboardButtons/DashboardButtons";
+import moment from "moment";
 
 class UserDetail extends Component {
   state = {
@@ -13,11 +14,13 @@ class UserDetail extends Component {
     usersFavorites: [],
     currentUser: "",
     isFavorite: false,
-    date: ""
+    date: "",
+    redirect: false
   };
 
   componentDidMount() {
     this.getUsername();
+    this.getDate();
     userAPI
     .checkAuthStatus()
     .then(res => {
@@ -29,10 +32,15 @@ class UserDetail extends Component {
   }
 
   getUsername = () => {
-    console.log(`finding username for ${this.props.match.params.id}`)
     userAPI.findUser(this.props.match.params.id)
     .then(res => {
-      console.log(res.data);
+      if (
+        res.data.name === "CastError"
+      ) {
+        this.setState({
+          redirect: true
+        });
+      }
       this.setState({ username: res.data.username })
     })
     .catch(err => console.log(err));
@@ -55,7 +63,6 @@ class UserDetail extends Component {
   }
 
   getUserDesigns = () => {
-    console.log("getting designs for" + this.props.match.params.id);
     designAPI
       .getUserDesigns(
         this.props.match.params.id
@@ -86,6 +93,7 @@ class UserDetail extends Component {
     }
   }
 
+  
   unfavoriteEvent = (event, userId, designId) => {
     event.preventDefault();
     if (!this.state.currentUser || this.state.currentUser === "") {
@@ -102,13 +110,23 @@ class UserDetail extends Component {
     }
   }
 
+  getDate = () => {
+    let timestamp = this.props.match.params.id.toString().substring(0, 8)
+    let date = new Date(parseInt(timestamp, 16) * 1000)
+    this.setState({ date: `Member since ${moment(date).format("MMM D, YYYY")}`});
+  };
+
   render() {
+    if (this.state.redirect) {
+      return <Redirect to='/404' />;
+    }
     return (
       <Container styles="well p-3">
         <Row styles="p-3 justify-content-center">
-          <Col size="12">
-            <h1 className="text-center">Designs by {this.state.username}</h1>
-          </Col>
+          <div className="col-12 text-center">
+            <h1>Designs by {this.state.username}</h1>
+            <small className="text-muted">{this.state.date}</small>
+          </div>
         </Row>
         <Row>
           {!this.state.userDesigns.length > 0 ? (

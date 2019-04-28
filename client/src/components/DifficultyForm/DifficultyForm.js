@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import { Form, FormGroup, FormLabel } from "react-bootstrap";
 import "./style.css";
 
 function DifficultyForm(props){

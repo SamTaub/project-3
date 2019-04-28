@@ -17,7 +17,6 @@ class Favorites extends Component {
     userAPI
       .checkAuthStatus()
       .then(res => {
-        console.log(res.data.id);
         this.setState({ currentUser: res.data.id }, () => this.getFavorites());
       })
       .catch(err => {
@@ -26,7 +25,6 @@ class Favorites extends Component {
   }
 
   getFavorites = () => {
-    console.log("getting favorites... from " + this.state.currentUser);
     dashboardAPI
       .getFavorites(this.state.currentUser)
       .then(res => {

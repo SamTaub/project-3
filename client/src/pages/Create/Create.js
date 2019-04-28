@@ -146,7 +146,7 @@ class Create extends Component {
     this.state.squares.map((row, rowIdx) => {
       row.map((value, colIdx) => {
         if (value === "") {
-          bmp.pixel[colIdx][rowIdx] = [0, 0, 0, 0];
+          return bmp.pixel[colIdx][rowIdx] = [0, 0, 0, 0];
         } else {
           let rgba = Array.from(
             value.match(/([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)/)
@@ -155,7 +155,7 @@ class Create extends Component {
           let g = parseInt(rgba[2], 10) / 255;
           let b = parseInt(rgba[3], 10) / 255;
           let a = parseInt(rgba[4], 10) / 255;
-          bmp.pixel[colIdx][rowIdx] = [r, g, b, a];
+          return bmp.pixel[colIdx][rowIdx] = [r, g, b, a];
         }
       });
     });

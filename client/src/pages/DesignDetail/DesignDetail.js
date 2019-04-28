@@ -6,17 +6,19 @@ import dashboardAPI from "../../utils/dashboardAPI";
 import colorPalette from "../../utils/colorPalette";
 import { FavoriteButton, UnfavoriteButton } from "../../components/DashboardButtons/DashboardButtons";
 import moment from "moment";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 class DesignDetail extends Component {
   state = {
     design: {},
-    username: "Unknown",
+    username: "",
     beadColors: [],
     beadCounts: {},
     currentUser: "",
     isFavorite: false,
-    date: ""
+    date: "",
+    redirect: false
   };
 
   componentDidMount() {
@@ -46,12 +48,22 @@ class DesignDetail extends Component {
 
   getDesign = () => {
     designAPI.getDesign(this.props.match.params.id)
-      .then(res => this.setState({ design: res.data }, () => this.countBeads(this.state.design.grid)))
+      .then(res => this.setState({ design: res.data }, () => {
+        if (
+          this.state.design.name === "CastError" ||
+          this.state.design === {}
+        ) {
+          this.setState({
+            redirect: true
+          });
+        } else {
+          return this.countBeads(this.state.design.grid);
+        }
+      }))
       .catch(err => console.log(err));
   };
 
   countBeads = beadArray => {
-    // let newBeadArray = [];
     let beadCounts = {};
     beadArray.map((row, rowIdx) => {
       row.map((value, colIdx) => {
@@ -64,7 +76,6 @@ class DesignDetail extends Component {
         }
       })
     })
-    console.log(beadCounts);
 
     this.setState({ beadCounts }, () => this.setState({ beadColors: Object.keys(beadCounts) }, () => {
       this.getUsername(this.state.design.userId);
@@ -120,7 +131,15 @@ class DesignDetail extends Component {
   }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to='/404' />;
+    }
+
     return (
+      <div>
+      <Helmet>
+        <title>{`${this.state.design.title} by ${this.state.username}`}</title>
+      </Helmet>
       <Container styles="well p-5">
         <Row>
           <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 text-center">
@@ -128,7 +147,7 @@ class DesignDetail extends Component {
           </div>
           <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 text-center">
             <h1 className="mt-3">{this.state.design.title}</h1>
-            <h4>Design by <strong><Link to={`/user/${this.state.design.userId}`}>{this.state.username}</Link></strong></h4>
+            <h4>Design by <strong>{(this.state.username === "") ? "Unknown" : (<Link to={`/user/${this.state.design.userId}`}>{this.state.username}</Link>)}</strong></h4>
             <h6>{this.state.date}</h6>
             <p><small className="text-muted">Difficulty: {this.state.design.difficulty}</small>
             <br/>
@@ -147,17 +166,22 @@ class DesignDetail extends Component {
                 id={this.state.design._id}
               />
             ) : (
-                <FavoriteButton
-                  onClick={event =>
-                    this.favoriteEvent(
-                      event,
-                      this.state.currentUser,
-                      this.state.design._id
-                    )
-                  }
-                  id={this.state._id}
-                />
-              )}
+              <FavoriteButton
+                onClick={event =>
+                  this.favoriteEvent(
+                    event,
+                    this.state.currentUser,
+                    this.state.design._id
+                  )
+                }
+                id={this.state._id}
+              />
+            )}
+            <button className="btn btn-light ml-2">
+              <div className="fb-share-button" data-href={`http://www.bead.li/design/${this.state.design._id}`} data-layout="button" data-size="large">
+                <a target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A3000%2Fdesign%2F${this.state.design._id}&amp;src=sdkpreparse`} className="fb-xfbml-parse-ignore">Share</a>
+              </div>
+            </button>
           </div>
         </Row>
         <Row styles="mt-3">
@@ -179,6 +203,7 @@ class DesignDetail extends Component {
           </Col>
         </Row>
       </Container>
+      </div>
     )
   }
 }

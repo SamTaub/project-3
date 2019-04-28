@@ -24,7 +24,6 @@ class Drafts extends Component {
     userAPI
       .checkAuthStatus()
       .then(res => {
-        console.log(res.data.id);
         this.setState({ currentUser: res.data.id }, () => this.getDrafts());
       })
       .catch(err => {
@@ -96,7 +95,6 @@ class Drafts extends Component {
   };
 
   getDrafts = () => {
-    console.log("getting drafts... from " + this.state.currentUser);
     dashboardAPI
       .getDrafts(this.state.currentUser)
       .then(res => {

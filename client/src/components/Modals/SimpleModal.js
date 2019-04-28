@@ -11,9 +11,13 @@ class SimpleModal extends Component {
         </Modal.Header>
         <Modal.Body>{this.props.body}</Modal.Body>
         <Modal.Footer>
-          <Button variant="light" onClick={this.props.onHide}>
-            {this.props.buttonRemainText}
-          </Button>
+          {this.props.buttonRemainText ? (
+            <Button variant="light" onClick={this.props.onHide}>
+              {this.props.buttonRemainText}
+            </Button>
+          ) : (
+            ""
+          )}
           {this.props.buttonActionFunc ? (
             <Button
               variant={this.props.buttonVariant}
