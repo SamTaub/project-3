@@ -1,4 +1,4 @@
-![Beadli Logo](/public/assets/img/readme/logo.png)
+![Beadli Logo](/client/public/assets/img/readme/logo.png)
 
 # Beadli
 > Make interesting designs with fuse beads.
@@ -10,13 +10,14 @@ Beadli is a web application that allows users to create, share, and browse pixel
 Create an account, or use our demo account!
 
 Email: demo@bead.li
+
 Password: beadlidemo
 
-![Login Page](/public/assets/img/readme/beadlilogin.gif)
+![Login Page](/client/public/assets/img/readme/beadlilogin.gif)
 
 After logging in, you can click "Create" on the navbar to begin creating a design. Click on a color to paint on the canvas. Once you are happy with your design, you can save it and view it on your dashboard.
 
-![Creating a Design](/public/assets/img/readme/beadlicreate.gif)
+![Creating a Design](/client/public/assets/img/readme/beadlicreate.gif)
 
 In addition to the color picker, the create page has other useful tools:
 
@@ -25,31 +26,31 @@ Eraser: Remove beads by clicking on them with the eraser tool selected.
 Undo: Can undo your last 25 actions.
 Trash: Clears the canvas, but is not undoable.
 
-![Create Page Toolbar](/public/assets/img/readme/beadlicreatetoolbar.gif)
+![Create Page Toolbar](/client/public/assets/img/readme/beadlicreatetoolbar.gif)
 
 After saving your design, you can view details by clicking on it. This will show you how many beads you need for your design, as well as the title, description, difficulty, and category information. You can also add it to your favorites or share it to Facebook from this page.
 
-![Design Detail Page](/public/assets/img/readme/beadlidesigndetail.gif)
+![Design Detail Page](/client/public/assets/img/readme/beadlidesigndetail.gif)
 
 Designs can be edited by clicking the "edit" button (the ruler and pencil icon). Your changes can be saved from the create page.
 
-![Editing a Design](/public/assets/img/readme/beadliedit.gif)
+![Editing a Design](/client/public/assets/img/readme/beadliedit.gif)
 
 Designs can be deleted from your drafts page by clicking the "trash" button.
 
-![Deleting a Design](/public/assets/img/readme/beadlitrash.gif)
+![Deleting a Design](/client/public/assets/img/readme/beadlitrash.gif)
 
 Click "Browse" on the navbar to see designs other users have made. You can narrow your browse results by category and difficulty, and sort them oldest to newest or vice versa.
 
-![Browse Page](/public/assets/img/readme/beadlibrowse.gif)
+![Browse Page](/client/public/assets/img/readme/beadlibrowse.gif)
 
 You can add designs to your favorites by clicking the heart button. You can unfavorite a design by clicking the heart button again. Your favorites can be viewed from your dashboard page.
 
-![Favoriting a Design](/public/assets/img/readme/beadlifavoriting.gif)
+![Favoriting a Design](/client/public/assets/img/readme/beadlifavoriting.gif)
 
 You can view all designs a specific user has made by clicking on their username from the design detail page.
 
-![User Detail Page](/public/assets/img/readme/beadliuserdetail.gif)
+![User Detail Page](/client/public/assets/img/readme/beadliuserdetail.gif)
 
 
 ## Starting the app locally
