@@ -1,4 +1,4 @@
-![Beadli Logo](/client/public/assets/img/readme/logo.png)
+![Beadli Logo](/client/public/assets/img/readme/beadlilogo.png)
 
 # Beadli
 > Make interesting designs with fuse beads.
