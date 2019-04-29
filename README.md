@@ -71,6 +71,12 @@ npm start
 
 Your app should now be running on <http://localhost:3000>. The Express server should intercept any AJAX requests from the client.
 
+## About
+
+This app uses React to handle the view and functionality, Express and Node for server-side API routing, and MongoDB with Mongoose for data storage. Passport.js authenticates user login credentials. This application follows the MVC design pattern.
+
+Technologies used: MongoDB, Mongoose, Express, React, Node, Passport.js, Bitmap.js, JavaScript, Bootstrap, CSS3, and HTML5.
+
 ## Links
 
 - Deployed: http://bead.li
