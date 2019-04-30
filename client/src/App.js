@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  // Redirect
+  Redirect
 } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import NoMatch from "./pages/NoMatch";
@@ -112,6 +112,8 @@ class App extends Component {
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/design/:id" component={DesignDetail} />
             <Route exact path="/user/:id" component={UserDetail} />
+            <Redirect from="/logo" to="/design/5cbdc597dfa1ab002a51130d" />
+            <Route exact path="/howto" component={() => { window.location = "https://www.youtube.com/watch?v=Hz-P-YjOK0U"; return null;} }/>
             <ProtectedRoute
               exact
               path="/create"

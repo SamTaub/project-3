@@ -137,72 +137,69 @@ class DesignDetail extends Component {
 
     return (
       <div>
-      <Helmet>
-        <title>{`${this.state.design.title} by ${this.state.username}`}</title>
-      </Helmet>
-      <Container styles="well p-5">
-        <Row>
-          <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 text-center">
-            <img src={this.state.design.canvasImage} alt={this.state.design.title} style={{ width: "100%", height: "auto" }} className="fluid designPreview" />
-          </div>
-          <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 text-center">
-            <h1 className="mt-3">{this.state.design.title}</h1>
-            <h4>Design by <strong>{(this.state.username === "") ? "Unknown" : (<Link to={`/user/${this.state.design.userId}`}>{this.state.username}</Link>)}</strong></h4>
-            <h6>{this.state.date}</h6>
-            <p><small className="text-muted">Difficulty: {this.state.design.difficulty}</small>
-            <br/>
-            <small className="text-muted mt-0">Category: {this.state.design.category}</small></p>
-            <p>{this.state.design.description}</p>
-            {/* Dynamically render favorite/unfavorite button */}
-            {this.state.isFavorite ? (
-              <UnfavoriteButton
-                onClick={event =>
-                  this.unfavoriteEvent(
-                    event,
-                    this.state.currentUser,
-                    this.state.design._id
-                  )
-                }
-                id={this.state.design._id}
-              />
-            ) : (
-              <FavoriteButton
-                onClick={event =>
-                  this.favoriteEvent(
-                    event,
-                    this.state.currentUser,
-                    this.state.design._id
-                  )
-                }
-                id={this.state._id}
-              />
-            )}
-            <button className="btn btn-light ml-2">
-              <div className="fb-share-button" data-href={`http://www.bead.li/design/${this.state.design._id}`} data-layout="button" data-size="large">
-                <a target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A3000%2Fdesign%2F${this.state.design._id}&amp;src=sdkpreparse`} className="fb-xfbml-parse-ignore">Share</a>
-              </div>
-            </button>
-          </div>
-        </Row>
-        <Row styles="mt-3">
-          <Col size="12">
-            <h3>Beads Needed</h3>
-            <ul className="list-unstyled">
-              <Row>
-                {this.state.beadColors.map((beadColor) => {
-                  return (
-                    <div className="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-xs-12" key={beadColor}>
-                      <li key={beadColor}>
-                        {beadColor}: {this.state.beadCounts[beadColor]}
-                      </li>
-                    </div>
-                  )
-                })}
-              </Row>
-            </ul>
-          </Col>
-        </Row>
-      </Container>
+        <Container styles="well p-5">
+          <Row>
+            <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 text-center">
+              <img src={this.state.design.canvasImage} alt={this.state.design.title} style={{ width: "100%", height: "auto" }} className="fluid designPreview" />
+            </div>
+            <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 text-center">
+              <h1 className="mt-3">{this.state.design.title}</h1>
+              <h4>Design by <strong>{(this.state.username === "") ? "Unknown" : (<Link to={`/user/${this.state.design.userId}`}>{this.state.username}</Link>)}</strong></h4>
+              <h6>{this.state.date}</h6>
+              <p><small className="text-muted">Difficulty: {this.state.design.difficulty}</small>
+              <br/>
+              <small className="text-muted mt-0">Category: {this.state.design.category}</small></p>
+              <p>{this.state.design.description}</p>
+              {/* Dynamically render favorite/unfavorite button */}
+              {this.state.isFavorite ? (
+                <UnfavoriteButton
+                  onClick={event =>
+                    this.unfavoriteEvent(
+                      event,
+                      this.state.currentUser,
+                      this.state.design._id
+                    )
+                  }
+                  id={this.state.design._id}
+                />
+              ) : (
+                <FavoriteButton
+                  onClick={event =>
+                    this.favoriteEvent(
+                      event,
+                      this.state.currentUser,
+                      this.state.design._id
+                    )
+                  }
+                  id={this.state._id}
+                />
+              )}
+              <button className="btn btn-light ml-2">
+                <div className="fb-share-button" data-href={`http://www.bead.li/design/${this.state.design._id}`} data-layout="button" data-size="large">
+                  <a target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A3000%2Fdesign%2F${this.state.design._id}&amp;src=sdkpreparse`} className="fb-xfbml-parse-ignore">Share</a>
+                </div>
+              </button>
+            </div>
+          </Row>
+          <Row styles="mt-3">
+            <Col size="12">
+              <h3>Beads Needed</h3>
+              <ul className="list-unstyled">
+                <Row>
+                  {this.state.beadColors.map((beadColor) => {
+                    return (
+                      <div className="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-xs-12" key={beadColor}>
+                        <li key={beadColor}>
+                          {beadColor}: {this.state.beadCounts[beadColor]}
+                        </li>
+                      </div>
+                    )
+                  })}
+                </Row>
+              </ul>
+            </Col>
+          </Row>
+        </Container>
       </div>
     )
   }
