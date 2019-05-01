@@ -48,6 +48,7 @@ module.exports = {
   findByUser: function (req, res) {
     db.Design
       .find({ "userId": req.params.id, "published": true })
+      .sort({"_id" : -1})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.json(err));
   },
@@ -165,6 +166,7 @@ module.exports = {
   findDraft: function (req, res) {
     db.Design
       .find({ "userId": req.params.id, "published": false })
+      .sort({"_id" : -1})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.json(err));
   },
@@ -172,6 +174,7 @@ module.exports = {
   findPublished: function (req, res) {
     db.Design
       .find({ "userId": req.params.id, "published": true })
+      .sort({"_id" : -1})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.json(err));
   },
@@ -181,7 +184,7 @@ module.exports = {
   findFavorites: function (req, res) {
     db.User
       .find({ "_id": req.params.id })
-      .populate("favorites")
+      .populate({ path: "favorites", options: { sort: {"_id" : -1 }}})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.json(err));
   },
