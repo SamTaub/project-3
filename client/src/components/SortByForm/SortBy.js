@@ -11,6 +11,7 @@ function SortBy(props){
                 <Form.Control as="select" onChange={props.onChange}>
                     <option value="Newest" defaultValue>Newest</option>
                     <option value="Oldest">Oldest</option>
+                    <option value="Popular">Popularity</option>
                 </Form.Control>
             </FormGroup>
         </Form>

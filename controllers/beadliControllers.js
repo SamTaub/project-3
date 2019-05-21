@@ -28,10 +28,17 @@ module.exports = {
       sortVal = 1;
     }
 
-    db.Design.find(query)
-      .sort({ _id: sortVal })
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.json(err));
+    if (req.params.sort === "Popular") {
+      db.Design.find(query)
+        .sort({ numFavorites: -1 })
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.json(err));
+    } else {
+      db.Design.find(query)
+        .sort({ _id: sortVal })
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.json(err));
+    }
   },
 
   // Find a design based on it's ID
