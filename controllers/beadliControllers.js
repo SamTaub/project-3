@@ -206,6 +206,12 @@ module.exports = {
       { $pull: { favorites: req.params.designId } }
     )
       .then(dbModel => res.json(dbModel))
+      .then(() =>
+        db.Design.findOneAndUpdate(
+          { _id: req.params.designId },
+          { $inc: { numFavorites: -1 } }
+        )
+      )
       .catch(err => res.json(err));
   },
 
