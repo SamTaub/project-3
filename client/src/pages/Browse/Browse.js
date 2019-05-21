@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Container, Row, Col } from "../../components/Grid";
 import DesignCard from "../../components/DesignCard";
 import designAPI from "../../utils/designAPI";
@@ -6,6 +6,7 @@ import dashboardAPI from "../../utils/dashboardAPI";
 import userAPI from "../../utils/userAPI";
 import CategoryForm from "../../components/CategoryForm/CategoryForm";
 import DifficultyForm from "../../components/DifficultyForm/DifficultyForm";
+import SimpleModal from "../../components/Modals/SimpleModal";
 // import RatingForm from "../../components/RatingForm/RatingForm";
 import SortBy from "../../components/SortByForm/SortBy";
 // import { Form } from "react-bootstrap";
@@ -23,7 +24,9 @@ class Browse extends Component {
       // rating: "",
       currentUser: "",
       usersFavorites: [],
-      scrolling: false
+      scrolling: false,
+      modalShow: false,
+      modalNotification: ""
     }
   }
 
@@ -78,7 +81,10 @@ class Browse extends Component {
   favoriteEvent = (event, userId, designId) => {
     event.preventDefault();
     if (!this.state.currentUser || this.state.currentUser === "") {
-      alert("You must be logged in to add a favorite!");
+      this.setState({ 
+        modalShow: true, 
+        modalNotification: "You must be logged in to add a favorite!" 
+      });
     }
     else {
       dashboardAPI.addFavorite(userId, designId)
@@ -94,7 +100,10 @@ class Browse extends Component {
   unfavoriteEvent = (event, userId, designId) => {
     event.preventDefault();
     if (!this.state.currentUser || this.state.currentUser === "") {
-      alert("You must be logged in to add a favorite!");
+      this.setState({ 
+        modalShow: true, 
+        modalNotification: "You must be logged in to add a favorite!" 
+      });
     }
     else {
       dashboardAPI.removeFavorite(userId, designId)
@@ -106,6 +115,8 @@ class Browse extends Component {
         })
     }
   }
+
+  modalClose = () => this.setState({ modalShow: false });
 
   editEvent = (event, id) => {
     event.preventDefault();
@@ -161,52 +172,63 @@ class Browse extends Component {
 
   render() {
     return (
-      <Container styles="well">
-        <Row styles="p-3 justify-content-center">
-          <Col size="12">
-            <h1 className="text-center">Browse</h1>
-          </Col>
-        </Row>
-        
-        <div className="row pr-5 pl-5 pt-2 mb-3 sticky-top rounded" onScroll={this.handleScroll} style={{background: this.state.scrolling ? "#f8f9fa" : "transparent"}}>
-          <Col size="4">
-            <SortBy onChange={this.handleSortChange}></SortBy>
-          </Col>
-          <Col size="4">
-            <CategoryForm onChange={this.handleCategoryChange}></CategoryForm>
-          </Col>
-          <Col size="4">
-            <DifficultyForm onChange={this.handleDifficultyChange}></DifficultyForm>
-          </Col>
-          {/* <RatingForm onChange={this.handleRatingChange}></RatingForm> */}
-        </div>
-        <div className="row">
-          {!this.state.publishedDesigns.length > 0
-            ? (
-              <Col size="12">No published designs to display</Col>
-            ) : (
-              this.state.publishedDesigns.map(design => {
-                return (
-                  <div className="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-12" key={design._id + 1}>
-                    <DesignCard
-                      key={design._id}
-                      id={design._id}
-                      currentUser={this.state.currentUser}
-                      img={design.canvasImage}
-                      title={design.title}
-                      description={design.description}
-                      favorite={this.favoriteEvent}
-                      unfavorite={this.unfavoriteEvent}
-                      edit={this.editEvent}
-                      page={"browse"}
-                      isFavorite={this.state.usersFavorites.indexOf(design._id) > -1 ? true : false}
-                    />
-                  </div>
-                );
-              })
-            )}
-        </div>
-      </Container>
+      <Fragment>
+        <Container styles="well">
+          <Row styles="p-3 justify-content-center">
+            <Col size="12">
+              <h1 className="text-center">Browse</h1>
+            </Col>
+          </Row>
+          
+          <div className="row pr-5 pl-5 pt-2 mb-3 sticky-top rounded" onScroll={this.handleScroll} style={{background: this.state.scrolling ? "#f8f9fa" : "transparent"}}>
+            <Col size="4">
+              <SortBy onChange={this.handleSortChange}></SortBy>
+            </Col>
+            <Col size="4">
+              <CategoryForm onChange={this.handleCategoryChange}></CategoryForm>
+            </Col>
+            <Col size="4">
+              <DifficultyForm onChange={this.handleDifficultyChange}></DifficultyForm>
+            </Col>
+            {/* <RatingForm onChange={this.handleRatingChange}></RatingForm> */}
+          </div>
+          <div className="row">
+            {!this.state.publishedDesigns.length > 0
+              ? (
+                <Col size="12">No published designs to display</Col>
+              ) : (
+                this.state.publishedDesigns.map(design => {
+                  return (
+                    <div className="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-12" key={design._id + 1}>
+                      <DesignCard
+                        key={design._id}
+                        id={design._id}
+                        currentUser={this.state.currentUser}
+                        img={design.canvasImage}
+                        title={design.title}
+                        description={design.description}
+                        favorite={this.favoriteEvent}
+                        unfavorite={this.unfavoriteEvent}
+                        edit={this.editEvent}
+                        page={"browse"}
+                        isFavorite={this.state.usersFavorites.indexOf(design._id) > -1 ? true : false}
+                      />
+                    </div>
+                  );
+                })
+              )}
+          </div>
+        </Container>
+        <SimpleModal 
+          show={this.state.modalShow}
+          onHide={this.modalClose}
+          title="Log in required"
+          body={this.state.modalNotification}
+          buttonVariant="light"
+          buttonActionText="OK"
+          buttonActionFunc={this.modalClose}
+        />
+      </Fragment>
     )
   }
 };
